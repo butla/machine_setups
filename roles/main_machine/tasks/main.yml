@@ -1,0 +1,108 @@
+---
+- name: set clementine library
+  ini_file:
+    dest: "{{ ansible_env.HOME }}/.config/Clementine/Clementine.conf"
+    section: LibraryConfig
+    option: last_path
+    value: /data/muzyka
+
+- name: set ranger bookmarks
+  lineinfile:
+    dest: "{{ ansible_env.HOME }}/.config/ranger/bookmarks"
+    line: "{{ item.line }}"
+    regexp: "{{ item.regexp }}"
+    create: yes
+  with_items:
+    - { line: "d:/data", regexp: "^d:" }
+    - { line: "f:/data/filmy", regexp: "^f:" }
+    - { line: "z:/data/zdjęcia_i_filmiki", regexp: "^z:" }
+
+- name: install more software
+  become: true
+  apt: name={{ item }} update_cache=yes cache_valid_time=3600
+  with_items:
+    - borgbackup
+    - intel-microcode
+    - network-manager-openvpn
+    - nvidia-384
+    - wavemon # WiFi monitoring
+
+
+# TODO add tests for this with molecule and a VM with GUI
+# (vagrant? packer? what molecule has to offer?)
+#
+# TODO
+#
+# ~/.local/bin in path
+#
+# Konsole:
+# - set default profile
+# - display profiles
+# - another profile with bigger font
+# - no scrollbar on the side in both profiles
+#
+# Install Pylint globally (pip3 install --user) for checking of Python files outside of
+# virtualenvs.
+#
+# install postgresql-client for pg_dump (postgresql-libs on arch)
+#
+# Setting up NPM to enable global package installs for the user.
+# (.npmrc and NPM settings in .bashrc)
+# Install NPM
+#
+# NPM install remark-lint
+# 
+# install signal desktop client
+#
+# encrypted configuration file for openvpn
+#
+# tearing - force composition w ustawieniach nvidii (dla wszystkich monitorów osobno), można wyłączyć vsync w compositorze
+#
+# Install yamllint with Python 2 and add the config to ~/.config/yamllint
+#
+# czcionki po instalcę grafy nvidii - wymuś dpi 96 w opcjach czcionek
+#
+# Ciemny dektop
+# 
+# Configure Gimp to use a single window.
+#
+# Get freemind from zip, put it in opt, link in ~/bin
+#
+# zmiana rozmiar ikon: w plasma-org.kde.plasma.desktop-appletsrc znajdź containment z pluginem
+# org.kde.plasma.private.systemtray. W jego sekcji General powinno być extraItems. Pd tą linią
+# dodaj "iconSize=2"
+#
+# klucz prywatny do backupów
+# backup (dokumenty do dropboxa, reszta na dysk)
+#
+# Install both Brother printer/scanners. Their install packages should be in 'files' directory
+# of this role.
+# Scanner requires libusb-0.1-4 package
+#
+# Przerób hierarchię ról na coś bardziej sensownego (w tym separacja bashrc i vimrc)
+# Miej testy z molecule instalacji na raspberry (small dev), minimalnej instalacji na serwerze
+# (wydziel config z narzędziami, ich konfiguracją dla MOJEGO, nie domyślnego użytkownika)
+#
+# Inkscape, spotify, slack powinny być instalowane snapem
+#
+# Poetry i jego completions.
+#
+# Fixes bluetooth when getting back from sleep on ubuntu 18.04?
+# https://askubuntu.com/questions/1036195/bluetooth-doesnt-work-after-resuming-from-sleep-ubuntu-18-04-lts
+# sudo add-apt-repository ppa:bluetooth/bluez
+# sudo apt install bluez
+#
+# installing ptpython so that it's in 3.7 (from deadsnakes) by default
+# python3.7 -m pip install --user ptpython
+#
+# Install fd https://github.com/sharkdp/fd/releases
+# Didn't find a PPA for it, but there's a deb package
+#
+# Add ranger rc.conf, to, among others, have image preview enabled.
+#
+# install keepassxc, get its config, set it under a shortcut instead of the standard one.
+#
+# set up NodeJS with https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-18-04#installing-using-a-ppa
+# version 12 as of 2019-08-12
+# sudo bash run the file then
+# sudo apt-get install -y nodejs

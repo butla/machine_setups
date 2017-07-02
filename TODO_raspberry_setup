@@ -1,0 +1,53 @@
+Manjaro
+=======
+
+Set GPU memory to 256 MBs in /boot/config.txt
+
+
+Raspberry OS
+=============
+
+HW rendering
+------------
+
+test ffplay
+
+Video quality
+-------------
+
+https://lemariva.com/blog/2020/08/raspberry-pi-4-video-acceleration-decode-chromium
+
+Increase Video memory size to 128 or 256 MB (sudo raspi-config)
+
+omxplayer and kodi use hardware acceleration (through something called mmal?)
+
+Chromium
+~~~~~~~~
+Check chrome://gpu -> "Video Decode" option
+
+chrome://flags -> enable
+- Override software rendering list
+- GPU rasterization
+- Out of process rasterization
+- Hardware-accelerated video decode (only available on the new versions of Raspberry Pi OS)
+
+check chrome://media-internals/ while playing something to check if it worked
+
+vsync tests are still showing tearing
+- going down from 4k to 1080p and disabling pixel doubling didn't fix the tearing
+
+You need to disable the compositor by
+a) raspi-config/advanced options
+b) sudo mv /etc/xdg/autostart/xcompmgr.desktop /home/pi/backup.xcompmgr.desktop
+   sudo reboot
+
+AUDIO WITH MOVIES
+-----------------
+
+Kodi requires "Pulse default output device" as the audio output
+
+TODO
+----
+- is the VLC MMAL video output I see actually working?
+- get hardware accelerated, fullscreen VLC
+- audio, subtitle, and a progress bar in omxplayer?

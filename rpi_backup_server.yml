@@ -1,0 +1,12 @@
+---
+- name: rpi backup server setup
+  # users change, not sure with which to gather facts
+  gather_facts: no
+  hosts: raspberry
+  remote_user: butla
+  become: true
+
+  roles:
+  - rpi_backup_server
+  - common
+

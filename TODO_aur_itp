@@ -1,0 +1,20 @@
+- spróbuj pacman z ansibla do instalowania - działa?
+- ansible install z "package" działa?
+- mogę najpierw zrobić makepkg a potem install pacmanem?
+- ten chujowy aur helper user i osobne pliki na zależności do wszystkiego?
+https://github.com/kewlfft/ansible-aur
+https://github.com/visibilityspots/ansible-playbook-archlinux-update
+https://stackoverflow.com/questions/30667644/automatic-building-and-installing-packages-from-aur-for-arch-linux-inside-docker
+https://github.com/gunzy83/ansible-makepkg
+- lista programów testowana na końcu, po instalacjach?
+- instalowanie wszystkiego na archu przez yay? Jest moduł do Ansibla? Albo do tego pythonowego?
+- slack jednak z AURa?
+
+--needed instaluje paczkę tylko, jeśli wersja nie jest spełniona
+
+- flatpak zamiast snapa
+
+- pipx do installowania wszystkich pythonowych tooli
+
+nethogs - top dla transferu
+iotop - top dla dysków

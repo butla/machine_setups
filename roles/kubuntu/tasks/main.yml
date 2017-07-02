@@ -1,0 +1,140 @@
+---
+# TODO seems there's no skype in artful's repo. Maybe just get rid of Skype?
+#- name: enable ubuntu partners repo for skype
+#  become: true
+#  apt_repository: repo="deb http://archive.canonical.com/ubuntu {{ ansible_distribution_release }} partner"
+
+# TODO fix that for artful. It finds a backport from Zesty and fails, why?
+#- name: add neovim repository
+#  become: true
+#  apt_repository: repo=ppa:neovim-ppa/stable
+
+# TODO run all installs of vim plugins
+# TODO install youcompleteme
+
+- name: install additional programs
+  become: true
+  apt: name={{ item }} update_cache=yes
+  with_items:
+  - golang-go
+  - neovim
+  - kolourpaint
+
+# TODO set up neovim config (~/.config/nvim/init.vim) and the virtualenv for neovim python plugin
+
+- name: set nvim as the default vim
+  become: true
+  alternatives:
+    name: vim
+    path: /usr/bin/nvim
+
+- name: set konsole font size
+  set_fact: konsole_font_size=11
+
+- set_fact: konsole_conf_dir={{ ansible_env.HOME }}/.local/share/konsole
+
+# TODO profile isn't being set as default
+- name: set konsole profile
+  template: src=Butla.profile dest={{ konsole_conf_dir }}
+
+- name: set konsole settings
+  copy: src=konsole/{{ item.src }} dest={{ item.dest }}
+  with_items:
+  - { src: Linux.colorscheme, dest: "{{ ansible_env.HOME }}/.local/share/konsole" }
+  # this will report getting changed after system reboot
+  - { src: konsolerc, dest: "{{ ansible_env.HOME }}/.config" }
+
+# TODO most of the shortcuts don't work
+- name: set custom shortcuts
+  copy: src=khotkeysrc dest={{ ansible_env.HOME }}/.config
+
+- name: modify global shortcuts
+  lineinfile:
+    dest: "{{ ansible_env.HOME }}/.config/kglobalshortcutsrc"
+    line: "{{ item.line }}"
+    regexp: "{{ item.regexp }}"
+  with_items:
+  # first three are getting changed by system at reboot, but they work fine...
+  - { line: 'Lock Session=Meta+L,none,Lock Session', regexp: '^Lock Session=' }
+  - { line: 'MoveZoomDown=none,none,Move Zoomed Area Downwards', regexp: '^MoveZoomDown=' }
+  - { line: 'show dashboard=Meta+D,none,Show Desktop', regexp: '^show dashboard=' }
+  - line: 'Walk Through Windows=Alt+Tab,none,Walk Through Windows'
+    regexp: '^Walk Through Windows='
+  - line: 'Walk Through Windows (Reverse)=Alt+Shift+Backtab,none,Walk Through Windows (Reverse)'
+    regexp: '^Walk Through Windows \(Reverse\)='
+  - { line: 'Window Maximize=Meta+Up,none,Maximize Window', regexp: '^Window Maximize=' }
+  - { line: 'Window Minimize=Meta+Down,none,Minimize Window', regexp: '^Window Minimize=' }
+  - line: 'Window Quick Tile Left=Meta+Left,none,Quick Tile Window to the Left'
+    regexp: '^Window Quick Tile Left='
+  - line: 'Window Quick Tile Right=Meta+Right,none,Quick Tile Window to the Right'
+    regexp: '^Window Quick Tile Right='
+  - line: 'Window to Next Screen=Meta+Shift+Left,none,Window to Next Screen'
+    regexp: '^Window to Next Screen='
+  - line: 'Window to Previous Screen=Meta+Shift+Right,none,Window to Previous Screen'
+    regexp: '^Window to Previous Screen='
+
+- set_fact: plasma_conf={{ ansible_env.HOME }}/.config/plasma-org.kde.plasma.desktop-appletsrc
+
+- name: set each session to start clean
+  lineinfile:
+    dest: "{{ ansible_env.HOME }}/.config/ksmserverrc"
+    line: loginMode=default
+    regexp: '^loginMode='
+
+# TODO this is not reliable across installs and needs to be fixed
+#- name: hide communicator and korganizer in trey
+#  command: >
+#    kwriteconfig5 --file {{ plasma_conf }}
+#    --group Containments --group 1 --group Applets --group 5 --group Configuration --group General
+#    --key hiddenItems "org.kde.ktp-contactlist,KOrganizer Reminder Daemon"
+
+# TODO this is not reliable across installs and needs to be fixed
+#- name: set clock appearance
+#  command: >
+#    kwriteconfig5 --file {{ plasma_conf }}
+#    --group Containments --group 1 --group Applets --group 6 --group Configuration --group Appearance
+#    --key {{ item.key }} {{ item.value }}
+#  with_items:
+#  - { key: boldText, value: 'true' }
+#  - { key: dateFormat, value: isoDate }
+#  - { key: showDate, value: 'true' }
+#  - { key: showSeconds, value: 'true' }
+
+- name: set automatic mounting of removable media
+  command: >
+    kwriteconfig5 --file {{ ansible_env.HOME }}/.config/kded_device_automounterrc
+    --group General--key AutomountEnabled true
+
+# splash screen takes a long time after first connecting to something over HDMI
+- name: disable splash screen
+  command: >
+    kwriteconfig5 --file {{ ansible_env.HOME }}/.config/ksplashrc
+    --group KSplash --key {{ item.key }} {{ item.value }}
+  with_items:
+  - { key: Engine, value: 'none' }
+  - { key: Theme, value: 'None' }
+
+- name: set power management options
+  command: >
+    kwriteconfig5 --file {{ ansible_env.HOME }}/.config/powermanagementprofilesrc
+    --group AC --group {{ item.group }} --key {{ item.key }} {{ item.value }}
+  with_items:
+  - { group: DPMSControl, key: idleTime, value: 720 }
+  - { group: DimDisplay, key: idleTime, value: 600000 }
+  - { group: SuspendSession, key: idleTime, value: 1200000 }
+  - { group: SuspendSession, key: suspendType, value: 1 }
+
+# TODO this is not reliable across installs and needs to be fixed
+#- name: set favourites menu
+#  command: >
+#    kwriteconfig5 --file {{ plasma_conf }}
+#    --group Containments --group 1 --group Applets --group 2 --group Configuration --group General
+#    --key favorites pycharm.desktop,slack.desktop,kde4-ktorrent.desktop,thunderbird.desktop,virtualbox.desktop
+
+# TODO replace with qbittorrent
+- name: configure ktorrent
+  ini_file:
+    dest: "{{ ansible_env.HOME }}/.kde/share/config/ktorrentrc"
+    section: downloads
+    option: dhtSupport
+    value: true
