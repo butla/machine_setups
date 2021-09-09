@@ -1,4 +1,4 @@
-My machine configurations
-=========================
+My machine setups
+=================
 
-To run use `make bootstrap run`.
+Check out the `Makefile` commands.

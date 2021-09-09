@@ -1,0 +1,6 @@
+dropbox
+dropbox-cli
+slack-desktop
+
+# HTTP application benchmarking tool
+wrk

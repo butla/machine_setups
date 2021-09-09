@@ -1,7 +1,0 @@
----
-- name: headless setup
-  hosts: localhost
-
-  roles:
-  - big_dev
-

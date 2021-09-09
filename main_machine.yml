@@ -1,6 +1,0 @@
----
-- name: main machine setup
-  hosts: localhost
-
-  roles:
-  - main_machine

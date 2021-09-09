@@ -1,0 +1,141 @@
+# Every line containing "#" will be removed.
+# All other lines should contain package names.
+
+# =========================
+# lightweight CLI programs
+# =========================
+
+# text editor
+neovim
+
+curl
+
+# basic compilers, etc
+base-devel
+
+cmake
+
+# rerunning commands on file changes
+entr
+
+# file finder
+fd
+
+# fuzzy search
+fzf
+
+# text search in code files
+the_silver_searcher
+
+git
+
+# network scanning
+nmap
+
+# network/IP address calculator
+sipcalc
+
+# file manager
+ranger
+
+# terminal multiplexer
+tmux
+
+# shows file trees
+tree
+
+# CLI spellchecker
+hunspell
+
+# universal document converter
+pandoc
+
+# looks up information about Internet domains
+whois
+
+# backup solution
+borg
+
+# WiFi monitor
+wavemon  
+
+
+# =========================
+# heavy CLI programs for development
+# =========================
+
+# infrastructure management
+terraform
+
+docker
+docker-compose
+
+# the Go programming language tools
+go
+
+# =========================
+# CLI programs for GUIs
+# =========================
+
+# desktop notifications
+libnotify
+
+# working with the desktop clipboard from the CLI
+xsel
+xclip
+
+# =========================
+# GUI programs
+# =========================
+
+# my preferred terminal emulator
+alacritty
+
+# my preferred browser
+brave
+
+# visual diff tool
+meld
+
+# a password manager
+keepassxc
+
+# a good image viewer
+gthumb
+
+# image editor
+gimp
+
+# vector graphics
+inkscape
+
+# taking photos with the camera
+cheese
+
+# PDF editor
+pdfmod
+
+# writing on PDFs
+xournal
+
+# simple scanner operation
+simple-scan
+
+# a nice video player
+mpv
+
+# an alternative video player
+vlc
+
+# Microsoft Paint clone
+kolourpaint
+
+# private communicator
+signal-desktop
+
+# communicator / chat
+discord
+
+qbittorrent
+
+virtualbox
