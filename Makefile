@@ -1,2 +1,2 @@
 setup_main_machine:
-	bash setup_main_machine.sh
+	cd main_machine_setup; bash setup_main_machine.sh

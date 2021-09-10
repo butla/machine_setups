@@ -57,8 +57,37 @@ whois
 borg
 
 # WiFi monitor
-wavemon  
+wavemon
 
+# PyPI package release helper
+twine
+
+yamllint
+
+# TUI python debugger
+python-pudb
+
+# nice HTTP calling tool
+httpie
+
+# Python virtualenv manager
+python-virtualenvwrapper
+
+# test runner for multiple Python versions
+python-tox
+
+# python linters
+python-pylint
+flake8
+
+# python dependency manager
+python-poetry
+
+# managing Python apps in isolated virtualenvs
+python-pipx
+
+# python-integration for NeoVim
+python-pynvim
 
 # =========================
 # heavy CLI programs for development
@@ -83,6 +112,9 @@ libnotify
 # working with the desktop clipboard from the CLI
 xsel
 xclip
+
+# for ranger's image previews
+ueberzug
 
 # =========================
 # GUI programs
@@ -116,7 +148,7 @@ cheese
 pdfmod
 
 # writing on PDFs
-xournal
+xournalpp
 
 # simple scanner operation
 simple-scan
@@ -135,6 +167,9 @@ signal-desktop
 
 # communicator / chat
 discord
+
+# mindmapping tool
+freemind
 
 qbittorrent
 
