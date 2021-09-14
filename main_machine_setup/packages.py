@@ -26,6 +26,7 @@ PACMAN_PACKAGES = [
     'wavemon',  # WiFi monitor
     'twine',  # PyPI package release helper
     'yamllint',
+    'yq',  # utility for getting stuff from YAMLs
     'python-pudb',  # TUI python debugger
     'python-ipdb',  # python debugger with completions and color
     'python-virtualenvwrapper',  # Python virtualenv manager
