@@ -1,10 +1,5 @@
-this is so that chromium doesn't nag me for unlocking the keyring
-sudo pacman -R gnome-keyring
-
 automatic ntp on all systems
 sudo timedatectl set-ntp true
-
-TODO ansible pobiera configs and scripts i odpala
 
 symlink /usr/bin/vim to /usr/bin/nvim
 
@@ -12,36 +7,13 @@ super+alt as whisker menu. Find the bug for that.
 super+up to maximize window
 https://www.reddit.com/r/xfce/comments/3pnc3k/window_manager_shortcuts_with_super_key_do_not/
 
-aur snapd (makepkg -si). Then sudo systemctl enable --now snapd
-will snap apps show up in launch menu after reboot?
-
-spotify from snap
-
-gpg --recv-keys 1C61A2656FB57B7E4DE0F4C1FC918B335044912E
-dropbox from AUR
 
 ZSH as default user shell
 
-TODO there might be something wrong for that around the updates. Or it won't be necessary anymore.
-sudo ln -s /var/lib/snapd/snap /snap
-and then snap classic slack
-
-get autoupdated zeal. Or just the one from snap
-get the zeal docs in
-
-pull and install entr - how to make an AUR package?
-./configure, make test, sudo make install
-
-todo, setup Vundle: git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 todo install oh my zsh: sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 TODO remove ~/.zcompdump after installing oh my zsh
 
-download https://github.com/rupa/z/blob/master/z.sh
-
-automatic creation of neovim virtualenv
-
-snap install signal-desktop
 
 Docker install on arch:
 pacman -S docker
@@ -60,6 +32,9 @@ save launcher favorites
 
 display a list of things to do manually:
 - slack - set up the workspaces
+- log into spotify
+- log into dropbox
+- set up ~/.credentials/borg_key from KeePass
 
 # brother scanning
 yay -S brscan4
@@ -84,9 +59,6 @@ set up clamav antivirus, just in case.
 https://wiki.manjaro.org/index.php/ClamAV
 WARNING: maybe don't do this if the computer doesn't have much RAM? Clamav eats a gigabyte.
 
-copy stuff into ~/.gnupg (to get the key)
-or add it to configs_and_scripts
-
 locale settings - set language to en_GB for things that don't read locale correctly so I don't get american dates?
 https://wiki.archlinux.org/index.php/Locale
 
@@ -100,3 +72,13 @@ XFCE - settings manager / appearance / enable even sounds
 install canberra-gtk-play. It plays from themes in /usr/share/sound
 
 mp3 tag viewer - eyeD3
+
+# OCR
+tesseract
+tesseract-data-pol
+tesseract-data-eng
+
+# python module for OCR
+ocrmypdf (with pipx)
+
+libreoffice-still
