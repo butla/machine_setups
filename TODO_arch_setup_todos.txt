@@ -34,6 +34,7 @@ display a list of things to do manually:
 - slack - set up the workspaces
 - log into spotify
 - log into dropbox
+- sync signal
 - set up ~/.credentials/borg_key from KeePass
 
 # brother scanning

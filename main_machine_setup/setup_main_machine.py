@@ -41,7 +41,7 @@ def upgrade_packages():
 def install_standard_packages():
     log.info('Installing the necessary packages...')
     packages_string = ' '.join(packages.PACMAN_PACKAGES)
-    run_cmd(f'sudo pacman -S --needed {packages_string}')
+    run_cmd(f'sudo pacman -S --needed --noconfirm {packages_string}')
 
 
 def install_aur_packages():
@@ -57,6 +57,7 @@ def install_aur_packages():
         log.info('No AUR packages to install.')
         return
 
+    log.info('Installing the necessary AUR packages...')
     packages_string = ' '.join(aur_packages_to_install)
     run_cmd(f'yay -S --noconfirm {packages_string}')
 
@@ -109,3 +110,4 @@ if __name__ == '__main__':
 # - automounting USB (removable drives and media settings, I didn't find any vulnerabilities in just mounting)
 # - try deoplete?
 # - pia install
+# - check slack channels on the old Ubuntu
