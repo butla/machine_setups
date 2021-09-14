@@ -36,6 +36,12 @@ PACMAN_PACKAGES = [
     'python-poetry',  # python dependency manager
     'python-pipx',  # managing Python apps in isolated virtualenvs
     'python-pynvim',  # python-integration for NeoVim
+    'python-eyed3',  # mp3 metadata viewer
+    'lm_sensors',  # provides "sensors" for reading temperature readings
+    'bluez-utils',  # provides "bluetoothctl"
+    'tesseract',  # OCR
+    'tesseract-data-pol',
+    'tesseract-data-eng',
     # =========================
     # heavy CLI programs for development
     # =========================
@@ -51,10 +57,12 @@ PACMAN_PACKAGES = [
     'xsel',  # working with the desktop clipboard from the CLI
     'xclip',  # as above
     'ueberzug',  # needed for ranger's image previews
+    'libcanberra',  # needed for "canberra-gtk-play -i bell" for testing that sound is on
     # =========================
     # GUI programs
     # =========================
     'alacritty',  # my preferred terminal emulator
+    'arandr',  # displays' manager
     'brave',  # my preferred browser
     'meld',  # visual diff tool
     'keepassxc',  # a password manager
@@ -72,8 +80,10 @@ PACMAN_PACKAGES = [
     'signal-desktop', # private communicator
     'discord',  # communicator / chat
     'freemind',  # mindmapping tool
+    'yubioath-desktop',  # Yubikey communication
     'qbittorrent',
     'virtualbox',
+    'libreoffice-still',
 ]
 
 AUR_PACKAGES = {

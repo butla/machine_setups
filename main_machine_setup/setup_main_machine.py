@@ -26,6 +26,7 @@ def main():
     install_aur_packages()
     setup_tmux_plugins()
     setup_neovim()
+    ensure_ntp()
 
     log.info('All done.')
 
@@ -85,12 +86,22 @@ def setup_neovim():
     log.info('Synchronizing NeoVim plugins with vim-plug...')
     run_cmd('nvim +PlugClean +PlugInstall +qall')
 
+    regular_vim_binary = Path('/usr/bin/vim')
+    if not regular_vim_binary.exists():
+        log.info(f'Setting up link to NeoVim at {regular_vim_binary}')
+        regular_vim_binary.symlink_to('/usr/bin/nvim')
+
+
+def ensure_ntp():
+    log.info('Ensuring time is synced with NTP.')
+    run_cmd('sudo timedatectl set-ntp true')
+
 if __name__ == '__main__':
     main()
 
 
 # TODOS
-# - commit configs_and_scripts as well, check on the other laptop (remove that neovim venv)
+# - ZSH as default user shell
 # - https://github.com/ohmyzsh/ohmyzsh/issues/449
 # - TODO solve python keyring
 #     https://stackoverflow.com/questions/64570510/why-does-pip3-want-to-create-a-kdewallet-after-installing-updating-packages-on-u
@@ -111,3 +122,25 @@ if __name__ == '__main__':
 # - try deoplete?
 # - pia install
 # - check slack channels on the old Ubuntu
+# - display a list of things to do manually:
+#   - slack - set up the workspaces
+#   - log into spotify
+#   - log into dropbox
+#   - sync signal
+#   - set up ~/.credentials/borg_key from KeePass
+# - pipx packages:
+#   - ocrmypdf
+# - save launcher menu
+# - sudo systemctl enable --now pcscd (for yubikey?)
+# - shortcuts for moving windows between screens:
+#     https://github.com/calandoa/movescreen
+#     https://github.com/jc00ke/move-to-next-monitor
+# - todo install oh my zsh: sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+#     TODO remove ~/.zcompdump after installing oh my zsh
+
+# Docker install on arch:
+# pacman -S docker
+# systemctl enable docker
+# add user to group
+
+# qt5 setting -> kvantum-dark theme (for KDE apps to look properly)
