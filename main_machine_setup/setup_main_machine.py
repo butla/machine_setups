@@ -76,6 +76,12 @@ def setup_tmux_plugins():
 
 
 def setup_neovim():
+    neovim_virtualenv_path = Path('~/.virtualenvs/neovim').expanduser()
+    if not neovim_virtualenv_path.exists():
+        log.info('Creating a virtualenv for NeoVim Python integration...')
+        run_cmd(f'python3 -m venv {neovim_virtualenv_path}')
+        run_cmd(f'{neovim_virtualenv_path}/bin/pip install pynvim')
+
     vim_color_scheme_file = Path('~/.vim/colors/darcula.vim').expanduser()
     if not vim_color_scheme_file.exists():
         log.info('Pulling the colorsheme file for NeoVim...')
@@ -96,27 +102,30 @@ def ensure_ntp():
     log.info('Ensuring time is synced with NTP.')
     run_cmd('sudo timedatectl set-ntp true')
 
+
 if __name__ == '__main__':
     main()
 
 
 # TODOS
+# - neovim needs that python variable defined, so that it works in virtual envs without pynvim?
+#   - following ":help python-virtualenv" from vim, there should be a pynvim virtualenv
+#        let g:python3_host_prog = '/path/to/py3nvim/bin/python'
 # - ZSH as default user shell
+# - set up ZSH (.zshrc)
+#   - keep powerline with process times and status
+#   - co jest potrzebne, żeby zainstalować powerline na huwaweiu?
+#   - vim/zshrc config - wyświetlanie trybu VIMa działa z powerlinem. Nie spodziewałem się, że Powerline'owe prompty tak ładnie się chowają jeśli trzeba
 # - https://github.com/ohmyzsh/ohmyzsh/issues/449
 # - TODO solve python keyring
 #     https://stackoverflow.com/questions/64570510/why-does-pip3-want-to-create-a-kdewallet-after-installing-updating-packages-on-u
 #     maybe make keepass into the keyring thing?
-# - TODO_arch_setup_todos.txt
-# - set up neovim alias for vim
 # - add docker permissions for user? make docker work
 # - other python versions from AUR
 # - todo separate this code out into functions
 # - fork and tweak darcula for better colors with .sh and HTML? compare with benokai, or some popular VS code colors?
 # - use `let g:python3_host_prog = 'blablabla'` for working with virtualenvs?
 # - zeal for documentation? Is there some config file for it?
-# - set SSHD config link from manually_linked in configs_and_scripts? Only for bh
-#     sudo systemctl enable sshd
-#     sudo systemctl start sshd
 # - autostart programs, including signal
 # - automounting USB (removable drives and media settings, I didn't find any vulnerabilities in just mounting)
 # - try deoplete?
@@ -128,6 +137,8 @@ if __name__ == '__main__':
 #   - log into dropbox
 #   - sync signal
 #   - set up ~/.credentials/borg_key from KeePass
+#   - add qbittorrent search plugin -> View/search engine/search plugins (can I move settings from the other laptop?)
+#   - Brave - enable sync for everything
 # - pipx packages:
 #   - ocrmypdf
 # - save launcher menu
@@ -137,6 +148,7 @@ if __name__ == '__main__':
 #     https://github.com/jc00ke/move-to-next-monitor
 # - todo install oh my zsh: sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 #     TODO remove ~/.zcompdump after installing oh my zsh
+# - signal settings
 
 # Docker install on arch:
 # pacman -S docker
@@ -144,3 +156,18 @@ if __name__ == '__main__':
 # add user to group
 
 # qt5 setting -> kvantum-dark theme (for KDE apps to look properly)
+# - change XFCE theme while looking at what a config window is changing with strace, add those config to ``configs_and_scripts`` (blog post out of that)
+#   - hide window headings
+# - skrypt datee dający mi datę w formacie jaki lubię (i wrzucający do schowka), do zapisków
+# - xfce favourites menu
+# - clock style
+# - autostart signal, (maybe slack, and discord?)
+# - xfce panel - get rid of workplace switcher?
+# - go through TODOs in machine_configs
+# - mention manual steps if the respective packages has been installed
+# - keepassxc roaming config file kept in git https://github.com/keepassxreboot/keepassxc/issues/2666
+# - image viewer solution:
+#   - gthumb - solve zoom in problem (https://gitlab.gnome.org/GNOME/gthumb/-/issues/103)
+#     - sprawdź ``man gthumb``, może tam jest o pliku konfiguracyjnym
+#   - use gwenview but fix video playback to start immediately. How to skip to next if there's a video?
+# - remove https://github.com/butla/utils. Move stuff from it around

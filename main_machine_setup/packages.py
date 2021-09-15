@@ -35,7 +35,6 @@ PACMAN_PACKAGES = [
     'flake8',
     'python-poetry',  # python dependency manager
     'python-pipx',  # managing Python apps in isolated virtualenvs
-    'python-pynvim',  # python-integration for NeoVim
     'python-eyed3',  # mp3 metadata viewer
     'lm_sensors',  # provides "sensors" for reading temperature readings
     'bluez-utils',  # provides "bluetoothctl"
