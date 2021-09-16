@@ -41,6 +41,10 @@ PACMAN_PACKAGES = [
     'tesseract',  # OCR
     'tesseract-data-pol',
     'tesseract-data-eng',
+    'zsh-theme-powerlevel10k',  # a ZSH theme
+    'powerline-fonts',  # needed for powerlevel10k theme
+    'awesome-terminal-fonts',  # needed for powerlevel10k theme
+    'zsh-autosuggestions',  # ZSH plugin for suggestions of past commands
     # =========================
     # heavy CLI programs for development
     # =========================
@@ -94,4 +98,5 @@ AUR_PACKAGES = {
     'ptpython',  # nice python interactive shell
     'pgcli',  # Postgres CLI client
     'spotify',
+    'tor-browser',
 }

@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 import logging
+import os
 import shlex
+import shutil
 import subprocess
 from pathlib import Path
 
@@ -24,14 +26,22 @@ def main():
     upgrade_packages()
     install_standard_packages()
     install_aur_packages()
+    install_oh_my_zsh()
     setup_tmux_plugins()
     setup_neovim()
     ensure_ntp()
+    set_zsh_as_shell()
+    ensure_configs_and_scripts()
+    describe_manual_steps()
 
     log.info('All done.')
 
-def run_cmd(command: str):
-    subprocess.run(shlex.split(command), check=True)
+def run_cmd(command: str, work_directory='.'):
+    subprocess.run(shlex.split(command), check=True, cwd=work_directory)
+
+
+def get_cmd_output(command: str):
+    return subprocess.check_output(shlex.split(command))
 
 
 def upgrade_packages():
@@ -63,14 +73,23 @@ def install_aur_packages():
     run_cmd(f'yay -S --noconfirm {packages_string}')
 
 
+def install_oh_my_zsh():
+    oh_my_zsh_path = Path('~/.oh-my-zsh').expanduser()
+    if oh_my_zsh_path.exists():
+        return
+
+    log.info('Installing oh-my-zsh into %s', oh_my_zsh_path)
+    run_cmd(f'git clone https://github.com/ohmyzsh/ohmyzsh.git {oh_my_zsh_path}')
+
+
 def setup_tmux_plugins():
     tmux_plugins = ['tpm', 'tmux-yank']
     tmux_plugins_dir = Path('~/.tmux/plugins').expanduser()
 
-    tmux_plugins_dir.mkdir(parents=True, exist_ok=True)
     for plugin in tmux_plugins:
         plugin_location = tmux_plugins_dir / plugin
         if not plugin_location.exists():
+            tmux_plugins_dir.mkdir(parents=True, exist_ok=True)
             log.info('Pulling Tmux plugin: %s', plugin)
             run_cmd(f'git clone https://github.com/tmux-plugins/{plugin} {plugin_location}')
 
@@ -103,42 +122,55 @@ def ensure_ntp():
     run_cmd('sudo timedatectl set-ntp true')
 
 
+def set_zsh_as_shell():
+    if not os.environ['SHELL'].endswith('/zsh'):
+        log.info('Setting up ZSH as the default shell...')
+        run_cmd('chsh -s /usr/bin/zsh')
+
+
+def ensure_configs_and_scripts():
+    configs_and_scripts_path = Path('~/development/configs_and_scripts').expanduser()
+    if not configs_and_scripts_path.exists():
+        log.info(f'Pulling configs_and_scripts repo into {configs_and_scripts_path}')
+        configs_and_scripts_path.parent.mkdir(parents=True, exist_ok=True)
+        run_cmd(f'git clone git@github.com:butla/configs_and_scripts.git {configs_and_scripts_path}')
+
+    log.info('Applying the configs...')
+    run_cmd('make install_configs', work_directory=configs_and_scripts_path)
+
+
+def describe_manual_steps():
+    text = """There are some steps you need to do manually
+- Brave: enable sync (for everything)
+- Dropbox: log in
+- PIA: set it up - run `pia_download`, etc.
+- Exodus wallet: set it up - go to https://www.exodus.com/download/, restore the wallet
+- Spotify: log inslack - set up the workspaces
+- Signal: sync with phone
+- set up ~/.credentials/borg_key from KeePass
+- qbittorrent: enable search plugin -> View/search engine/search plugins
+- KeePassXC: secret's service integration needs to be enabled manually
+"""
+    log.info(text)
+
+
 if __name__ == '__main__':
     main()
 
 
+# notes for the future (maybe):
+# - removing .zcompdump might be needed after installing oh-my-zsh (wasn't the last time I installed it)
+# - removing keyring requirements for Python packages: https://stackoverflow.com/questions/64570510/why-does-pip3-want-to-create-a-kdewallet-after-installing-updating-packages-on-u
+
 # TODOS
-# - neovim needs that python variable defined, so that it works in virtual envs without pynvim?
-#   - following ":help python-virtualenv" from vim, there should be a pynvim virtualenv
-#        let g:python3_host_prog = '/path/to/py3nvim/bin/python'
-# - ZSH as default user shell
-# - set up ZSH (.zshrc)
-#   - keep powerline with process times and status
-#   - co jest potrzebne, żeby zainstalować powerline na huwaweiu?
-#   - vim/zshrc config - wyświetlanie trybu VIMa działa z powerlinem. Nie spodziewałem się, że Powerline'owe prompty tak ładnie się chowają jeśli trzeba
-# - https://github.com/ohmyzsh/ohmyzsh/issues/449
-# - TODO solve python keyring
-#     https://stackoverflow.com/questions/64570510/why-does-pip3-want-to-create-a-kdewallet-after-installing-updating-packages-on-u
-#     maybe make keepass into the keyring thing?
+# - keepassxc roaming config file kept in git https://github.com/keepassxreboot/keepassxc/issues/2666
+# - qbittorent setting into configs_and_scripts?
 # - add docker permissions for user? make docker work
-# - other python versions from AUR
-# - todo separate this code out into functions
-# - fork and tweak darcula for better colors with .sh and HTML? compare with benokai, or some popular VS code colors?
-# - use `let g:python3_host_prog = 'blablabla'` for working with virtualenvs?
 # - zeal for documentation? Is there some config file for it?
-# - autostart programs, including signal
 # - automounting USB (removable drives and media settings, I didn't find any vulnerabilities in just mounting)
+# - upload new version of bootstrap_my_tools
 # - try deoplete?
-# - pia install
 # - check slack channels on the old Ubuntu
-# - display a list of things to do manually:
-#   - slack - set up the workspaces
-#   - log into spotify
-#   - log into dropbox
-#   - sync signal
-#   - set up ~/.credentials/borg_key from KeePass
-#   - add qbittorrent search plugin -> View/search engine/search plugins (can I move settings from the other laptop?)
-#   - Brave - enable sync for everything
 # - pipx packages:
 #   - ocrmypdf
 # - save launcher menu
@@ -146,8 +178,6 @@ if __name__ == '__main__':
 # - shortcuts for moving windows between screens:
 #     https://github.com/calandoa/movescreen
 #     https://github.com/jc00ke/move-to-next-monitor
-# - todo install oh my zsh: sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-#     TODO remove ~/.zcompdump after installing oh my zsh
 # - signal settings
 
 # Docker install on arch:
@@ -161,13 +191,10 @@ if __name__ == '__main__':
 # - skrypt datee dający mi datę w formacie jaki lubię (i wrzucający do schowka), do zapisków
 # - xfce favourites menu
 # - clock style
-# - autostart signal, (maybe slack, and discord?)
 # - xfce panel - get rid of workplace switcher?
-# - go through TODOs in machine_configs
-# - mention manual steps if the respective packages has been installed
-# - keepassxc roaming config file kept in git https://github.com/keepassxreboot/keepassxc/issues/2666
 # - image viewer solution:
 #   - gthumb - solve zoom in problem (https://gitlab.gnome.org/GNOME/gthumb/-/issues/103)
 #     - sprawdź ``man gthumb``, może tam jest o pliku konfiguracyjnym
 #   - use gwenview but fix video playback to start immediately. How to skip to next if there's a video?
 # - remove https://github.com/butla/utils. Move stuff from it around
+# - compare installed packages on both machines - where is bh taking the awesome fonts from?
