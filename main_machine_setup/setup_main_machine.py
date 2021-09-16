@@ -135,7 +135,7 @@ def ensure_configs_and_scripts():
         configs_and_scripts_path.parent.mkdir(parents=True, exist_ok=True)
         run_cmd(f'git clone git@github.com:butla/configs_and_scripts.git {configs_and_scripts_path}')
 
-    log.info('Applying the configs...')
+    log.info(f'Applying configs from {configs_and_scripts_path}...')
     run_cmd('make install_configs', work_directory=configs_and_scripts_path)
 
 
@@ -163,14 +163,12 @@ if __name__ == '__main__':
 # - removing keyring requirements for Python packages: https://stackoverflow.com/questions/64570510/why-does-pip3-want-to-create-a-kdewallet-after-installing-updating-packages-on-u
 
 # TODOS
-# - keepassxc roaming config file kept in git https://github.com/keepassxreboot/keepassxc/issues/2666
 # - qbittorent setting into configs_and_scripts?
 # - add docker permissions for user? make docker work
 # - zeal for documentation? Is there some config file for it?
 # - automounting USB (removable drives and media settings, I didn't find any vulnerabilities in just mounting)
 # - upload new version of bootstrap_my_tools
 # - try deoplete?
-# - check slack channels on the old Ubuntu
 # - pipx packages:
 #   - ocrmypdf
 # - save launcher menu
