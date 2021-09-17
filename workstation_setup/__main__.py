@@ -1,3 +1,3 @@
-from .setup_main_machine import main
+from .setup_workstation import main
 
 main()

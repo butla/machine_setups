@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
+"""
+This script installs software and applies configurations that I want in my Manjaro workstations.
+"""
+
 import logging
 import os
+import re
 import shlex
 import shutil
 import subprocess
@@ -32,9 +37,12 @@ def main():
     ensure_ntp()
     set_zsh_as_shell()
     ensure_configs_and_scripts()
+    set_qt_theme()
+    enable_services()
     describe_manual_steps()
 
     log.info('All done.')
+
 
 def run_cmd(command: str, work_directory='.'):
     subprocess.run(shlex.split(command), check=True, cwd=work_directory)
@@ -133,10 +141,37 @@ def ensure_configs_and_scripts():
     if not configs_and_scripts_path.exists():
         log.info(f'Pulling configs_and_scripts repo into {configs_and_scripts_path}')
         configs_and_scripts_path.parent.mkdir(parents=True, exist_ok=True)
-        run_cmd(f'git clone git@github.com:butla/configs_and_scripts.git {configs_and_scripts_path}')
+        # recursing into submodules for private configs
+        run_cmd(
+            f'git clone git@github.com:butla/configs_and_scripts.git {configs_and_scripts_path} --recurse-submodules'
+        )
 
     log.info(f'Applying configs from {configs_and_scripts_path}...')
     run_cmd('make install_configs', work_directory=configs_and_scripts_path)
+
+
+def set_qt_theme():
+    theme_config = Path('~/.config/qt5ct/qt5ct.conf').expanduser()
+    config_contents = theme_config.read_text()
+
+    expected_theme_line = 'style=kvantum-dark'
+
+    if re.findall(f'^{expected_theme_line}', config_contents, flags=re.MULTILINE):
+        return
+
+    log.info(f'Setting theme for QT in {theme_config}')
+    new_config_contents = re.sub('^style=.*', expected_theme_line, config_contents, flags=re.MULTILINE)
+    theme_config.write_text(new_config_contents)
+
+
+def enable_services():
+    log.info('Making sure certain services are enabled, running, and usable...')
+
+    run_cmd('sudo systemctl enable --now docker')
+    subprocess.run('sudo usermod -a -G docker $(whoami)', shell=True, check=True)
+
+    # for yubikey
+    run_cmd('sudo systemctl enable --now pcscd')
 
 
 def describe_manual_steps():
@@ -145,11 +180,13 @@ def describe_manual_steps():
 - Dropbox: log in
 - PIA: set it up - run `pia_download`, etc.
 - Exodus wallet: set it up - go to https://www.exodus.com/download/, restore the wallet
-- Spotify: log inslack - set up the workspaces
 - Signal: sync with phone
-- set up ~/.credentials/borg_key from KeePass
-- qbittorrent: enable search plugin -> View/search engine/search plugins
+- qbittorrent: enable search plugin -> View/search engine/search plugins, and configure it
 - KeePassXC: secret's service integration needs to be enabled manually
+- set up ~/.credentials/borg_key from KeePass
+- restart so that XFCE configuration loads
+- remove XFCE workspace switcher and set up favourites menu
+- clock widget: set time format to %Y-%m-%d %H:%M:%S
 """
     log.info(text)
 
@@ -161,38 +198,14 @@ if __name__ == '__main__':
 # notes for the future (maybe):
 # - removing .zcompdump might be needed after installing oh-my-zsh (wasn't the last time I installed it)
 # - removing keyring requirements for Python packages: https://stackoverflow.com/questions/64570510/why-does-pip3-want-to-create-a-kdewallet-after-installing-updating-packages-on-u
-
-# TODOS
-# - qbittorent setting into configs_and_scripts?
-# - add docker permissions for user? make docker work
-# - zeal for documentation? Is there some config file for it?
-# - automounting USB (removable drives and media settings, I didn't find any vulnerabilities in just mounting)
-# - upload new version of bootstrap_my_tools
-# - try deoplete?
-# - pipx packages:
-#   - ocrmypdf
-# - save launcher menu
-# - sudo systemctl enable --now pcscd (for yubikey?)
 # - shortcuts for moving windows between screens:
 #     https://github.com/calandoa/movescreen
 #     https://github.com/jc00ke/move-to-next-monitor
-# - signal settings
+# - gthumb - the zoom-in keyboard shortcut problem (https://gitlab.gnome.org/GNOME/gthumb/-/issues/103)
 
-# Docker install on arch:
-# pacman -S docker
-# systemctl enable docker
-# add user to group
-
-# qt5 setting -> kvantum-dark theme (for KDE apps to look properly)
-# - change XFCE theme while looking at what a config window is changing with strace, add those config to ``configs_and_scripts`` (blog post out of that)
-#   - hide window headings
-# - skrypt datee dający mi datę w formacie jaki lubię (i wrzucający do schowka), do zapisków
-# - xfce favourites menu
-# - clock style
-# - xfce panel - get rid of workplace switcher?
-# - image viewer solution:
-#   - gthumb - solve zoom in problem (https://gitlab.gnome.org/GNOME/gthumb/-/issues/103)
-#     - sprawdź ``man gthumb``, może tam jest o pliku konfiguracyjnym
-#   - use gwenview but fix video playback to start immediately. How to skip to next if there's a video?
+# TODOS
+# - upload new version of bootstrap_my_tools
+# - pipx packages:
+#   - ocrmypdf
 # - remove https://github.com/butla/utils. Move stuff from it around
 # - compare installed packages on both machines - where is bh taking the awesome fonts from?

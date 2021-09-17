@@ -1,2 +1,2 @@
-setup_main_machine:
+setup_workstation:
 	python -m workstation_setup

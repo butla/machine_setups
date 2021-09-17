@@ -22,11 +22,13 @@ PACMAN_PACKAGES = [
     'whois',  # looks up information about Internet domains
     'nethogs',  # "top"-like thing for showing network transfers
     'iotop',  # "top"-like thing for showing disk IO
+    'sshfs',  # mounting remote filesystems with SSH
     'borg',  # backup solution
     'wavemon',  # WiFi monitor
     'twine',  # PyPI package release helper
     'yamllint',
     'yq',  # utility for getting stuff from YAMLs
+    'strace',  # monitoring process's syscalls
     'python-pudb',  # TUI python debugger
     'python-ipdb',  # python debugger with completions and color
     'python-virtualenvwrapper',  # Python virtualenv manager
@@ -87,6 +89,8 @@ PACMAN_PACKAGES = [
     'qbittorrent',
     'virtualbox',
     'libreoffice-still',
+    'adapta-maia-theme',  # a theme for XFCE that I like
+    'kvantum-manjaro',  # themes for QT apps
 ]
 
 AUR_PACKAGES = {
