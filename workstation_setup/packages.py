@@ -18,6 +18,8 @@ PACMAN_PACKAGES = [
     'tmux',  # terminal multiplexer
     'tree',  # shows file trees
     'hunspell',  # CLI spellchecker
+    'hunspell-en_us',
+    'hunspell-pl',
     'pandoc',  # universal document converter
     'whois',  # looks up information about Internet domains
     'nethogs',  # "top"-like thing for showing network transfers
@@ -47,6 +49,10 @@ PACMAN_PACKAGES = [
     'powerline-fonts',  # needed for powerlevel10k theme
     'awesome-terminal-fonts',  # needed for powerlevel10k theme
     'zsh-autosuggestions',  # ZSH plugin for suggestions of past commands
+    'lolcat',  # colorful printing in the terminal
+    'cowsay',  # ASCII talking animals
+    'asciinema',  # recording terminal sessions
+    'sl',  # steam locomotive
     # =========================
     # heavy CLI programs for development
     # =========================
@@ -91,6 +97,11 @@ PACMAN_PACKAGES = [
     'libreoffice-still',
     'adapta-maia-theme',  # a theme for XFCE that I like
     'kvantum-manjaro',  # themes for QT apps
+    'asunder',  # audio CD ripper
+    'mplayer',  # video player with fast jumping and subtitle adjustment
+    'krita',  # drawing program with tablet support
+    'audacity',  # sound editor
+    'syncthing',  # file synchronization
 ]
 
 AUR_PACKAGES = {
@@ -100,7 +111,11 @@ AUR_PACKAGES = {
     'wrk',  # HTTP application benchmarking tool
     'subliminal',  # movie subtitles downloader
     'ptpython',  # nice python interactive shell
-    'pgcli',  # Postgres CLI client
+    'pgcli',  # nice Postgres CLI client
+    'litecli',  # nice SQLite CLI client
     'spotify',
     'tor-browser',
+    'zoom',  # video conferencing
+    'toilet',  # printing large letters in terminal
+    'hollywood',  # "Fill your console with Hollywood melodrama technobabble"
 }
