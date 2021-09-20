@@ -53,6 +53,7 @@ PACMAN_PACKAGES = [
     'cowsay',  # ASCII talking animals
     'asciinema',  # recording terminal sessions
     'sl',  # steam locomotive
+    'mediainfo',  # CLI for getting info about media files, used by ranger
     # =========================
     # heavy CLI programs for development
     # =========================
