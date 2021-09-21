@@ -49,6 +49,7 @@ PACMAN_PACKAGES = [
     'powerline-fonts',  # needed for powerlevel10k theme
     'awesome-terminal-fonts',  # needed for powerlevel10k theme
     'zsh-autosuggestions',  # ZSH plugin for suggestions of past commands
+    'zsh-completions',  # additional completions for ZSH
     'lolcat',  # colorful printing in the terminal
     'cowsay',  # ASCII talking animals
     'asciinema',  # recording terminal sessions
