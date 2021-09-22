@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# TODO This script should be in a configs_and_scripts dir that will get linked only on the phone
+# (when running under TERMUX)
+sshd
+echo Started SSHD.
+
+echo Setting user password for SSHD...
+passwd
+echo Password set.

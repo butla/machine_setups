@@ -1,0 +1,9 @@
+#!/bin/bash
+echo Restarting Wi-Fi
+
+echo $(date -Iseconds): current Wi-Fi networks
+sudo nmcli dev wifi
+echo $(date -Iseconds): current Wi-Fi networks after rescan
+sudo nmcli dev wifi rescan
+echo $(date -Iseconds): restarting network
+sudo nmcli networking off && sudo nmcli networking on

@@ -1,0 +1,21 @@
+#!/bin/bash
+set -e
+
+BACKUP_LOCATION=/run/media/butla/Seagate\ Backup\ Plus\ Drive/backup
+
+export BORG_PASSPHRASE=$(cat ~/.credentials/borg_key)
+
+# Hopefully, pruning the backups won't last long enough so that the next sudo call will require manual input.
+# That's why it's called first.
+# Backup can take longer than 15 minutes (the default sudo credentials cache time, I think)
+# I'd just run the whole script as root, but then I'd need to put it in a location that's on the root user's PATH.
+# And I don't want to go through that hassle just yet.
+echo -e "Pruning old backups\n=================="
+sudo -E borg prune --stats --progress --keep-last 9 "${BACKUP_LOCATION}"
+
+echo -e "Creating a new backup\n=================="
+sudo -E borg create --stats --progress \
+    "${BACKUP_LOCATION}::$(date --iso-8601=seconds --utc)-laptop" \
+    /data \
+    /etc \
+    /home

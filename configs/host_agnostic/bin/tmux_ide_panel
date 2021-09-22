@@ -1,0 +1,41 @@
+#!/bin/bash
+function run_container_in_pane()
+{
+    # vertical split, open above us
+    tmux split-window -vdb
+    # Attach to the container in that view. We don't immediately run the command in the split, so that
+    # the pane survives process exiting.
+    tmux send-keys -t 1 "docker-compose exec django bash" enter
+    # TODO set pane title for the docker pane with select-pane -T XXX.
+    # It could be later used with list-panes -F '#{pane_title}' for the shortcut running tests from Vim.
+    # It should use send-keys to run the tests.
+}
+
+# Split panes horizontally and don't switch selection to the new pane to continue the script.
+# Set the pane to at 114 chars width, which can fit 110 chars of line length
+# (10 more than I like to have, just in case) and my vim line indicator.
+# That is, when the line length is below of 1000, which is the case with most files I edit.
+# Runs my ZSH function that runs vim with some setup magics in the pane created in the split.
+tmux split-window -hd -l 124 zsh -ic v
+
+# vertical split, open above us with ranger for file management
+tmux split-window -vdb -p 40 ranger
+
+if [ -f docker-compose.yml ]; then
+    declare -a MAIN_CONTAINER_NAMES=('app' 'django')
+    service_names=$(yq '.services | to_entries[] | .key' docker-compose.yml)
+
+    for main_container_name in ${MAIN_CONTAINER_NAMES[@]}; do
+        if echo $service_names | grep $main_container_name > /dev/null; then
+            run_container_in_pane $main_container_name
+            break
+        fi
+    done
+fi
+
+# switch to the vim view. It'll pane 3 if we have the Docker pane, pane 2 otherwise
+tmux select-pane -t 3 2> /dev/null || tmux select-pane -t 2
+# TODO write about this script - using ranger instead of nerdtree,
+# because I think it's a better window manager
+
+# screenshot of the end product (just no work code, use mountepy, or responder code, or experiments)

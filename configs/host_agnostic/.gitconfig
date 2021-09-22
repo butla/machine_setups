@@ -1,0 +1,26 @@
+[user]
+	email = michal.bultrowicz@gmail.com
+	name = Michal Bultrowicz
+	signingkey = 58B5D1039E1498C3
+[commit]
+#	TODO enable once gpg prompt is usable, that is it's not blocking my keyboard
+#	gpgsign = true
+[push]
+	default = simple
+[core]
+	editor = vim
+[diff]
+	tool = meld
+	prompt = false
+[difftool]
+	prompt = false
+[credential]
+	helper = cache --timeout=10800
+[merge]
+	tool = meld
+[status]
+    showStash = true
+[pull]
+	ff = only
+[log]
+	date = iso

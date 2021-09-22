@@ -1,0 +1,24 @@
+#!/usr/bin/python3
+import requests
+import subprocess
+
+resp = requests.get('http://ipinfo.io')
+resp.raise_for_status()
+
+timezones = {
+    'PL': 'Europe/Warsaw',
+    'GB': 'Europe/London',
+}
+
+country = resp.json()['country']
+timezone = timezones[country]
+
+print('Setting timezone:', timezone)
+subprocess.run(f'timedatectl set-timezone {timezone}'.split())
+
+try:
+    subprocess.run(f'xfconf-query -c xfce4-panel -p /plugins/plugin-5/timezone -s {timezone}'.split())
+    print("Updated the XFCE clock widget's timezone.")
+except FileNotFoundError:
+    # xfconf-query not found, we're probably not running xfce
+    pass

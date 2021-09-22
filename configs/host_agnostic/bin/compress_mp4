@@ -1,0 +1,28 @@
+#!/usr/bin/env python3
+import shlex
+import subprocess
+import sys
+
+from pathlib import Path
+
+
+if len(sys.argv) < 2:
+    sys.exit('Provide files to operate on.')
+
+_COMPRESSION_TAG = '_compressed'
+
+input_paths = (Path(str_path) for str_path in sys.argv[1:])
+original_to_compressed_paths = (
+    (path, path.with_name(path.stem + _COMPRESSION_TAG + path.suffix))
+    for path in input_paths
+    # not gonna compress already compressed files
+    if not path.stem.endswith(_COMPRESSION_TAG)
+)
+
+for original, compressed in original_to_compressed_paths:
+    if compressed.exists():
+        print('Skipping compression of', original, 'as a compressed file already exists.')
+        continue
+    command_parts = ['ffmpeg', '-i', str(original), '-vcodec', 'libx265', '-crf', '28', str(compressed)]
+    print('Compressing', original)
+    subprocess.run(command_parts, check=True)

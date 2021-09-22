@@ -1,0 +1,18 @@
+#!/bin/bash
+
+if [ ! -z $1 ]; then
+    FOLDER_NAME=$1
+else
+    FOLDER_NAME=$(date +%Y.%m)
+fi
+
+PATH_FOR_FOLDERS=~/Dropbox/księgowość
+
+for subpath in prywatne/przychody prywatne/różne prywatne/wydatki \
+    uk-witchsoft/przychody uk-witchsoft/wydatki \
+    uk-witchsoft/wyciągi uk-witchsoft/różne
+do
+    final_path=$PATH_FOR_FOLDERS/$FOLDER_NAME/$subpath
+    echo Ensuring $final_path
+    mkdir -p $final_path
+done

@@ -1,0 +1,8 @@
+#!/bin/bash
+echo Starting backup. Errors will be logged to files in the current directory.
+
+mkdir -p backup_errors
+aws s3 sync --exclude "*Thumbs.db" --exclude "*.xml" /data/zdjęcia_i_filmiki/ s3://data-backup/zdjecia_i_filmiki 2> backup_errors/zdjęcia_i_filmiki_errors.txt
+aws s3 sync --exclude "*Thumbs.db" --exclude "*.xml" /data/grafika/ s3://data-backup/grafika 2> backup_errors/grafika_errors.txt
+aws s3 sync /data/komiksy/ s3://data-backup/komiksy 2> backup_errors/komiksy_errors.txt
+aws s3 sync /data/nagrania_audio/ s3://data-backup/nagrania_audio 2> backup_errors/nagrania_audio_errors.txt

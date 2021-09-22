@@ -1,0 +1,79 @@
+#!/usr/bin/env python3
+from pathlib import Path
+import re
+import shutil
+from typing import List, Optional
+
+# TODO put that in the experiments repo. Trzymać ścieżki jako defaulty do nazwanych argumentów
+# po CLI. Można będzie wtedy też u Moniki używać.
+
+
+PC_SORTED_MEDIA_PATH = Path('/data/zdjęcia_i_filmiki')
+PC_LOOSE_MEDIA_PATH = Path('/data/zdjęcia_i_filmiki/z_telefonu_mego/samsung_note10')
+PHONE_CAMERA_PATH = Path('/run/user/1000/5f2e966a3531bb46/storage/emulated/0/DCIM/Camera/')
+# PHONE_CAMERA_PATH = Path('/home/butla/phone/Phone/DCIM/Camera/')
+
+# TODO make this a default (Samsung pictures) but add option for people to override it
+# pass it in '' (right? that will work? add tests).
+# Will work until 2100, when, I fucking hope, we'll have better file transfer options...
+# The photo paths end with stuff like 20180802_220137.jpg or 20180802_220142_002.jpg
+# if there were multiple photos in one second.
+# And they can be mp4s as well.
+# Always document your regexes, people. They are great, but readability is not one of their
+# strengths.
+MEDIA_PATH_REGEX = re.compile(r'.*20\d{6}_\d{6}?(_\d{3})?\.?(jpg|mp4)$')
+
+
+def download_new_phone_media():
+    last_stored_media_file = latest_stored_media_file()
+    print('Copying media files newer than', last_stored_media_file.name)
+
+    new_media = (path for path in PHONE_CAMERA_PATH.iterdir()
+                 if path.name > last_stored_media_file.name)
+
+    file_count = 0
+    for file_count, media_file in enumerate(new_media, 1):
+        try:
+            shutil.copy(media_file, PC_LOOSE_MEDIA_PATH)
+        except Exception:
+            downloaded_path = PC_LOOSE_MEDIA_PATH / media_file.name
+            # getting rid of the partially downloaded file
+            if downloaded_path.exists():
+                downloaded_path.unlink()
+                print('Removing the partially downloaded file:', downloaded_path)
+            raise
+    print('Succesfully copied', file_count, 'media files over from the phone.')
+
+
+def latest_stored_media_file() -> Path:
+    latest_sorted_photos = (_latest_media_file_in_dir(folder)
+                            for folder in _sorted_photo_folders(PC_SORTED_MEDIA_PATH))
+    latest_sorted_photo = next(photo for photo in latest_sorted_photos if photo is not None)
+
+    latest_loose_photo = _latest_media_file_in_dir(PC_LOOSE_MEDIA_PATH)
+
+    return max(
+        (latest_sorted_photo, latest_loose_photo),
+        key=lambda path: path.name,
+    )
+
+
+def _latest_media_file_in_dir(directory: Path) -> Optional[Path]:
+    candidate_media_files = (path for path in directory.iterdir()
+                             if MEDIA_PATH_REGEX.match(path.name))
+    sorted_media_files = sorted(candidate_media_files, reverse=True)
+    if sorted_media_files:
+        return sorted_media_files[0]
+    return None
+
+
+def _sorted_photo_folders(photos_dir) -> List[Path]:
+    photo_dirs = [item for item in photos_dir.iterdir()
+                  # second condition is a "heuristic" for catching dates
+                  if item.is_dir() and item.name.startswith('20')]
+    return sorted(photo_dirs, key=lambda folder: folder.name, reverse=True)
+
+
+if __name__ == '__main__':
+    print(latest_stored_media_file())
+    #download_new_phone_media()

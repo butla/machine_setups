@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+import os
+import sys
+
+import requests
+
+date = sys.argv[1]
+amount = float(sys.argv[2])
+token = os.environ['TRANSFERWISE_TOKEN']
+
+resp = requests.get(
+    f'https://api.transferwise.com/v1/rates?source=PLN&target=GBP&time={date}',
+    headers={'Authorization': f'Bearer {token}'},
+)
+if not resp.ok:
+    print('ERROR! Request failed! Response:')
+    print(resp.text)
+
+pln_to_gbp_rate = float(resp.json()[0]['rate'])
+exchanged_amount = amount * pln_to_gbp_rate
+print(amount, 'PLN *', pln_to_gbp_rate, '=', exchanged_amount)

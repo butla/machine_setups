@@ -1,0 +1,5 @@
+#!/bin/sh
+
+killall xfconfd
+/usr/lib/xfce4/xfconf/xfconfd &
+xfsettingsd --replace &

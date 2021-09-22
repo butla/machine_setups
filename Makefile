@@ -1,2 +1,11 @@
 setup_workstation:
-	python -m workstation_setup
+	python3 -m workstation_setup
+
+# the below commands require setting up a virtualenv, activating it, and running `poetry install` in it.
+# TODO make sure it runs 9 tests
+test:
+	PYTHONPATH=.:configs/host_agnostic/bin pytest -v tests
+
+
+test_continously:
+	fd '\.py$$' workstation_setup/ tests/ | entr -c make test
