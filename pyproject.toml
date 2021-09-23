@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "configs_and_scripts"
+name = "machine_setups"
 version = "0.1.0"
-description = "Tools to develop my configs and scripts with."
+description = "Code that sets up my computers with the software and configuration I want."
 authors = ["Michal Bultrowicz <michal.bultrowicz@gmail.com>"]
 license = "MIT"
 
@@ -9,12 +9,13 @@ license = "MIT"
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
-[tool.pylint.FORMAT]
+[tool.pylint.format]
 max-line-length=120
 
-# TODO figure why this setting isn't being respected by pylint run from Ale and then remove .pylintrc
-[tool.pylint.'MESSAGES CONTROL']
-disable = "missing-function-docstring"
+[tool.pylint.messages_control]
+disable = [
+    "missing-docstring",
+]
 
 [tool.poetry.dependencies]
 python = "^3.8"
