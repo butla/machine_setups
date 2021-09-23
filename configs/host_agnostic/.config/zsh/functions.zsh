@@ -63,7 +63,14 @@ function upgrade()
     echo "${bg[green]}---${reset_color}Updating NeoVim plugins${bg[green]}---${reset_color}"
     nvim +PlugUpgrade +PlugClean +PlugUpdate +qall
 
-    # TODO update Tmux plugins
+    TMUX_PLUGIN_DIR=~/.tmux/plugins
+    echo "${bg[green]}---${reset_color}Updating Tmux plugins${bg[green]}---${reset_color}"
+    for plugin in $(ls $TMUX_PLUGIN_DIR); do
+        (cd $TMUX_PLUGIN_DIR/$plugin; git pull)
+    done
+
+    echo "${bg[green]}---${reset_color}Updating Oh My Zsh${bg[green]}---${reset_color}"
+    (cd ~/.oh-my-zsh; git pull)
 }
 
 function record_voice()
