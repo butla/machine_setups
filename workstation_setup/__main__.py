@@ -77,7 +77,11 @@ def upgrade_software():
     if _run_cmd('which flatpak', is_check=True).returncode == 0:
         _run_cmd('flatpak update')
 
-    unused_packages = _get_cmd_output('pacman -Qdtq').splitlines()
+    try:
+        unused_packages = _get_cmd_output('pacman -Qdtq').splitlines()
+    except subprocess.CalledProcessError:
+        unused_packages = None
+
     if unused_packages:
         log.info('Removing unused packages...')
         _run_cmd(f'sudo pacman -R {" ".join(unused_packages)}')
@@ -124,8 +128,6 @@ def install_oh_my_zsh():
 
 def ensure_configs_and_scripts():
     workstation_setup.config_links.setup_all_links()
-    # TODO remove
-    workstation_setup.alacritty_machine_specific_config.setup()
 
 
 def setup_tmux_plugins():
