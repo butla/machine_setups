@@ -94,7 +94,7 @@ PACMAN_PACKAGES = [
     'signal-desktop', # private communicator
     'discord',  # communicator / chat
     'freemind',  # mindmapping tool
-    'yubioath-desktop',  # Yubikey communication
+    'yubioath-desktop',  # OTP with a Yubikey connected over USB
     'qbittorrent',
     'virtualbox',
     'libreoffice-still',
