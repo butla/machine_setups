@@ -1,0 +1,19 @@
+Put the file in /lib/modules/`uname -r`/kernel/net/wireless
+Add it to /etc/modules without .ko
+Run: sudo depmod -a
+
+Add to /etc/wpa_supplicant/wpa_supplicant.conf:
+network={
+    ssid="UPC0042388"
+    proto=RSN
+    key_mgmt=WPA-PSK
+    pairwise=CCMP TKIP
+    group=CCMP TKIP
+    psk="GOKAABYE"
+}
+
+Add to /etc/network/interfaces:
+auto ra0
+iface ra0 inet manual
+wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+iface ra0 inet dhcp
