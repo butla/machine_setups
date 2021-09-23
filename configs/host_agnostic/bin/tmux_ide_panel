@@ -18,8 +18,9 @@ function run_container_in_pane()
 # Runs my ZSH function that runs vim with some setup magics in the pane created in the split.
 tmux split-window -hd -l 124 zsh -ic v
 
-# vertical split, open above us with ranger for file management
-tmux split-window -vdb -p 40 ranger
+# vertical split, open above us with ranger for file management.
+# It's called through interactive ZSH, so that environment variables like $EDITOR and $PAGER get loaded from .zshrc
+tmux split-window -vdb -p 40 zsh -ic ranger
 
 if [ -f docker-compose.yml ]; then
     declare -a MAIN_CONTAINER_NAMES=('app' 'django')
