@@ -1,3 +1,4 @@
+# TODO remove file, just have config
 import logging
 from pathlib import Path
 import platform

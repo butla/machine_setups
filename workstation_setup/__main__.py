@@ -27,15 +27,15 @@ log = logging.getLogger(__name__)
 
 
 def main():
-    upgrade_packages()
+    upgrade_software()
     install_standard_packages()
     install_aur_packages()
     install_oh_my_zsh()
+    ensure_configs_and_scripts()
     setup_tmux_plugins()
     setup_neovim()
     ensure_ntp()
     set_zsh_as_shell()
-    ensure_configs_and_scripts()
     set_qt_theme()
     enable_services()
     describe_manual_steps()
@@ -43,23 +43,50 @@ def main():
     log.info('All done.')
 
 
-def run_cmd(command: str, work_directory='.'):
-    subprocess.run(shlex.split(command), check=True, cwd=work_directory)
+def _run_cmd(command: str, work_directory='.', is_check=False) -> subprocess.CompletedProcess:
+    if is_check:
+        stdout = subprocess.PIPE
+        stderr = subprocess.STDOUT
+        check = False
+    else:
+        stdout, stderr = None, None
+        check = True
+    return subprocess.run(
+        shlex.split(command),
+        check=check,
+        cwd=work_directory,
+        stdout=stdout,
+        stderr=stderr,
+    )
 
 
-def get_cmd_output(command: str):
-    return subprocess.check_output(shlex.split(command))
+def _get_cmd_output(command: str) -> str:
+    return subprocess.check_output(shlex.split(command)).decode()
 
 
-def upgrade_packages():
+def upgrade_software():
     log.info('Updating the package index and packages...')
-    run_cmd('sudo pacman -Syu --noconfirm')
+
+    yay_is_installed = _run_cmd('which yay', is_check=True).returncode == 0
+
+    if yay_is_installed:
+        _run_cmd('yay -Syu')
+    else:
+        _run_cmd('sudo pacman -Syu')
+
+    if _run_cmd('which flatpak', is_check=True).returncode == 0:
+        _run_cmd('flatpak update')
+
+    unused_packages = _get_cmd_output('pacman -Qdtq').splitlines()
+    if unused_packages:
+        log.info('Removing unused packages...')
+        _run_cmd(f'sudo pacman -R {" ".join(unused_packages)}')
 
 
 def install_standard_packages():
     log.info('Installing the necessary packages...')
     packages_string = ' '.join(workstation_setup.packages.PACMAN_PACKAGES)
-    run_cmd(f'sudo pacman -S --needed --noconfirm {packages_string}')
+    _run_cmd(f'sudo pacman -S --needed --noconfirm {packages_string}')
 
 
 def install_aur_packages():
@@ -77,16 +104,28 @@ def install_aur_packages():
 
     log.info('Installing the necessary AUR packages...')
     packages_string = ' '.join(aur_packages_to_install)
-    run_cmd(f'yay -S --noconfirm {packages_string}')
+    _run_cmd(f'yay -S --noconfirm {packages_string}')
+
+
+def _clone_or_update_git_repo(repo_url: str, clone_location: Path):
+    if clone_location.exists():
+        log.info('Updating Git repo: %s', clone_location)
+        _run_cmd('git pull', work_directory=clone_location)
+    else:
+        log.info('Pulling Git repo %s into %s', repo_url, clone_location)
+        clone_location.parent.mkdir(parents=True, exist_ok=True)
+        _run_cmd(f'git clone {repo_url} {clone_location}')
 
 
 def install_oh_my_zsh():
     oh_my_zsh_path = Path('~/.oh-my-zsh').expanduser()
-    if oh_my_zsh_path.exists():
-        return
+    _clone_or_update_git_repo('https://github.com/ohmyzsh/ohmyzsh.git', oh_my_zsh_path)
 
-    log.info('Installing oh-my-zsh into %s', oh_my_zsh_path)
-    run_cmd(f'git clone https://github.com/ohmyzsh/ohmyzsh.git {oh_my_zsh_path}')
+
+def ensure_configs_and_scripts():
+    workstation_setup.config_links.setup_all_links()
+    # TODO remove
+    workstation_setup.alacritty_machine_specific_config.setup()
 
 
 def setup_tmux_plugins():
@@ -95,49 +134,44 @@ def setup_tmux_plugins():
 
     for plugin in tmux_plugins:
         plugin_location = tmux_plugins_dir / plugin
-        if not plugin_location.exists():
-            tmux_plugins_dir.mkdir(parents=True, exist_ok=True)
-            log.info('Pulling Tmux plugin: %s', plugin)
-            run_cmd(f'git clone https://github.com/tmux-plugins/{plugin} {plugin_location}')
+        _clone_or_update_git_repo(f'https://github.com/tmux-plugins/{plugin}', plugin_location)
 
 
 def setup_neovim():
     neovim_virtualenv_path = Path('~/.virtualenvs/neovim').expanduser()
     if not neovim_virtualenv_path.exists():
         log.info('Creating a virtualenv for NeoVim Python integration...')
-        run_cmd(f'python3 -m venv {neovim_virtualenv_path}')
-        run_cmd(f'{neovim_virtualenv_path}/bin/pip install pynvim')
+        _run_cmd(f'python3 -m venv {neovim_virtualenv_path}')
+        _run_cmd(f'{neovim_virtualenv_path}/bin/pip install pynvim')
+    else:
+        log.info('Updating NeoVim Python integration virtualenv...')
+        _run_cmd(f'{neovim_virtualenv_path}/bin/pip install --upgrade pynvim')
 
     vim_color_scheme_file = Path('~/.vim/colors/darcula.vim').expanduser()
     if not vim_color_scheme_file.exists():
         log.info('Pulling the colorsheme file for NeoVim...')
         vim_color_scheme_file.parent.mkdir(parents=True, exist_ok=True)
         color_scheme_url = 'https://raw.githubusercontent.com/blueshirts/darcula/master/colors/darcula.vim'
-        run_cmd(f'wget -O {vim_color_scheme_file} {color_scheme_url}')
+        _run_cmd(f'wget -O {vim_color_scheme_file} {color_scheme_url}')
 
     log.info('Synchronizing NeoVim plugins with vim-plug...')
-    run_cmd('nvim +PlugClean +PlugInstall +qall')
+    _run_cmd('nvim +PlugUpgrade +PlugClean +PlugUpdate +qall')
 
     regular_vim_binary = Path('/usr/bin/vim')
     if not regular_vim_binary.exists():
-        log.info(f'Setting up link to NeoVim at {regular_vim_binary}')
+        log.info('Setting up link to NeoVim at %s', regular_vim_binary)
         regular_vim_binary.symlink_to('/usr/bin/nvim')
 
 
 def ensure_ntp():
     log.info('Ensuring time is synced with NTP.')
-    run_cmd('sudo timedatectl set-ntp true')
+    _run_cmd('sudo timedatectl set-ntp true')
 
 
 def set_zsh_as_shell():
     if not os.environ['SHELL'].endswith('/zsh'):
         log.info('Setting up ZSH as the default shell...')
-        run_cmd('chsh -s /usr/bin/zsh')
-
-
-def ensure_configs_and_scripts():
-    workstation_setup.config_links.setup_all_links()
-    workstation_setup.alacritty_machine_specific_config.setup()
+        _run_cmd('chsh -s /usr/bin/zsh')
 
 
 def set_qt_theme():
@@ -157,15 +191,15 @@ def set_qt_theme():
 def enable_services():
     log.info('Making sure certain services are enabled, running, and usable...')
 
-    run_cmd('sudo systemctl enable --now docker')
+    _run_cmd('sudo systemctl enable --now docker')
     subprocess.run('sudo usermod -a -G docker $(whoami)', shell=True, check=True)
 
-    # for yubikey
-    run_cmd('sudo systemctl enable --now pcscd')
+    # needed so that yubico-authenticator can talk with the yubikey
+    _run_cmd('sudo systemctl enable --now pcscd')
 
 
 def describe_manual_steps():
-    text = """There are some steps you need to do manually
+    text = """There are some steps you need to do manually after an initial setup:
 - Brave: enable sync (for everything)
 - Dropbox: log in
 - PIA: set it up - run `pia_download`, etc.
@@ -174,9 +208,9 @@ def describe_manual_steps():
 - qbittorrent: enable search plugin -> View/search engine/search plugins, and configure it
 - KeePassXC: secret's service integration needs to be enabled manually
 - set up ~/.credentials/borg_key from KeePass
+- clock widget: set time format to %Y-%m-%d %H:%M:%S
 - restart so that XFCE configuration loads
 - remove XFCE workspace switcher and set up favourites menu
-- clock widget: set time format to %Y-%m-%d %H:%M:%S
 """
     log.info(text)
 

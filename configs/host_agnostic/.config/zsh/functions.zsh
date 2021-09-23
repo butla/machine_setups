@@ -52,25 +52,7 @@ function windows-1250-to-utf-8()
 
 function upgrade()
 {
-    echo "${bg[green]}---${reset_color}Looking for updates with yay${bg[green]}---${reset_color}"
-    yay -Syu;
-    echo "${bg[green]}---${reset_color}Removing unused pacman packages${bg[green]}---${reset_color}"
-    sudo pacman -R $(pacman -Qdtq)
-
-    echo "${bg[green]}---${reset_color}Looking for updates with flatpak${bg[green]}---${reset_color}"
-    flatpak update;
-
-    echo "${bg[green]}---${reset_color}Updating NeoVim plugins${bg[green]}---${reset_color}"
-    nvim +PlugUpgrade +PlugClean +PlugUpdate +qall
-
-    TMUX_PLUGIN_DIR=~/.tmux/plugins
-    echo "${bg[green]}---${reset_color}Updating Tmux plugins${bg[green]}---${reset_color}"
-    for plugin in $(ls $TMUX_PLUGIN_DIR); do
-        (cd $TMUX_PLUGIN_DIR/$plugin; git pull)
-    done
-
-    echo "${bg[green]}---${reset_color}Updating Oh My Zsh${bg[green]}---${reset_color}"
-    (cd ~/.oh-my-zsh; git pull)
+    (cd ~/development/machine_setups; git pull; make setup_workstation)
 }
 
 function record_voice()
