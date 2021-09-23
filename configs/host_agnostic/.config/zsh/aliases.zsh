@@ -37,12 +37,14 @@ alias lsblkk='lsblk | grep -v "/snap"'
 
 # thorough finding
 alias fdd='fd --hidden --follow --exclude .git'
-#
+
 # find everything
 alias fde='fd --hidden --follow --exclude .git --no-ignore'
 
-alias my_ip='http ipinfo.io'
 alias ag='ag --hidden --ignore .git -f'
+alias age='ag --hidden --ignore .git -f --skip-vcs-ignores'
+
+alias my_ip='http ipinfo.io'
 
 alias pudbtest='pudb3 $(which pytest) -s'
 alias pudbtest2='pudb $(which pytest) -s'
