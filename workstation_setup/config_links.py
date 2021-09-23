@@ -14,19 +14,20 @@ log = logging.getLogger(__name__)
 
 def setup_all_links():
     log.info('Ensuring up-to-date configurations and scripts...')
+    home_path = Path('~').expanduser()
     setup_links(
         source_dir=Path('configs/host_agnostic/'),
-        target_dir=Path('~').expanduser(),
+        target_dir=home_path,
     )
     current_host = platform.node()
     setup_links(
         source_dir=Path(f'configs/host_specific/{current_host}/'),
-        target_dir=Path('~').expanduser(),
+        target_dir=home_path,
     )
     # TODO make sure the files here are chmod 600
     setup_links(
         source_dir=Path('configs/configs_private/home/'),
-        target_dir=Path('~').expanduser(),
+        target_dir=home_path,
     )
 
 

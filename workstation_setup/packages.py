@@ -45,6 +45,7 @@ PACMAN_PACKAGES = [
     'tesseract',  # OCR
     'tesseract-data-pol',
     'tesseract-data-eng',
+    'zsh',  # my preferred shell
     'zsh-theme-powerlevel10k',  # a ZSH theme
     'powerline-fonts',  # needed for powerlevel10k theme
     'awesome-terminal-fonts',  # needed for powerlevel10k theme

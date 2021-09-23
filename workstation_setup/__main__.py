@@ -230,8 +230,7 @@ if __name__ == '__main__':
 # - gthumb - the zoom-in keyboard shortcut problem (https://gitlab.gnome.org/GNOME/gthumb/-/issues/103)
 
 # TODOS
-# - upload new version of bootstrap_my_tools
-# - pipx packages:
+# - setup python tools with pipx packages:
 #   - ocrmypdf
-# - remove https://github.com/butla/utils. Move stuff from it around
-# - compare installed packages on both machines - where is bh taking the awesome fonts from?
+# - (maybe needed) automatically fix pipx installs after Manjaro switches to a higher Python version. They were getting
+# broken
