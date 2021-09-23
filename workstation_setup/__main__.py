@@ -223,7 +223,7 @@ if __name__ == '__main__':
 
 # notes for the future (maybe):
 # - removing .zcompdump might be needed after installing oh-my-zsh (wasn't the last time I installed it)
-# - removing keyring requirements for Python packages: https://stackoverflow.com/questions/64570510/why-does-pip3-want-to-create-a-kdewallet-after-installing-updating-packages-on-u
+# - removing keyring requirements for Python packages: https://stackoverflow.com/questions/64570510/why-does-pip3-want-to-create-a-kdewallet-after-installing-updating-packages-on-u pylint: disable=line-too-long
 # - shortcuts for moving windows between screens:
 #     https://github.com/calandoa/movescreen
 #     https://github.com/jc00ke/move-to-next-monitor
