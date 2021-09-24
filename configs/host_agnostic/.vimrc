@@ -140,12 +140,6 @@ function! ToggleSpellingLanguage()
     endif
 endfunction
 
-"bind J and K to moving around
-nmap J 30j
-nmap K 30k
-vmap J 30j
-vmap K 30k
-
 " TODO bind a shortcut to type :%s:<CURSOR>:gc so that I can search and replace faster
 
 " copy the current file's path
