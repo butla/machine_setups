@@ -101,6 +101,6 @@ alias printer_print_options='lpoptions -d Brother_DCP_J772DW -l'
 alias print_pdf_black_and_white='lpr -P Brother_DCP_J772DW -o ColorModel=Gray'
 
 # shows the changes in my machine config
-alias conf_diff='(cd ~/development/machine_setups; git diff)'
+alias conf_diff='(cd ~/development/machine_setups; git status && git diff)'
 # commits and pushes the changes in my machine config
 alias conf_push='(cd ~/development/machine_setups; git commit -a && git push)'

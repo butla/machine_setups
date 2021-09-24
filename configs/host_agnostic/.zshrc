@@ -132,9 +132,6 @@ export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/development
 source $(which virtualenvwrapper.sh)
 
-# make python scripts use ipdb by default when debugging
-export PYTHONBREAKPOINT=ipdb.set_trace
-
 # fd configuration, mainly so that FZF works more to my liking
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 
