@@ -85,6 +85,8 @@ autocmd FileType css,html* setlocal tabstop=2 softtabstop=2 shiftwidth=2
 " TODO not working
 autocmd FileType html let b:delimitMate_matchpairs = "(:),[:],{:}"
 
+autocmd FileType toml setlocal commentstring=#\ %s
+
 set ignorecase
 set hlsearch
 set incsearch
