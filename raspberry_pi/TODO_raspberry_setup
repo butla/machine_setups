@@ -1,9 +1,3 @@
-Manjaro
-=======
-
-Set GPU memory to 256 MBs in /boot/config.txt
-
-
 Raspberry OS
 =============
 
@@ -18,6 +12,7 @@ Video quality
 https://lemariva.com/blog/2020/08/raspberry-pi-4-video-acceleration-decode-chromium
 
 Increase Video memory size to 128 or 256 MB (sudo raspi-config)
+Or just edit /boot/config.txt
 
 omxplayer and kodi use hardware acceleration (through something called mmal?)
 
@@ -48,6 +43,7 @@ Kodi requires "Pulse default output device" as the audio output
 
 TODO
 ----
+- compile MPV if it seems possible after reading https://github.com/mpv-player/mpv/issues/7492
 - is the VLC MMAL video output I see actually working?
 - get hardware accelerated, fullscreen VLC
 - audio, subtitle, and a progress bar in omxplayer?
