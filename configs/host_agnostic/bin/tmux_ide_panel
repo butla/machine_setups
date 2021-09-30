@@ -12,14 +12,14 @@ function run_container_in_pane()
 }
 
 # Split panes horizontally and don't switch selection to the new pane to continue the script.
-# Set the pane to at 114 chars width, which can fit 110 chars of line length
-# (10 more than I like to have, just in case) and my vim line indicator.
-# That is, when the line length is below of 1000, which is the case with most files I edit.
+# Set the pane width to the max line length I want, plus 4 more characters for my vim line indicator
+# (assuming the file is below 1000 lines, which is the case for most files I edit).
 # Runs my ZSH function that runs vim with some setup magics in the pane created in the split.
 tmux split-window -hd -l 124 zsh -ic v
 
 # vertical split, open above us with ranger for file management.
 # It's called through interactive ZSH, so that environment variables like $EDITOR and $PAGER get loaded from .zshrc
+# I prefer a full-featured file manager in a tmux split than having something like nerdtree in Vim.
 tmux split-window -vdb -p 40 zsh -ic ranger
 
 if [ -f docker-compose.yml ]; then
@@ -36,7 +36,3 @@ fi
 
 # switch to the vim view. It'll pane 3 if we have the Docker pane, pane 2 otherwise
 tmux select-pane -t 3 2> /dev/null || tmux select-pane -t 2
-# TODO write about this script - using ranger instead of nerdtree,
-# because I think it's a better window manager
-
-# screenshot of the end product (just no work code, use mountepy, or responder code, or experiments)
