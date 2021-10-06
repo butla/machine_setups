@@ -8,7 +8,8 @@ fi
 
 PATH_FOR_FOLDERS=~/Dropbox/księgowość
 
-for subpath in prywatne/przychody prywatne/różne prywatne/wydatki \
+for subpath in prywatne/przychody prywatne/wydatki \
+    prywatne/wyciągi prywatne/różne \
     uk-witchsoft/przychody uk-witchsoft/wydatki \
     uk-witchsoft/wyciągi uk-witchsoft/różne
 do
