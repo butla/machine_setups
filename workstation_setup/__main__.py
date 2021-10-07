@@ -230,7 +230,7 @@ if __name__ == '__main__':
 # - gthumb - the zoom-in keyboard shortcut problem (https://gitlab.gnome.org/GNOME/gthumb/-/issues/103)
 
 # TODOS
-# - setup python tools with pipx packages:
+# - setup python tools with pipx packages (also update them?):
 #   - ocrmypdf
-# - (maybe needed) automatically fix pipx installs after Manjaro switches to a higher Python version. They were getting
-# broken
+# - (maybe needed) automatically fix pipx installs after Manjaro switches to a higher Python version.
+#   They were getting broken.
