@@ -234,3 +234,5 @@ if __name__ == '__main__':
 #   - ocrmypdf
 # - (maybe needed) automatically fix pipx installs after Manjaro switches to a higher Python version.
 #   They were getting broken.
+# - alternative packages different hosts:
+#   - bl: matebook-applet (AUR), for enabling/disabling fn-lock. It's not working right now
