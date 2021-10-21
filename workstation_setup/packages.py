@@ -105,6 +105,7 @@ PACMAN_PACKAGES = [
     'krita',  # drawing program with tablet support
     'audacity',  # sound editor
     'syncthing',  # file synchronization
+    'system-config-printer',  # Manjaro or XFCE printer setup GUI
 ]
 
 AUR_PACKAGES = {
