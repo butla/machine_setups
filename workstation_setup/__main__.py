@@ -202,13 +202,13 @@ def enable_services():
 
 def describe_manual_steps():
     text = """There are some steps you need to do manually after an initial setup:
-- Brave: enable sync (for everything)
+- KeePassXC: secret's service integration needs to be enabled manually
+- Brave: enable sync (for everything); has to be done when KeePassXC secret's service integration is running
 - Dropbox: log in
 - PIA: set it up - run `pia_download`, etc.
 - Exodus wallet: set it up - go to https://www.exodus.com/download/, restore the wallet
 - Signal: sync with phone
 - qbittorrent: enable search plugin -> View/search engine/search plugins, and configure it
-- KeePassXC: secret's service integration needs to be enabled manually
 - set up ~/.credentials/borg_key from KeePass
 - clock widget: set time format to %Y-%m-%d %H:%M:%S
 - restart so that XFCE configuration loads
