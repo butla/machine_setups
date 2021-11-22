@@ -24,3 +24,8 @@ If you want to fork this repository and adjust it for your purposes you might wa
 repo in `.gitmodules`, or just remove the file altogether.
 With that, you'll need to remove the line in Python code (from `workstation_setup/config_links.py`)
 that uses my private configs.
+
+Similar tools
+-------------
+
+- [chezmoi](https://www.chezmoi.io/)
