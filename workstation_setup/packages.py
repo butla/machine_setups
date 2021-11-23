@@ -80,8 +80,9 @@ PACMAN_PACKAGES = [
     'brave',  # my preferred browser
     'meld',  # visual diff tool
     'keepassxc',  # a password manager
-    'gthumb',  # a good image viewer
+    'pix',  # a good image viewer
     'gimp',  # image editor
+    'digikam',  # a photo manager
     'inkscape',  # vector graphics creator
     'cheese',  # taking photos with the camera
     'okular',  # my preferred PDF viewer
