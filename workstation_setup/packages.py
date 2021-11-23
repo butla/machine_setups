@@ -84,7 +84,7 @@ PACMAN_PACKAGES = [
     'gimp',  # image editor
     'digikam',  # a photo manager
     'inkscape',  # vector graphics creator
-    'cheese',  # taking photos with the camera
+    'cheese',  # taking photos and videos with the camera/webcam
     'okular',  # my preferred PDF viewer
     'pdfmod',  # PDF editor
     'xournalpp',  # writing on PDFs
@@ -123,4 +123,8 @@ AUR_PACKAGES = {
     'zoom',  # video conferencing
     'toilet',  # printing large letters in terminal
     'hollywood',  # "Fill your console with Hollywood melodrama technobabble"
+    # Simple/crude screencasting / desktop recording.
+    # Kazam looks nicer but is broken without a fix:
+    # https://aur.archlinux.org/packages/kazam/
+    'screenstudio',
 }
