@@ -52,6 +52,11 @@ function windows-1250-to-utf-8()
 
 function upgrade()
 {
+    if ! ssh-add -l > /dev/null; then
+        echo "Opening the private key and adding it to ssh-agent..."
+        ssh-add
+    fi
+
     (cd ~/development/machine_setups; git pull; make setup_workstation)
 }
 
