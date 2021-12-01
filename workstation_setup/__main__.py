@@ -210,9 +210,10 @@ def describe_manual_steps():
 - Signal: sync with phone
 - qbittorrent: enable search plugin -> View/search engine/search plugins, and configure it
 - set up ~/.credentials/borg_key from KeePass
+- pix: set sorting by filename in "view/sort by"
 - clock widget: set time format to %Y-%m-%d %H:%M:%S
-- restart so that XFCE configuration loads
 - remove XFCE workspace switcher and set up favourites menu
+- restart so that XFCE configuration loads
 """
     log.info(text)
 
