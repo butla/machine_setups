@@ -56,6 +56,7 @@ PACMAN_PACKAGES = [
     'asciinema',  # recording terminal sessions
     'sl',  # steam locomotive
     'mediainfo',  # CLI for getting info about media files, used by ranger
+    'glances',  # single view of multiple system load metrics
     # =========================
     # heavy CLI programs for development
     # =========================
