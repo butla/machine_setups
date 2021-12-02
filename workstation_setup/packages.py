@@ -116,9 +116,6 @@ AUR_PACKAGES = {
     'slack-desktop',
     'wrk',  # HTTP application benchmarking tool
     'subliminal',  # movie subtitles downloader
-    'ptpython',  # nice python interactive shell
-    'pgcli',  # nice Postgres CLI client
-    'litecli',  # nice SQLite CLI client
     'spotify',
     'tor-browser',
     'zoom',  # video conferencing

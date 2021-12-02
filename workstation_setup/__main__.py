@@ -233,6 +233,9 @@ if __name__ == '__main__':
 # TODOS
 # - setup python tools with pipx packages (also update them?):
 #   - ocrmypdf
+#   - ptpython (nice python interactive shell), with sympy and others (through pipx inject)
+#   - pgcli (nice Postgres CLI client)
+#   - litecli (nice SQLite CLI client)
 # - (maybe needed) automatically fix pipx installs after Manjaro switches to a higher Python version.
 #   They were getting broken.
 # - alternative packages different hosts:
