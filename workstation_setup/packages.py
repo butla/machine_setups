@@ -121,8 +121,9 @@ AUR_PACKAGES = {
     'zoom',  # video conferencing
     'toilet',  # printing large letters in terminal
     'hollywood',  # "Fill your console with Hollywood melodrama technobabble"
+    # TODO get something good for recording videos.
     # Simple/crude screencasting / desktop recording.
+    # 'screenstudio',
     # Kazam looks nicer but is broken without a fix:
     # https://aur.archlinux.org/packages/kazam/
-    'screenstudio',
 }
