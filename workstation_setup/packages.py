@@ -1,3 +1,7 @@
+from dataclasses import dataclass
+from typing import Optional, Callable, Union, Set
+
+
 PACMAN_PACKAGES = [
     # =========================
     # lightweight CLI programs
@@ -110,7 +114,19 @@ PACMAN_PACKAGES = [
     'system-config-printer',  # Manjaro or XFCE printer setup GUI
 ]
 
-AUR_PACKAGES = {
+
+@dataclass
+class AurPackage:
+    """
+    Can be used instead of strings in AUR_PACKAGES definitions.
+    Used to run any post-installation actions that are needed for the package to work as intended.
+    """
+
+    name: str
+    post_install: Optional[Callable] = None
+
+
+AUR_PACKAGES: Set[Union[str,AurPackage]] = {
     'dropbox',
     'dropbox-cli',
     'slack-desktop',
@@ -121,8 +137,11 @@ AUR_PACKAGES = {
     'zoom',  # video conferencing
     'toilet',  # printing large letters in terminal
     'hollywood',  # "Fill your console with Hollywood melodrama technobabble"
-    # Simple/crude screencasting / desktop recording.
-    # Kazam looks nicer but is broken without a fix:
-    # https://aur.archlinux.org/packages/kazam/
-    'screenstudio',
+    AurPackage('kazam', fixup_kazam),
 }
+
+
+def fixup_kazam():
+    # TODO
+    # sudo sed "s/time.clock()/time.perf_counter()/g" -i /usr/lib/python3.9/site-packages/kazam/pulseaudio/pulseaudio.py
+    pass
