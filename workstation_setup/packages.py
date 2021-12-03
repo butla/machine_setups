@@ -57,6 +57,7 @@ PACMAN_PACKAGES = [
     'sl',  # steam locomotive
     'mediainfo',  # CLI for getting info about media files, used by ranger
     'glances',  # single view of multiple system load metrics
+    'dog',  # DNS lookup, similar to dig
     # =========================
     # heavy CLI programs for development
     # =========================
