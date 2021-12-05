@@ -5,13 +5,7 @@ import subprocess
 resp = requests.get('http://ipinfo.io')
 resp.raise_for_status()
 
-timezones = {
-    'PL': 'Europe/Warsaw',
-    'GB': 'Europe/London',
-}
-
-country = resp.json()['country']
-timezone = timezones[country]
+timezone = resp.json()['timezone']
 
 print('Setting timezone:', timezone)
 subprocess.run(f'timedatectl set-timezone {timezone}'.split())
