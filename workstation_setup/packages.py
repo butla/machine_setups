@@ -79,7 +79,7 @@ PACMAN_PACKAGES = [
     # =========================
     'alacritty',  # my preferred terminal emulator
     'arandr',  # displays' manager
-    'brave',  # my preferred browser
+    'brave-browser',  # my preferred browser
     'meld',  # visual diff tool
     'keepassxc',  # a password manager
     'pix',  # a good image viewer
