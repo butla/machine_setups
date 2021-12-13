@@ -91,9 +91,15 @@ set ignorecase
 set hlsearch
 set incsearch
 set smartcase
+set nowrap
+
+" line number shown at cursor, relative numbers on other lines
 set number
 set relativenumber
-set nowrap
+" highlight only the line number, not the whole line
+set cursorlineopt=number
+" enable highlight
+set cursorline
 
 " showing whitespace
 set listchars=trail:¬,tab:>-,extends:>,precedes:<
