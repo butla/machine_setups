@@ -57,7 +57,9 @@ PACMAN_PACKAGES = [
     'sl',  # steam locomotive
     'mediainfo',  # CLI for getting info about media files, used by ranger
     'glances',  # single view of multiple system load metrics
-    'dog',  # DNS lookup. "drill" from "ldns" package can also be used for more info
+    'dog',  # DNS lookup.
+    'ldns',  # another DNS lookup. Provides "drill", which gives more info than "dog".
+    'gnu-netcat',  # TCP client/listener
     # =========================
     # heavy CLI programs for development
     # =========================
