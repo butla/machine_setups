@@ -36,6 +36,8 @@ Plug 'davidhalter/jedi-vim'
 Plug 'fisadev/vim-isort'
 " highlighting Python test coverage
 Plug 'mgedmin/coverage-highlight.vim'
+" automatic Python imports
+Plug 'relastle/vim-nayvy'
 
 call plug#end()
 
@@ -227,7 +229,8 @@ let g:ackprg = 'ag --vimgrep --hidden --ignore .git'
 " Set the linter depending on what's available in the current environment.
 for linter in ['pylint', 'flake8', 'pycodestyle']
     if system("python3 -c 'import " . linter . "'") == ""
-        let g:ale_linters = { 'python': [linter] }
+        " isort and nayvy#ale_fixer will always be added
+        let g:ale_linters = { 'python': ['nayvy#ale_fixer', 'isort', linter] }
         break
     endif
 endfor

@@ -5,13 +5,12 @@ This script installs software and applies configurations that I want in my Manja
 
 import logging
 import os
+from pathlib import Path
 import re
 import shlex
 import subprocess
-from pathlib import Path
 
 import workstation_setup
-
 
 # colors taken from "colorama". I don't want to depend on it, though
 _BACKGROUND_GREEN = '\x1b[42m'
@@ -236,6 +235,8 @@ if __name__ == '__main__':
 #   - ptpython (nice python interactive shell), with sympy and others (through pipx inject)
 #   - pgcli (nice Postgres CLI client)
 #   - litecli (nice SQLite CLI client)
+#   - isort
+# - restart failing steps, ask whether to restart with a yellow (flashing) prompt - use Rich?
 # - (maybe needed) automatically fix pipx installs after Manjaro switches to a higher Python version.
 #   They were getting broken.
 # - alternative packages different hosts:

@@ -1,7 +1,6 @@
 from datetime import datetime
 
 import pytest
-
 import work_days_between
 
 

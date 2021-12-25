@@ -5,11 +5,11 @@
 # - cron
 from datetime import datetime
 import itertools
+from pathlib import Path
 import shlex
 import subprocess
 import sys
 from typing import List, Tuple
-from pathlib import Path
 
 import pytz
 import requests

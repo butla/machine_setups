@@ -16,11 +16,11 @@ A script to run on your phone (running in Termux under Android).
 # Or vendor typer into this repo.
 
 import argparse
+from datetime import datetime
+from pathlib import Path
 import shlex
 import shutil
 import subprocess
-from datetime import datetime
-from pathlib import Path
 from typing import List, Optional
 
 MEDIA_DIR = Path('/storage/9C33-6BBD/DCIM/Camera/')

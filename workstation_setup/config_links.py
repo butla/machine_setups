@@ -1,11 +1,10 @@
 from dataclasses import dataclass
 import logging
+import os
 from pathlib import Path
 import platform
-import os
 import re
-from typing import List, Iterable
-
+from typing import Iterable, List
 
 BACKUP_SUFFIX = '.bak'
 

@@ -1,6 +1,7 @@
 #!/usr/bin/python3
-import requests
 import subprocess
+
+import requests
 
 resp = requests.get('http://ipinfo.io')
 resp.raise_for_status()
