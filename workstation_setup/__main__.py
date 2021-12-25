@@ -92,6 +92,7 @@ def install_standard_packages():
     _run_cmd(f'sudo pacman -S --needed --noconfirm {packages_string}')
 
 
+# TODO open https://aur.archlinux.org/packages/{package_name}/ if there are errors, say you're doing that.
 def install_aur_packages():
     # yay doesn't have a method for skipping the installation of packages that are already installed,
     # so I have to implement that myself.
