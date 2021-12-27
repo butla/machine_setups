@@ -6,11 +6,11 @@ setup_workstation:
 validate_continously:
 	fd '\.py$$' workstation_setup/ tests/ | entr -c make lint test
 
-validate: lint test
+validate: static_checks test
 
 test:
 	PYTHONPATH=.:configs/host_agnostic/bin pytest -v tests
 
-lint:
+static_checks:
 	pylint workstation_setup
 	isort -c .
