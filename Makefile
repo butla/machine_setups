@@ -14,7 +14,3 @@ test:
 lint:
 	pylint workstation_setup
 	isort -c .
-
-# TODO automate that with Vim / Ale
-format:
-	isort .
