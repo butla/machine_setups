@@ -10,7 +10,7 @@ call plug#begin(stdpath('data') . '/plugged')
 " code completions
 Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
 " async linting and syntax checking
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 " text searching
 Plug 'mileszs/ack.vim'
 " auto-close brackets, quotes, code structures, etc.
@@ -224,18 +224,23 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 " It will search in hidden files, but will ignore git stuff
 let g:ackprg = 'ag --vimgrep --hidden --ignore .git'
 
-" ALE configuration
+" ALE configuration =====================
+
 " TODO if the file is a test file, see if there's .pylintrc-test. Use ale_pattern_options for that?
 " Set the linter depending on what's available in the current environment.
 for linter in ['pylint', 'flake8', 'pycodestyle']
     if system("python3 -c 'import " . linter . "'") == ""
-        " isort and nayvy#ale_fixer will always be added
-        let g:ale_linters = { 'python': ['nayvy#ale_fixer', 'isort', linter] }
+        let g:ale_linters = { 'python': [linter] }
         break
     endif
 endfor
 
+let g:ale_fixers = { 'python': ['nayvy#ale_fixer', 'isort'] }
+
 let g:ale_lint_on_text_changed = 'never'
+let g:ale_fix_on_save = 1
+
+" ======================================
 
 " disable jedi-vim completions and unused commands - something else will be taking care of that
 let g:jedi#completions_enabled = 0
