@@ -24,7 +24,7 @@ import subprocess
 from typing import List, Optional
 
 MEDIA_DIR = Path('/storage/9C33-6BBD/DCIM/Camera/')
-PC_PHOTOS_DIR = '/data/zdjęcia_i_filmiki/z_telefonu_mego/samsung_note10/'
+PC_PHOTOS_DIR = '/data/zdjęcia_i_filmiki/telefon/'
 # if I'll add libraries I should use this https://github.com/ActiveState/appdirs
 TRANSFER_LOGS_DIR = Path('~/.local/share/phone_media_transfer/').expanduser()
 
