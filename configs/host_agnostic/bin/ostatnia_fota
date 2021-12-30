@@ -9,7 +9,7 @@ from typing import List, Optional
 
 
 PC_SORTED_MEDIA_PATH = Path('/data/zdjęcia_i_filmiki')
-PC_LOOSE_MEDIA_PATH = Path('/data/zdjęcia_i_filmiki/z_telefonu_mego/samsung_note10')
+PC_LOOSE_MEDIA_PATH = Path('/data/zdjęcia_i_filmiki/telefon/')
 PHONE_CAMERA_PATH = Path('/run/user/1000/5f2e966a3531bb46/storage/emulated/0/DCIM/Camera/')
 # PHONE_CAMERA_PATH = Path('/home/butla/phone/Phone/DCIM/Camera/')
 
