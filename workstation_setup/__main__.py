@@ -37,6 +37,7 @@ def main():
     set_zsh_as_shell()
     set_qt_theme()
     enable_services()
+    setup_crontab()
     describe_manual_steps()
 
     log.info('All done.')
@@ -198,6 +199,17 @@ def enable_services():
 
     # needed so that yubico-authenticator can talk with the yubikey
     _run_cmd('sudo systemctl enable --now pcscd')
+
+
+def setup_crontab():
+    log.info('Ensuring proper crontab.')
+    crontab_contents = '@monthly $HOME/bin/new_accounting_month\n'
+    subprocess.run(
+        ['crontab', '-'],
+        input=crontab_contents,
+        text=True,
+        check=True,
+    )
 
 
 def describe_manual_steps():
