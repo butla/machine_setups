@@ -255,7 +255,9 @@ if __name__ == '__main__':
 #   - litecli (nice SQLite CLI client)
 #   - isort
 # - restart failing steps, ask whether to restart with a yellow (flashing) prompt - use Rich?
-# - (maybe needed) automatically fix pipx installs after Manjaro switches to a higher Python version.
-#   They were getting broken.
+# - (maybe needed) automatically fix pipx installs and virtualenvs after Manjaro switches to a higher Python version.
+#   Currently, they're all getting broken.
+#   My current process is recreating all virtualenvs and all pipx installs.
+#   ~/.local/pipx/ might need to get deleted as well.
 # - alternative packages different hosts:
 #   - bl: matebook-applet (AUR), for enabling/disabling fn-lock. It's not working right now
