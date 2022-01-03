@@ -9,7 +9,7 @@ setup_workstation:
 # The below commands require setting up a virtualenv, activating it, and running `poetry install` in it.
 
 validate_continously:
-	fd '\.py$$' workstation_setup/ tests/ | entr -c make --keep-going validate
+	fd '\.py$$' workstation_setup/ configs/ tests/ | entr -c make --keep-going validate
 
 # Pylint can find errors in the code that can cause multiple tests to fail
 # (which would produce a lot of pytest output), so we run it first.
