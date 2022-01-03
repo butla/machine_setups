@@ -202,8 +202,13 @@ def enable_services():
 
 
 def setup_crontab():
-    log.info('Ensuring proper crontab.')
-    crontab_contents = '@monthly $HOME/bin/new_accounting_month\n'
+    log.info('Ensuring periodic operations with cron and anacron.')
+
+    users_anacron_spool_dir = Path('~/.local/var/spool/anacron').expanduser()
+    users_anacron_spool_dir.mkdir(parents=True, exist_ok=True)
+
+    # We'll run anacron through cron. Check out https://serverfault.com/a/172994/499078
+    crontab_contents = f'@hourly anacron -t ${{HOME}}/.local/etc/anacrontab -S {users_anacron_spool_dir}\n'
     subprocess.run(
         ['crontab', '-'],
         input=crontab_contents,
