@@ -254,6 +254,7 @@ if __name__ == '__main__':
 #   - pgcli (nice Postgres CLI client)
 #   - litecli (nice SQLite CLI client)
 #   - isort
+#   - subliminal
 # - restart failing steps, ask whether to restart with a yellow (flashing) prompt - use Rich?
 # - (maybe needed) automatically fix pipx installs and virtualenvs after Manjaro switches to a higher Python version.
 #   Currently, they're all getting broken.

@@ -118,7 +118,6 @@ AUR_PACKAGES = {
     'dropbox-cli',
     'slack-desktop',
     'wrk',  # HTTP application benchmarking tool
-    'subliminal',  # movie subtitles downloader
     'spotify',
     'tor-browser',
     'zoom',  # video conferencing
