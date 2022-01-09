@@ -255,7 +255,7 @@ if __name__ == '__main__':
 #   - litecli (nice SQLite CLI client)
 #   - isort
 #   - subliminal
-# - restart failing steps, ask whether to restart with a yellow (flashing) prompt - use Rich?
+# - on failed steps ask whether to restart or skip them. Or maybe cancel the whole run.
 # - (maybe needed) automatically fix pipx installs and virtualenvs after Manjaro switches to a higher Python version.
 #   Currently, they're all getting broken.
 #   My current process is recreating all virtualenvs and all pipx installs.
