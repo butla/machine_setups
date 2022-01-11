@@ -60,6 +60,7 @@ PACMAN_PACKAGES = [
     'dog',  # DNS lookup.
     'ldns',  # another DNS lookup. Provides "drill", which gives more info than "dog".
     'gnu-netcat',  # TCP client/listener
+    'gendesk',  # desktop file generator for apps, used while building some AUR packages
     # =========================
     # heavy CLI programs for development
     # =========================
