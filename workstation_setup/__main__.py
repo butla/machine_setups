@@ -255,6 +255,11 @@ if __name__ == '__main__':
 #   - litecli (nice SQLite CLI client)
 #   - isort
 #   - subliminal
+# - Produce report about all the packages (pacman and yay, maybe checkout pamac) that can be updated,
+#   then do them at once. Now you have to do two confirmations.
+#   Also check the ones for deletions.
+#   Give one colored report.
+#   Require single confirmation.
 # - on failed steps ask whether to restart or skip them. Or maybe cancel the whole run.
 # - (maybe needed) automatically fix pipx installs and virtualenvs after Manjaro switches to a higher Python version.
 #   Currently, they're all getting broken.
