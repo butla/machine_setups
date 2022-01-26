@@ -90,13 +90,6 @@ function passwordgen()
     echo "Password created and copied to clipboard..."
 }
 
-function gp()
-{
-    git push $@
-    echo "-----------"
-    git status
-}
-
 # fuzzy finding a file/directory and then going to its location (jumping)
 # TODO maybe should go into the directory if it's selected?
 function fj()

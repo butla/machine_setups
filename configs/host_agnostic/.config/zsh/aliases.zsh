@@ -16,11 +16,12 @@ alias gc='git checkout'
 alias gco='git commit -a'
 alias gcoo='git commit'
 alias gm='git mergetool && echo ----------- && git status'
+alias gp='git push'
 alias gpl='git pull'
 alias gf='git fetch && echo ----------- && git status'
 alias gr='git rebase -i'
 # rebase the commits on the current branch
-alias grb='git rebase -i $(git merge-base HEAD origin/master) && echo ----------- && git status'
+alias grb='git rebase -i $(git merge-base HEAD origin/master)'
 # show the changes made on the current branch
 alias gdfb='git difftool --dir-diff $(git merge-base HEAD origin/master)'
 # show the log of the current branch
