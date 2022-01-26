@@ -195,6 +195,7 @@ def enable_services():
     log.info('Making sure certain services are enabled, running, and usable...')
 
     _run_cmd('sudo systemctl enable --now docker')
+    # TODO that's needed on ubuntu after all
     subprocess.run('sudo usermod -a -G docker $(whoami)', shell=True, check=True)
 
     # needed so that yubico-authenticator can talk with the yubikey
