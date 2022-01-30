@@ -1,3 +1,12 @@
+# log stuff in functions and scripts in a way that shows that the messages are from me and give me some info I want.
+function log() {
+    _BACKGROUND_GREEN="\x1b[42m"
+    _BACKGROUND_RESET="\x1b[49m"
+
+    echo $_BACKGROUND_GREEN $(date --iso-8601=seconds) INFO $_BACKGROUND_RESET $@
+}
+
+
 # Attach to a local Postgres container.
 function pgclidocker()
 {
@@ -143,4 +152,46 @@ function subspl()
         echo "Fixing a windows-1250 subtitle file..."
         windows-1250-to-utf-8 *.pl.srt
     fi
+}
+
+# TODO make this say exactly what program modified what file in the audited directories
+# Right now the it produces a lot of spam that needs to be grepped.
+#
+# Something like `aureport -i -k THE_KEY` should say that, but it says they're not implemented.
+function configs_audit()
+{
+    AUDIT_KEY=configs_audit
+    log "Gonna trace programs that write potential configs - directories like: ~/.config, ~/.local, /etc"
+
+    log "Starting auditd service for tracing..."
+    sudo systemctl start auditd.service
+
+    log "Adding trace to certain directories..."
+    # audit_paths=("$HOME/.config" "$HOME/.local" "/etc")
+    audit_paths=("$HOME/Downloads/bla" "$HOME/Downloads/xyz" "$HOME/Downloads/abc")
+    for audit_path in "${audit_paths[@]}"; do
+        sudo auditctl -w $audit_path -p wa -k $AUDIT_KEY
+    done
+
+    log "You can now do the thing in some program, that you want to trace... Press \"enter\" here once you're done"
+    read
+
+    # filter out (grep -v) things that spam .config the most
+    sudo ausearch -k $AUDIT_KEY | grep name | grep -v spotify | grep -v Slack | grep -v Brave
+
+    log "Removing directories from trace..."
+    for audit_path in "${audit_paths[@]}"; do
+        sudo auditctl -W $audit_path -p wa -k $AUDIT_KEY
+    done
+
+    log "Stopping auditd service after tracing..."
+    sudo systemctl stop auditd.service
+}
+
+function loop_test()
+{
+    audit_paths=("$HOME/.config" "$HOME/.local" "/etc")
+    for audit_path in "${audit_paths[@]}"; do
+        ls $audit_path
+    done
 }
