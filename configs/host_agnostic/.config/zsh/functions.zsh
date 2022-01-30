@@ -158,6 +158,8 @@ function subspl()
 # Right now the it produces a lot of spam that needs to be grepped.
 #
 # Something like `aureport -i -k THE_KEY` should say that, but it says they're not implemented.
+#
+# Potential inspiration: https://kifarunix.com/find-out-who-edited-files-in-linux/
 function configs_audit()
 {
     AUDIT_KEY=configs_audit
@@ -167,8 +169,7 @@ function configs_audit()
     sudo systemctl start auditd.service
 
     log "Adding trace to certain directories..."
-    # audit_paths=("$HOME/.config" "$HOME/.local" "/etc")
-    audit_paths=("$HOME/Downloads/bla" "$HOME/Downloads/xyz" "$HOME/Downloads/abc")
+    audit_paths=("$HOME/.config" "$HOME/.local" "/etc")
     for audit_path in "${audit_paths[@]}"; do
         sudo auditctl -w $audit_path -p wa -k $AUDIT_KEY
     done
@@ -176,22 +177,16 @@ function configs_audit()
     log "You can now do the thing in some program, that you want to trace... Press \"enter\" here once you're done"
     read
 
+    # TODO this line alone produces something, but if ran in this script it doesn't
     # filter out (grep -v) things that spam .config the most
-    sudo ausearch -k $AUDIT_KEY | grep name | grep -v spotify | grep -v Slack | grep -v Brave
+    sudo ausearch --start recent --format interpret -k $AUDIT_KEY | grep name | grep -v spotify | grep -v Slack | grep -v Brave | grep -E 'type=PROCTITLE|type=PATH'
 
     log "Removing directories from trace..."
     for audit_path in "${audit_paths[@]}"; do
         sudo auditctl -W $audit_path -p wa -k $AUDIT_KEY
     done
 
-    log "Stopping auditd service after tracing..."
-    sudo systemctl stop auditd.service
-}
-
-function loop_test()
-{
-    audit_paths=("$HOME/.config" "$HOME/.local" "/etc")
-    for audit_path in "${audit_paths[@]}"; do
-        ls $audit_path
-    done
+    # TODO doesn't want to stop
+    # log "Stopping auditd service after tracing..."
+    # sudo systemctl stop auditd.service
 }
