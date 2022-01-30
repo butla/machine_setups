@@ -62,6 +62,7 @@ PACMAN_PACKAGES = [
     'gnu-netcat',  # TCP client/listener
     'gendesk',  # desktop file generator for apps, used while building some AUR packages
     'youtube-dl',  # download video and audio from YouTube
+    'ventoy',  # convert USB drives, so that you make bootable USBs by copying over an (Linux/Windows) ISO file.
     # =========================
     # heavy CLI programs for development
     # =========================
