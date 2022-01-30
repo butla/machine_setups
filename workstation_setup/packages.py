@@ -113,6 +113,7 @@ PACMAN_PACKAGES = [
     'audacity',  # sound editor
     'syncthing',  # file synchronization
     'system-config-printer',  # Manjaro or XFCE printer setup GUI
+    'qt6ct',  # QT6 theme configurator, needed for new qbittorent
 ]
 
 AUR_PACKAGES = {
