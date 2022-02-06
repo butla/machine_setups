@@ -61,8 +61,6 @@ alias plasmarestart='killall plasmashell && kstart plasmashell'
 alias bluetooth_restart_bl='sudo usb_modeswitch -R -v 8087 -p 0a2b'
 alias bluetooth_restart_b3='sudo usb_modeswitch -R -v 0cf3 -p e300'
 
-alias subs='subliminal download -l en .'
-
 # I like this as the default font
 alias toilet='toilet -f mono9'
 

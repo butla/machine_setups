@@ -145,9 +145,20 @@ function workonc()
     workon $(current_directory)
 }
 
+function subs()
+{
+    OPENSUBTITLES_USER=$(cat ~/.credentials/opensubtitles_creds.json | jq .username)
+    OPENSUBTITLES_PASS=$(cat ~/.credentials/opensubtitles_creds.json | jq .password)
+
+    subliminal --opensubtitles $OPENSUBTITLES_USER $OPENSUBTITLES_PASS download -l en .
+}
+
 function subspl()
 {
-    subliminal download -l pl .
+    OPENSUBTITLES_USER=$(cat ~/.credentials/opensubtitles_creds.json | jq .username)
+    OPENSUBTITLES_PASS=$(cat ~/.credentials/opensubtitles_creds.json | jq .password)
+
+    subliminal --opensubtitles $OPENSUBTITLES_USER $OPENSUBTITLES_PASS download -l pl .
     if [[ $(file *.pl.srt) == *"Non-ISO"* ]]; then
         echo "Fixing a windows-1250 subtitle file..."
         windows-1250-to-utf-8 *.pl.srt
