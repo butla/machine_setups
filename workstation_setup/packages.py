@@ -63,6 +63,7 @@ PACMAN_PACKAGES = [
     'gendesk',  # desktop file generator for apps, used while building some AUR packages
     'youtube-dl',  # download video and audio from YouTube
     'ventoy',  # convert USB drives, so that you make bootable USBs by copying over an (Linux/Windows) ISO file.
+    'syncthing',  # file synchronization
     # =========================
     # heavy CLI programs for development
     # =========================
@@ -112,7 +113,6 @@ PACMAN_PACKAGES = [
     'mplayer',  # video player with fast jumping and subtitle adjustment
     'krita',  # drawing program with tablet support
     'audacity',  # sound editor
-    'syncthing',  # file synchronization
     'system-config-printer',  # Manjaro or XFCE printer setup GUI
     'qt6ct',  # QT6 theme configurator, needed for new qbittorent
 ]

@@ -200,6 +200,8 @@ def enable_services():
     # needed so that yubico-authenticator can talk with the yubikey
     _run_cmd('sudo systemctl enable --now pcscd')
 
+    _run_cmd('sudo systemctl enable --now syncthing@butla')
+
 
 def setup_crontab():
     log.info('Ensuring periodic operations with cron and anacron.')
@@ -228,6 +230,7 @@ def describe_manual_steps():
 - qbittorrent: enable search plugin -> View/search engine/search plugins, and configure it
 - set up ~/.credentials/borg_key from KeePass
 - pix: set sorting by filename in "view/sort by"
+- set up Syncthing shared folders
 - clock widget: set time format to %Y-%m-%d %H:%M:%S
 - remove XFCE workspace switcher and set up favourites menu
 - restart so that XFCE configuration loads
