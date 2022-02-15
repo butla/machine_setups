@@ -102,7 +102,6 @@ PACMAN_PACKAGES = [
     'kolourpaint',  # Microsoft Paint clone
     'signal-desktop', # private communicator
     'discord',  # communicator / chat
-    'freemind',  # mindmapping tool
     'yubioath-desktop',  # OTP with a Yubikey connected over USB
     'qbittorrent',
     'virtualbox',
@@ -127,6 +126,7 @@ AUR_PACKAGES = {
     'zoom',  # video conferencing
     'toilet',  # printing large letters in terminal
     'hollywood',  # "Fill your console with Hollywood melodrama technobabble"
+    'freemind',  # mindmapping tool
     # TODO get something good for recording videos.
     # Simple/crude screencasting / desktop recording.
     # 'screenstudio',
