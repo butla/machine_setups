@@ -33,7 +33,9 @@ function virtualenv_for_folder_name()
 # runs Vim with good Python completions
 function v()
 {
-    if [[ $(virtualenv_for_folder_name) != "" ]]; then
+    if [ -d .venv ]; then
+        source .venv/bin/activate
+    elif [[ $(virtualenv_for_folder_name) != "" ]]; then
         workon $(virtualenv_for_folder_name)
     else
         toxac
