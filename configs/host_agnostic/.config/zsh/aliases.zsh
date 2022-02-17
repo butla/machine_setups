@@ -1,5 +1,3 @@
-# we want the python from the current active virtualenv
-alias vim='PYTHONPATH=$(pwd) vim'
 alias r='ranger'
 alias t='tmux -2'
 alias vv='tmux_ide_panel'
