@@ -1,0 +1,14 @@
+#!/bin/bash
+set -e
+
+SCRIPT_NAME=script_$(date --iso-8601=seconds).py
+touch $SCRIPT_NAME
+
+# split and move to the split
+tmux split-window -h -l 124
+# start entr in the first split
+tmux send-keys -t 0 "ls $SCRIPT_NAME | entr -c python $SCRIPT_NAME" enter
+
+# open the script file with Vim with my ZSH alias
+# TODO for some reason this runs in the same pane as entr, even before starting it :|
+# zsh -ic v $SCRIPT_NAME
