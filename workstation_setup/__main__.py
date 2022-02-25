@@ -270,3 +270,5 @@ if __name__ == '__main__':
 #   ~/.local/pipx/ might need to get deleted as well.
 # - alternative packages different hosts:
 #   - bl: matebook-applet (AUR), for enabling/disabling fn-lock. It's not working right now
+# - do everything in parallel (check if preconditions for working are met - mark dependencies),
+#   enable reports afterwards
