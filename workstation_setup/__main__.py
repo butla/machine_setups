@@ -251,6 +251,14 @@ if __name__ == '__main__':
 # - gthumb - the zoom-in keyboard shortcut problem (https://gitlab.gnome.org/GNOME/gthumb/-/issues/103)
 
 # TODOS
+# - All commands without confirmation. Get logs for everything. Async status display of all.
+#   Have a graph of tasks? (check if preconditions for working are met - mark dependencies)
+#   Do everything possible in parallel.
+# - Produce report about all the packages (pacman and yay, maybe checkout pamac) that can be updated,
+#   then do them at once. Now you have to do two confirmations.
+#   Also check the ones for deletions.
+#   Give one colored report.
+#   Require single confirmation.
 # - setup python tools with pipx packages (also update them?):
 #   - ocrmypdf
 #   - ptpython (nice python interactive shell), with sympy and others (through pipx inject)
@@ -258,17 +266,12 @@ if __name__ == '__main__':
 #   - litecli (nice SQLite CLI client)
 #   - isort
 #   - subliminal
-# - Produce report about all the packages (pacman and yay, maybe checkout pamac) that can be updated,
-#   then do them at once. Now you have to do two confirmations.
-#   Also check the ones for deletions.
-#   Give one colored report.
-#   Require single confirmation.
-# - on failed steps ask whether to restart or skip them. Or maybe cancel the whole run.
+# - On failed steps ask whether to restart or skip them. Or maybe cancel the whole run.
 # - (maybe needed) automatically fix pipx installs and virtualenvs after Manjaro switches to a higher Python version.
 #   Currently, they're all getting broken.
 #   My current process is recreating all virtualenvs and all pipx installs.
 #   ~/.local/pipx/ might need to get deleted as well.
-# - alternative packages different hosts:
+# - Alternative packages different hosts:
 #   - bl: matebook-applet (AUR), for enabling/disabling fn-lock. It's not working right now
-# - do everything in parallel (check if preconditions for working are met - mark dependencies),
-#   enable reports afterwards
+# - GRUB setup for machines (/etc/grub.d/40_custom, other necessary ones)
+#   https://wiki.archlinux.org/title/GRUB#Custom_grub.cfg
