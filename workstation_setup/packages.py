@@ -116,6 +116,8 @@ PACMAN_PACKAGES = [
     'qt6ct',  # QT6 theme configurator, needed for new qbittorent
 ]
 
+# TODO get rid of this. Just use Pamac.
+# Add Pamac config for AUR here.
 AUR_PACKAGES = {
     'dropbox',
     'dropbox-cli',

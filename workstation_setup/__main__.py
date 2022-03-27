@@ -90,6 +90,8 @@ def upgrade_software():
 def install_standard_packages():
     log.info('Installing the necessary packages...')
     packages_string = ' '.join(workstation_setup.packages.PACMAN_PACKAGES)
+    # TODO pamac checkupdates to show stuff that will get updated.
+    # Too bad pamac is slow as hell. Will have to make it async eventually.
     _run_cmd(f'sudo pacman -S --needed --noconfirm {packages_string}')
 
 
