@@ -24,16 +24,23 @@ function virtualenv_for_folder_name()
 # runs Vim with good Python completions
 function v()
 {
-    if [[ $(virtualenv_for_folder_name) != "" ]]; then
+    if [ -d .venv ]; then
+        source .venv/bin/activate
+    elif [[ $(virtualenv_for_folder_name) != "" ]]; then
         workon $(virtualenv_for_folder_name)
     else
         toxac
     fi
 
-    PYTHON_PATH=$(pwd)
-    # Some projects put the production code in an src directory.
-    if [ -d src ]; then
-        PYTHON_PATH=${PYTHON_PATH}:src
+    if [ -e .pythonpath ]; then
+        echo "TODO implement PYTHONPATH lookup from .pythonpath"
+        PYTHON_PATH=${PYTHONPATH}
+    else
+        PYTHON_PATH=$(pwd)
+        # Some projects put the production code in an src directory.
+        if [ -d src ]; then
+            PYTHON_PATH=${PYTHON_PATH}:src
+        fi
     fi
     PYTHONPATH=${PYTHON_PATH} vim $@
     # leaving the virtualenv
@@ -143,4 +150,9 @@ function subspl()
         echo "Fixing a windows-1250 subtitle file..."
         windows-1250-to-utf-8 *.pl.srt
     fi
+}
+
+funtion work_notes()
+{
+    (cd ~/work_notebook; vim zadania.md questions.md ludzie.md write_ups.md notki.md)
 }

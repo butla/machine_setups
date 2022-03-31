@@ -30,7 +30,7 @@ def main():
 #    install_standard_packages()
 #    install_aur_packages()
     install_oh_my_zsh()
-    ensure_configs_and_scripts()
+    # ensure_configs_and_scripts()
     setup_tmux_plugins()
     setup_neovim()
     # ensure_ntp()

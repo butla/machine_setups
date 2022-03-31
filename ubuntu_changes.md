@@ -20,6 +20,8 @@ python3.9-dev python3.8-dev
 # Package changes
 powerline-fonts -> fonts-powerline
 base-devel -> build-essential
+libxext-dev (needed for ueberzug)
+ueberzug installed from pipx
 
 # From snap
 Slack

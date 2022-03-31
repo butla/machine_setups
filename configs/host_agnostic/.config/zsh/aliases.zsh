@@ -12,6 +12,7 @@ alias gs='git status'
 alias gl='git log -3 --graph'
 alias gdf='git difftool --dir-diff'
 alias gd='git diff'
+alias gb='git branch'
 # can't have the status and needs to be an alias, so that I get completions for branches :(
 alias gc='git checkout'
 alias gco='git commit -a'

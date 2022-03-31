@@ -22,17 +22,18 @@ tmux split-window -hd -l 124 zsh -ic v
 # I prefer a full-featured file manager in a tmux split than having something like nerdtree in Vim.
 tmux split-window -vdb -p 40 zsh -ic ranger
 
-if [ -f docker-compose.yml ]; then
-    declare -a MAIN_CONTAINER_NAMES=('app' 'django')
-    service_names=$(yq '.services | to_entries[] | .key' docker-compose.yml)
+# TODO yq is complaining about bad expression syntax
+# if [ -f docker-compose.yml ]; then
+#     declare -a MAIN_CONTAINER_NAMES=('app' 'django')
+#     service_names=$(yq '.services | to_entries[] | .key' docker-compose.yml)
 
-    for main_container_name in ${MAIN_CONTAINER_NAMES[@]}; do
-        if echo $service_names | grep $main_container_name > /dev/null; then
-            run_container_in_pane $main_container_name
-            break
-        fi
-    done
-fi
+#     for main_container_name in ${MAIN_CONTAINER_NAMES[@]}; do
+#         if echo $service_names | grep $main_container_name > /dev/null; then
+#             run_container_in_pane $main_container_name
+#             break
+#         fi
+#     done
+# fi
 
 # switch to the vim view. It'll pane 3 if we have the Docker pane, pane 2 otherwise
 tmux select-pane -t 3 2> /dev/null || tmux select-pane -t 2
