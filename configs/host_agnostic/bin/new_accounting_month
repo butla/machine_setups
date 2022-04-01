@@ -13,7 +13,9 @@ INCOMES_SUBPATH=uk-witchsoft/przychody
 for subpath in prywatne/przychody prywatne/wydatki \
     prywatne/wyciągi prywatne/różne \
     $INCOMES_SUBPATH uk-witchsoft/wydatki \
-    uk-witchsoft/wyciągi uk-witchsoft/różne
+    uk-witchsoft/wyciągi uk-witchsoft/różne \
+    pl-witchsoft/przychody pl-witchsoft/wydatki \
+    pl-witchsoft/wyciągi pl-witchsoft/różne
 do
     final_path=$PATH_FOR_FOLDERS/$FOLDER_NAME/$subpath
     echo Ensuring $final_path
