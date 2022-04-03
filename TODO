@@ -14,3 +14,20 @@ in-project = true
 
 bh:
 ln -s /data/grafika grafika
+
+===========================
+Add this to the default Python script:
+---------------------------
+from pathlib import Path
+
+
+def main():
+    home_path = Path('~').expanduser()
+    print('The $HOME is', home_path)
+    print('Now get shit done...')
+
+
+if __name__ == '__main__':
+    main()
+
+===========================
