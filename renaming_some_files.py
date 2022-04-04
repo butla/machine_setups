@@ -1,6 +1,8 @@
 import os
 from pathlib import Path
 
+# TODO add a logging config
+# write the log to stdout and a file in /tmp (or /var/log) by default
 
 def main():
     path = Path('~/grafika/Różne/').expanduser()
