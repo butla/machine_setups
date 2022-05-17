@@ -1,3 +1,5 @@
+open any image / copy to clipboard with FZF
+
 `upgrade` script needs to be added for root so that it can run with sudo.
 
 Eventually have an async task DAG with stops requiring human interaction.
