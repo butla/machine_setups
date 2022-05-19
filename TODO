@@ -1,4 +1,5 @@
-open any image / copy to clipboard with FZF
+open any image / copy to clipboard with FZF.
+Or better - bemenu, with meta+m (for media) (maybe upper case, lower is move)
 
 `upgrade` script needs to be added for root so that it can run with sudo.
 
