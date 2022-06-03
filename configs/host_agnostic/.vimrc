@@ -236,7 +236,7 @@ for linter in ['pylint', 'flake8', 'pycodestyle']
 endfor
 
 " let g:ale_fixers = { 'python': ['nayvy#ale_fixer', 'isort'] }
-let g:ale_fixers = { 'python': ['nayvy#ale_fixer'] }
+" let g:ale_fixers = { 'python': ['nayvy#ale_fixer'] }
 
 let g:ale_python_isort_options = '--profile black'
 
