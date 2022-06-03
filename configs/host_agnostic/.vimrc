@@ -42,7 +42,7 @@ Plug 'relastle/vim-nayvy'
 call plug#end()
 
 " Cheat sheet with commands I don't use often:
-" gq - format line, insert line breaks
+" gq+MOVE or gqq for single line - format line, insert line breaks
 
 " My settings follow
 if &term =~ '^screen'
