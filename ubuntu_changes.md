@@ -17,6 +17,9 @@ for working psycopg2 builds
 libpq-dev
 python3.9-dev python3.8-dev
 
+sudo add-apt-repository ppa:savoury1/xapps
+sudo apt install pix
+
 # Package changes
 powerline-fonts -> fonts-powerline
 base-devel -> build-essential
