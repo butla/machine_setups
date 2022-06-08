@@ -2,6 +2,7 @@ ve - find files with FZF in common places (Documents, .config, Downloads) and ed
 
 open any image / copy to clipboard with FZF.
 Or better - bemenu, with meta+m (for media) (maybe upper case, lower is move)
+check "grafika" and whatever photo folders are available
 
 `upgrade` script needs to be added for root so that it can run with sudo.
 
