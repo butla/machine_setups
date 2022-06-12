@@ -3,8 +3,12 @@
 # so we're sure what shell we're using. Bash should be quite common, right?
 SHELL:=/bin/bash
 
+LOG_PATH=$(HOME)/.local/var/log
+
 setup_workstation:
-	python3 -m workstation_setup
+	echo "Ensuring a path for logs: $(LOG_PATH)"
+	@mkdir -p $(LOG_PATH)
+	python3 -m workstation_setup | tee --append $(LOG_PATH)/upgrade.log
 
 # The below commands require setting up a virtualenv, activating it, and running `poetry install` in it.
 

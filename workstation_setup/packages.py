@@ -105,6 +105,7 @@ PACMAN_PACKAGES = [
     'discord',  # communicator / chat
     'yubioath-desktop',  # OTP with a Yubikey connected over USB
     'qbittorrent',
+    'qbittorrent-nox',  # non-GUI version of the torrent app
     'virtualbox',
     'libreoffice-still',
     'adapta-maia-theme',  # a theme for XFCE that I like
@@ -119,7 +120,7 @@ PACMAN_PACKAGES = [
 
 # TODO get rid of this. Just use Pamac.
 # Add Pamac config for AUR here.
-AUR_PACKAGES = {
+AUR_PACKAGES = [
     'dropbox',
     'dropbox-cli',
     'slack-desktop',
@@ -130,9 +131,10 @@ AUR_PACKAGES = {
     'toilet',  # printing large letters in terminal
     'hollywood',  # "Fill your console with Hollywood melodrama technobabble"
     'freemind',  # mindmapping tool
+    'qbittorrent-cli-bin',  # CLI for the non-GUI torrent client, TODO, make it work
     # TODO get something good for recording videos.
     # Simple/crude screencasting / desktop recording.
     # 'screenstudio',
     # Kazam looks nicer but is broken without a fix:
     # https://aur.archlinux.org/packages/kazam/
-}
+]

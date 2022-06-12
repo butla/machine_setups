@@ -12,10 +12,11 @@ import subprocess
 
 import workstation_setup
 
-# colors taken from "colorama". I don't want to depend on it, though
+# Colors taken from "colorama". I don't want to depend on it, though.
+# I'll be using a color, so I can easily see my log message by glancing at the output
 _BACKGROUND_GREEN = '\x1b[42m'
 _BACKGROUND_RESET = '\x1b[49m'
-# using a color, so I can easily see my log message by glancing at the output
+
 logging.basicConfig(
     level=logging.INFO,
     format=f'{_BACKGROUND_GREEN}--- %(asctime)s{_BACKGROUND_RESET} | %(levelname)s | %(message)s',
@@ -26,9 +27,9 @@ log = logging.getLogger(__name__)
 
 
 def main():
-    upgrade_software()
-    install_standard_packages()
-    install_aur_packages()
+    log.info('Starting upgrade system...')
+
+    sync_packages()
     install_oh_my_zsh()
     ensure_configs_and_scripts()
     setup_tmux_plugins()
@@ -64,54 +65,32 @@ def _get_cmd_output(command: str) -> str:
     return subprocess.check_output(shlex.split(command)).decode()
 
 
-def upgrade_software():
+def sync_packages():
+    log.info('Making sure pamac can install from AUR...')
+    # uncommenting some lines
+    _run_cmd(r"sudo sed -i -E 's|^.*EnableAUR|EnableAUR|' /etc/pamac.conf")
+    _run_cmd(r"sudo sed -i -E 's|^.*CheckAURUpdates|CheckAURUpdates|' /etc/pamac.conf")
+
     log.info('Updating the package index and packages...')
-
-    yay_is_installed = _run_cmd('which yay', is_check=True).returncode == 0
-
-    if yay_is_installed:
-        _run_cmd('yay -Syu')
-    else:
-        _run_cmd('sudo pacman -Syu')
-
+    _run_cmd('sudo pamac upgrade --no-confirm')
     if _run_cmd('which flatpak', is_check=True).returncode == 0:
         _run_cmd('flatpak update')
 
+    log.info('What will get updated?')
+    _run_cmd('pamac checkupdates')
+
+    log.info('Installing the necessary packages...')
+    packages_string = ' '.join(workstation_setup.packages.PACMAN_PACKAGES + workstation_setup.packages.AUR_PACKAGES)
+    _run_cmd(f'sudo pamac install --no-confirm {packages_string}')
+
     try:
-        unused_packages = _get_cmd_output('pacman -Qdtq').splitlines()
+        unused_packages = _get_cmd_output('pamac list --orphans --quiet --no-confirm').splitlines()
     except subprocess.CalledProcessError:
         unused_packages = None
 
     if unused_packages:
         log.info('Removing unused packages...')
-        _run_cmd(f'sudo pacman -R {" ".join(unused_packages)}')
-
-
-def install_standard_packages():
-    log.info('Installing the necessary packages...')
-    packages_string = ' '.join(workstation_setup.packages.PACMAN_PACKAGES)
-    # TODO pamac checkupdates to show stuff that will get updated.
-    # Too bad pamac is slow as hell. Will have to make it async eventually.
-    _run_cmd(f'sudo pacman -S --needed --noconfirm {packages_string}')
-
-
-# TODO open https://aur.archlinux.org/packages/{package_name}/ if there are errors, say you're doing that.
-def install_aur_packages():
-    # yay doesn't have a method for skipping the installation of packages that are already installed,
-    # so I have to implement that myself.
-    # https://github.com/Jguer/yay/issues/1552
-    installed_packages_output = subprocess.check_output('pacman -Q'.split())
-    installed_packages = {line.split()[0].decode() for line in installed_packages_output.splitlines()}
-
-    aur_packages_to_install = workstation_setup.packages.AUR_PACKAGES - installed_packages
-
-    if not aur_packages_to_install:
-        log.info('No AUR packages to install.')
-        return
-
-    log.info('Installing the necessary AUR packages...')
-    packages_string = ' '.join(aur_packages_to_install)
-    _run_cmd(f'yay -S --noconfirm {packages_string}')
+        _run_cmd(f'sudo pamac remove --no-confirm {" ".join(unused_packages)}')
 
 
 def _clone_or_update_git_repo(repo_url: str, clone_location: Path):
@@ -253,14 +232,10 @@ if __name__ == '__main__':
 # - gthumb - the zoom-in keyboard shortcut problem (https://gitlab.gnome.org/GNOME/gthumb/-/issues/103)
 
 # TODOS
+# - run this as sudo, impersonating the user where it's necessary
 # - All commands without confirmation. Get logs for everything. Async status display of all.
 #   Have a graph of tasks? (check if preconditions for working are met - mark dependencies)
 #   Do everything possible in parallel.
-# - Produce report about all the packages (pacman and yay, maybe checkout pamac) that can be updated,
-#   then do them at once. Now you have to do two confirmations.
-#   Also check the ones for deletions.
-#   Give one colored report.
-#   Require single confirmation.
 # - setup python tools with pipx packages (also update them?):
 #   - ocrmypdf
 #   - ptpython (nice python interactive shell), with sympy and others (through pipx inject)
