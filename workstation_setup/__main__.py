@@ -72,7 +72,7 @@ def sync_packages():
     _run_cmd(r"sudo sed -i -E 's|^.*CheckAURUpdates|CheckAURUpdates|' /etc/pamac.conf")
 
     log.info('What will get updated?')
-    _run_cmd('pamac checkupdates')
+    subprocess.run(['pamac', 'checkupdates'], check=False)
 
     log.info('Updating the package index and packages...')
     _run_cmd('sudo pamac upgrade --no-confirm')
