@@ -80,14 +80,8 @@ def sync_packages():
     packages_string = ' '.join(workstation_setup.packages.PACMAN_PACKAGES + workstation_setup.packages.AUR_PACKAGES)
     _run_cmd(f'sudo pamac install --no-confirm {packages_string}')
 
-    try:
-        unused_packages = _get_cmd_output('pamac list --orphans --quiet --no-confirm').splitlines()
-    except subprocess.CalledProcessError:
-        unused_packages = None
-
-    if unused_packages:
-        log.info('Removing unused packages...')
-        _run_cmd(f'sudo pamac remove --no-confirm {" ".join(unused_packages)}')
+    log.info('Removing unused packages...')
+    _run_cmd('sudo pamac remove --orphans --no-confirm')
 
 
 def _clone_or_update_git_repo(repo_url: str, clone_location: Path):
