@@ -41,7 +41,8 @@ alias fdd='fd --hidden --follow --exclude .git'
 alias fde='fd --hidden --follow --exclude .git --no-ignore'
 
 alias ag='ag --hidden --ignore .git -f'
-alias age='ag --hidden --ignore .git -f --skip-vcs-ignores'
+# find everywhere
+alias agev='ag --hidden --ignore .git -f --skip-vcs-ignores'
 
 alias my_ip='http ipinfo.io'
 
