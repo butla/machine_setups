@@ -29,7 +29,7 @@ function virtualenv_for_folder_name()
     virtualenv_name=$(lsvirtualenv -b | grep $(basename $(pwd)))
     echo $virtualenv_name
 }
-#
+
 # runs Vim with good Python completions
 function v()
 {
@@ -129,7 +129,23 @@ function fj()
 # Fuzzily find a file and open it with the current editor (which should be neovim, of course :) )
 function vf()
 {
-    CHOSEN_FILE=$(fd --hidden --follow --exclude .git --no-ignore | fzf)
+    _find_file_and_edit --hidden --follow --exclude .git --no-ignore
+}
+
+# like vf(), but searches all over the system, in the usual locations I want to change stuff in.
+function ve()
+{
+    _find_file_and_edit \
+        --hidden --follow --no-ignore \
+        --exclude .git --exclude .PlayOnLinux --exclude .steam \
+        --exclude .wine --exclude '.local/share/Steam/**' \
+        --search-path ~ --search-path /etc
+}
+
+function _find_file_and_edit()
+{
+    FD_FILTER=$@
+    CHOSEN_FILE=$(fd $@ | fzf)
     if [ $? != 0 ]; then
         echo '[[Edit cancelled]]'
         return
