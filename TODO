@@ -13,13 +13,6 @@ Eventually have an async task DAG with stops requiring human interaction.
 replace repl article - tmux command for a split with Vim and entr.
 default file nam
 
-add
-/home/butla/.config/pypoetry/config.toml
-
-[virtualenvs]
-create = true
-in-project = true
-
 bh:
 ln -s /data/grafika grafika
 
