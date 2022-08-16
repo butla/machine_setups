@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 from pathlib import Path
 import re
-import shutil
 from typing import List, Optional
 
 # TODO put that in the experiments repo. Trzymać ścieżki jako defaulty do nazwanych argumentów
@@ -22,27 +21,6 @@ PHONE_CAMERA_PATH = Path('/run/user/1000/5f2e966a3531bb46/storage/emulated/0/DCI
 # Always document your regexes, people. They are great, but readability is not one of their
 # strengths.
 MEDIA_PATH_REGEX = re.compile(r'.*20\d{6}_\d{6}?(_\d{3})?\.?(jpg|mp4)$')
-
-
-def download_new_phone_media():
-    last_stored_media_file = latest_stored_media_file()
-    print('Copying media files newer than', last_stored_media_file.name)
-
-    new_media = (path for path in PHONE_CAMERA_PATH.iterdir()
-                 if path.name > last_stored_media_file.name)
-
-    file_count = 0
-    for file_count, media_file in enumerate(new_media, 1):
-        try:
-            shutil.copy(media_file, PC_LOOSE_MEDIA_PATH)
-        except Exception:
-            downloaded_path = PC_LOOSE_MEDIA_PATH / media_file.name
-            # getting rid of the partially downloaded file
-            if downloaded_path.exists():
-                downloaded_path.unlink()
-                print('Removing the partially downloaded file:', downloaded_path)
-            raise
-    print('Succesfully copied', file_count, 'media files over from the phone.')
 
 
 def latest_stored_media_file() -> Path:
@@ -75,5 +53,5 @@ def _sorted_photo_folders(photos_dir) -> List[Path]:
 
 
 if __name__ == '__main__':
+    # TODO add parametrization for the regex and other
     print(latest_stored_media_file())
-    #download_new_phone_media()
