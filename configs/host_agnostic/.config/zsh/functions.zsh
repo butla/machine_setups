@@ -1,3 +1,5 @@
+# TODO split this file into multiple categories
+
 # log stuff in functions and scripts in a way that shows that the messages are from me and give me some info I want.
 function log() {
     _BACKGROUND_GREEN="\x1b[42m"
@@ -230,4 +232,13 @@ function configs_audit()
     # TODO doesn't want to stop
     # log "Stopping auditd service after tracing..."
     # sudo systemctl stop auditd.service
+}
+
+# $1 - user@host
+# $2 - remote port
+# $3 - local port
+# TODO fix: "$2:" seems to be eating up the 'l' in localhost
+function ssh_tunnel_remote_to_our()
+{
+    ssh -f -N $1 -R $2:localhost:$3
 }
