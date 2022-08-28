@@ -6,5 +6,5 @@ RPI_IP=$1
 
 ssh-copy-id butla@$RPI_IP
 
+# TODO maybe I should encode that with fabric or just mitogen?
 # sudo pacman-mirrors -f
-# sudo systemctl enable --now avahi-daemon.service

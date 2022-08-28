@@ -77,7 +77,7 @@ def sync_packages():
         _run_cmd('flatpak update')
 
     log.info('Installing the necessary packages...')
-    packages_string = ' '.join(workstation_setup.packages.PACMAN_PACKAGES + workstation_setup.packages.AUR_PACKAGES)
+    packages_string = workstation_setup.packages.get_packages_for_host()
     _run_cmd(f'sudo pamac install --no-confirm {packages_string}')
 
     log.info('Removing unused packages...')
@@ -173,6 +173,10 @@ def enable_services():
     _run_cmd('sudo systemctl enable --now pcscd')
 
     _run_cmd('sudo systemctl enable --now syncthing@butla')
+
+    # so that the hosts get DNS entries like <hostname>.local in the local subnet
+    _run_cmd('sudo systemctl enable --now avahi-daemon.service')
+
 
 
 def setup_crontab():

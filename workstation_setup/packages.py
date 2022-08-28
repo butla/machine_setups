@@ -1,4 +1,11 @@
-PACMAN_PACKAGES = [
+import socket
+
+
+def get_packages_for_host():
+    return HOSTS_TO_PACKAGES.get(socket.gethostname(), FULL_PACKAGES)
+
+
+PACMAN_NO_GUI_PACKAGES = [
     # =========================
     # lightweight CLI programs
     # =========================
@@ -66,14 +73,6 @@ PACMAN_PACKAGES = [
     'syncthing',  # file synchronization
     'dos2unix',  # convert Windows line endings to Unix ones
     # =========================
-    # heavy CLI programs for development
-    # =========================
-    'terraform',  # infrastructure management
-    'docker',
-    'docker-compose',
-    'rust',  # Rust programming language tools
-    'go',  # Go programming language tools
-    # =========================
     # CLI programs for GUIs
     # =========================
     'libnotify',  # desktop notifications
@@ -81,6 +80,17 @@ PACMAN_PACKAGES = [
     'xclip',  # as above
     'ueberzug',  # needed for ranger's image previews
     'libcanberra',  # needed for "canberra-gtk-play -i bell" for testing that sound is on
+    # =========================
+    # heavy CLI programs for development
+    # =========================
+    'terraform',  # infrastructure management
+    'docker',
+    'docker-compose',
+    'rust',  # Rust programming language tools
+    'go',  # Go programming language tools
+]
+
+PACMAN_GUI_PACKAGES = [
     # =========================
     # GUI programs
     # =========================
@@ -118,23 +128,31 @@ PACMAN_PACKAGES = [
     'qt6ct',  # QT6 theme configurator, needed for new qbittorent
 ]
 
-# TODO get rid of this. Just use Pamac.
-# Add Pamac config for AUR here.
-AUR_PACKAGES = [
+AUR_NO_GUI_PACKAGES = [
+    'wrk',  # HTTP application benchmarking tool
+    'toilet',  # printing large letters in terminal
+    'hollywood',  # "Fill your console with Hollywood melodrama technobabble"
+    'qbittorrent-cli-bin',  # CLI for the non-GUI torrent client, TODO, make it work
+]
+
+AUR_GUI_PACKAGES = [
     'dropbox',
     'dropbox-cli',
     'slack-desktop',
-    'wrk',  # HTTP application benchmarking tool
     'spotify',
     'tor-browser',
     'zoom',  # video conferencing
-    'toilet',  # printing large letters in terminal
-    'hollywood',  # "Fill your console with Hollywood melodrama technobabble"
     'freemind',  # mindmapping tool
-    'qbittorrent-cli-bin',  # CLI for the non-GUI torrent client, TODO, make it work
     # TODO get something good for recording videos.
     # Simple/crude screencasting / desktop recording.
     # 'screenstudio',
     # Kazam looks nicer but is broken without a fix:
     # https://aur.archlinux.org/packages/kazam/
 ]
+
+NO_GUI_PACKAGES = PACMAN_NO_GUI_PACKAGES + AUR_NO_GUI_PACKAGES
+FULL_PACKAGES = NO_GUI_PACKAGES + PACMAN_GUI_PACKAGES + AUR_GUI_PACKAGES
+
+HOSTS_TO_PACKAGES = {
+    'ognisko': NO_GUI_PACKAGES,
+}

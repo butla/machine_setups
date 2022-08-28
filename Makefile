@@ -20,16 +20,16 @@ validate_continously:
 # If we ran "test" first and got many test errors because of issues detectable by Pylint,
 # analyzing the cause might take longer than if we saw the Pylint output
 # (which we wouldn't get, since "make" normally stops processing on the first error).
-validate: pylint test isort_check
+check: pylint test isort_check
 
 test:
 	@echo ===Tests===
-	PYTHONPATH=.:configs/host_agnostic/bin pytest -v tests
+	PYTHONPATH=.:configs/host_agnostic/bin poetry run pytest -v tests
 
 pylint:
 	@echo ===Pylint===
-	pylint workstation_setup/ tests/
+	poetry pylint workstation_setup/ tests/
 
 isort_check:
 	@echo ===Isort===
-	isort -c .
+	poetry isort -c .
