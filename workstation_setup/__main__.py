@@ -77,7 +77,7 @@ def sync_packages():
         _run_cmd('flatpak update')
 
     log.info('Installing the necessary packages...')
-    packages_string = workstation_setup.packages.get_packages_for_host()
+    packages_string = ' '.join(workstation_setup.packages.get_packages_for_host())
     _run_cmd(f'sudo pamac install --no-confirm {packages_string}')
 
     log.info('Removing unused packages...')
