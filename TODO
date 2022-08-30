@@ -1,23 +1,19 @@
-ve - find files with FZF in common places (Documents, .config, Downloads) and edit
-
 open any image / copy to clipboard with FZF.
 Or better - bemenu, with meta+m (for media) (maybe upper case, lower is move)
 check "grafika" and whatever photo folders are available
 
 `upgrade` script needs to be added for root so that it can run with sudo.
 
-?drop yay - use pamac with AUR?
-
 Eventually have an async task DAG with stops requiring human interaction.
 
 replace repl article - tmux command for a split with Vim and entr.
-default file nam
+default file name
 
 bh:
 ln -s /data/grafika grafika
 
 ===========================
-Add this to the default Python script:
+Add this to the default Python script created with new_python_script:
 ---------------------------
 from pathlib import Path
 

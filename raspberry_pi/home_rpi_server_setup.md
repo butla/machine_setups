@@ -1,7 +1,7 @@
 Manjaro home RPI server, a playbook
 ===================================
 
-## DONE
+## Initial setup
 
 **get the image**
 Image: Manjaro Minimal for RPI 4
@@ -68,16 +68,11 @@ Now you should see the TUI setup.
 I set up a `butla` user, with a new password,
 unique for the RPI (but one I can remember, 4 words), saved in my KeyPass.
 
+**Continuation**
 
-## TODO
+See `os_building_scripts/setup_rpi_manjaro_headless_server.sh`
 
-- set locale language to english
-- ssh - add key
-- ssh, only allow keys
-- pull `machine_setups`, run it
-- enable avahi, so that I can refer to the RPI by hostname when SSHing into
-
-### maybe
+### TODO (maybe)
 TODO copy the config files created by the setup TUI tool,
 so I can just put them on the SD card directly after I create it.
 
