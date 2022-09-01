@@ -155,6 +155,7 @@ def set_zsh_as_shell():
 
 
 def set_qt_theme():
+    # TODO disable for non-gui machines
     theme_config = Path('~/.config/qt5ct/qt5ct.conf').expanduser()
     config_contents = theme_config.read_text()
 
