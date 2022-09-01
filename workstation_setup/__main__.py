@@ -65,6 +65,10 @@ def _get_cmd_output(command: str) -> str:
     return subprocess.check_output(shlex.split(command)).decode()
 
 
+def _check_command_exists(command: str) -> str:
+    return subprocess.run(f'command -v {command}', shell=True, stdout=subprocess.DEVNULL).returncode == 0
+
+
 def sync_packages():
     log.info('Making sure pamac can install from AUR...')
     # uncommenting some lines
@@ -73,7 +77,8 @@ def sync_packages():
 
     log.info('Updating the package index and packages...')
     _run_cmd('sudo pamac upgrade')
-    if _run_cmd('which flatpak', is_check=True).returncode == 0:
+    if _check_command_exists('flatpak'):
+        log.info('Updating flatpak packages...')
         _run_cmd('flatpak update')
 
     log.info('Installing the necessary packages...')

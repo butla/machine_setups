@@ -4,10 +4,13 @@ set -e
 
 RPI_IP=$1
 
+# adds my key to authorized_hosts
 ssh-copy-id butla@$RPI_IP
 
 # TODO The commands below don't run through fabric or mitogen yet, so this script isn't really usable,
 # it's just a collection of commands to use.
+
+# setup sshd_config / restart
 
 # Would be nice to check when was the last time this ran. Or just put in my standard mirrors file, if it's not already
 # there. Maybe a cron (anacron) that'd run this every week?
@@ -18,6 +21,6 @@ ssh-copy-id butla@$RPI_IP
 # - sudo locale-gen
 # - copy locale.conf from "manually_linked" to /etc
 
-# TODOs:
-# - sshd config - have one for ognisko, bl, and bh?
-# - pull `machine_setups`, run it
+# git clone git@github.com:butla/machine_setups  # could be done with HTTP
+# cd machine_setups
+# python3 -m workstation_setup
