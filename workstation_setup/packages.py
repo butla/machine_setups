@@ -13,6 +13,7 @@ PACMAN_NO_GUI_PACKAGES = {
     'httpie',  # nice HTTP calling tool
     'curl',  # traditional HTTP calling tool
     'wget',  # download files from the web
+    'htop',  # see system resource usage
     'base-devel',  # basic compilers, etc
     'cmake',
     'entr', # rerunning commands on file changes

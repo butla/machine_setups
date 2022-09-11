@@ -8,6 +8,7 @@ import os
 from pathlib import Path
 import re
 import shlex
+import socket
 import subprocess
 
 import workstation_setup
@@ -152,7 +153,9 @@ def set_zsh_as_shell():
 
 
 def set_qt_theme():
-    # TODO disable for non-gui machines
+    if socket.gethostname() in ['ognisko']:
+        # non-GUI machines don't have QT, so there's no need for settings
+        return
     theme_config = Path('~/.config/qt5ct/qt5ct.conf').expanduser()
     config_contents = theme_config.read_text()
 
