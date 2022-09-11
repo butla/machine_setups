@@ -11,7 +11,8 @@ PACMAN_NO_GUI_PACKAGES = {
     # =========================
     'neovim',  # text editor
     'httpie',  # nice HTTP calling tool
-    'curl',
+    'curl',  # traditional HTTP calling tool
+    'wget',  # download files from the web
     'base-devel',  # basic compilers, etc
     'cmake',
     'entr', # rerunning commands on file changes
