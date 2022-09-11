@@ -233,6 +233,8 @@ if __name__ == '__main__':
 # - gthumb - the zoom-in keyboard shortcut problem (https://gitlab.gnome.org/GNOME/gthumb/-/issues/103)
 
 # TODOS
+# - disable gnomekeyring
+#   https://www.chucknemeth.com/linux/security/keyring/keepassxc-keyring
 # - run this as sudo, impersonating the user where it's necessary
 # - All commands without confirmation. Get logs for everything. Async status display of all.
 #   Have a graph of tasks? (check if preconditions for working are met - mark dependencies)
