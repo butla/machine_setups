@@ -44,14 +44,11 @@ def main():
     log.info('All done.')
 
 
-def _run_cmd(command: str, work_directory='.', is_check=False) -> subprocess.CompletedProcess:
-    if is_check:
-        stdout = subprocess.PIPE
-        stderr = subprocess.STDOUT
-        check = False
-    else:
-        stdout, stderr = None, None
-        check = True
+def _run_cmd(command: str, work_directory='.', allow_fail=False) -> subprocess.CompletedProcess:
+    stdout, stderr = None, None
+    check = not allow_fail
+
+    # TODO show output on fails
     return subprocess.run(
         shlex.split(command),
         check=check,
@@ -86,7 +83,7 @@ def sync_packages():
     _run_cmd(f'sudo pamac install --no-confirm {packages_string}')
 
     log.info('Removing unused packages...')
-    _run_cmd('sudo pamac remove --orphans --no-confirm')
+    _run_cmd('sudo pamac remove --orphans --no-confirm', allow_fail=True)
 
 
 def _clone_or_update_git_repo(repo_url: str, clone_location: Path):
