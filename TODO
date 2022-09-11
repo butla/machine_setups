@@ -6,6 +6,9 @@ check "grafika" and whatever photo folders are available
 
 Eventually have an async task DAG with stops requiring human interaction.
 
+pamac with sudo fails to verify PGP signatures for AUR packages, sometimes.
+Even if a key is added to root's gpg, and is trusted.
+
 replace repl article - tmux command for a split with Vim and entr.
 default file name
 

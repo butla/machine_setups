@@ -5,7 +5,7 @@ def get_packages_for_host():
     return HOSTS_TO_PACKAGES.get(socket.gethostname(), FULL_PACKAGES)
 
 
-PACMAN_NO_GUI_PACKAGES = [
+PACMAN_NO_GUI_PACKAGES = {
     # =========================
     # lightweight CLI programs
     # =========================
@@ -88,9 +88,9 @@ PACMAN_NO_GUI_PACKAGES = [
     'docker-compose',
     'rust',  # Rust programming language tools
     'go',  # Go programming language tools
-]
+}
 
-PACMAN_GUI_PACKAGES = [
+PACMAN_GUI_PACKAGES = {
     # =========================
     # GUI programs
     # =========================
@@ -126,16 +126,16 @@ PACMAN_GUI_PACKAGES = [
     'audacity',  # sound editor
     'system-config-printer',  # Manjaro or XFCE printer setup GUI
     'qt6ct',  # QT6 theme configurator, needed for new qbittorent
-]
+}
 
-AUR_NO_GUI_PACKAGES = [
+AUR_NO_GUI_PACKAGES = {
     'wrk',  # HTTP application benchmarking tool
     'toilet',  # printing large letters in terminal
     'hollywood',  # "Fill your console with Hollywood melodrama technobabble"
     'qbittorrent-cli-bin',  # CLI for the non-GUI torrent client, TODO, make it work
-]
+}
 
-AUR_GUI_PACKAGES = [
+AUR_GUI_PACKAGES = {
     'dropbox',
     'dropbox-cli',
     'slack-desktop',
@@ -148,11 +148,13 @@ AUR_GUI_PACKAGES = [
     # 'screenstudio',
     # Kazam looks nicer but is broken without a fix:
     # https://aur.archlinux.org/packages/kazam/
-]
+}
 
-NO_GUI_PACKAGES = PACMAN_NO_GUI_PACKAGES + AUR_NO_GUI_PACKAGES
-FULL_PACKAGES = NO_GUI_PACKAGES + PACMAN_GUI_PACKAGES + AUR_GUI_PACKAGES
+NO_GUI_PACKAGES = PACMAN_NO_GUI_PACKAGES.union(AUR_NO_GUI_PACKAGES)
+FULL_PACKAGES = NO_GUI_PACKAGES.union(PACMAN_GUI_PACKAGES).union(AUR_GUI_PACKAGES)
+
+NOT_PRESENT_ON_RPI_MANJARO_PACKAGES = {'pandoc', 'hollywood'}
 
 HOSTS_TO_PACKAGES = {
-    'ognisko': NO_GUI_PACKAGES,
+    'ognisko': NO_GUI_PACKAGES - NOT_PRESENT_ON_RPI_MANJARO_PACKAGES,
 }
