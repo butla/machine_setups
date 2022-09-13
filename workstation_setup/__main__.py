@@ -232,9 +232,13 @@ if __name__ == '__main__':
 #     https://github.com/jc00ke/move-to-next-monitor
 # - gthumb - the zoom-in keyboard shortcut problem (https://gitlab.gnome.org/GNOME/gthumb/-/issues/103)
 
-# TODOS
-# - disable gnomekeyring
-#   https://www.chucknemeth.com/linux/security/keyring/keepassxc-keyring
+# TODOs
+# - sort out the secret's service one way or the other
+#   (maybe sharing the keepass DB that's used by Brave on different machines causes issues?):
+#   - make gnome keyring run as secrets service keyring
+#     https://itnext.io/linux-gnome-keyring-setup-as-freedesktop-secretservice-99521a20e9c4
+#   - disable gnomekeyring
+#     https://www.chucknemeth.com/linux/security/keyring/keepassxc-keyring
 # - run this as sudo, impersonating the user where it's necessary
 # - All commands without confirmation. Get logs for everything. Async status display of all.
 #   Have a graph of tasks? (check if preconditions for working are met - mark dependencies)
