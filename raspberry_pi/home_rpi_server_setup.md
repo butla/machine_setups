@@ -72,7 +72,14 @@ unique for the RPI (but one I can remember, 4 words), saved in my KeyPass.
 
 See `os_building_scripts/setup_rpi_manjaro_headless_server.sh`
 
-### TODO (maybe)
+### TODO
+
+make neovim work. Maybe cut out some plugins that aren't working for RPI.
+Now the thing is broken more than VIM, which is still a bit broken.
+
+vim aliased to nvim (after nvim works more than vim)
+
+### TODO: future, maybe
 TODO copy the config files created by the setup TUI tool,
 so I can just put them on the SD card directly after I create it.
 

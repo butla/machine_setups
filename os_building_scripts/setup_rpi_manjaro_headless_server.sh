@@ -26,6 +26,4 @@ ssh-copy-id butla@$RPI_IP
 # python3 -m workstation_setup
 
 # TODOs:
-# - RPI doesn't have pandoc package. Get rid of it from the package collection for ognisko. Why pandoc??
 # - Warning: Could not load "/usr/lib/graphviz/libgvplugin_gtk.so.6" - It was found, so perhaps one of its dependents was not.  Try ldd.
-# - apg is not available for aarch64
