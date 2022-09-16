@@ -74,6 +74,7 @@ PACMAN_NO_GUI_PACKAGES = {
     'ventoy',  # convert USB drives, so that you make bootable USBs by copying over an (Linux/Windows) ISO file.
     'syncthing',  # file synchronization
     'dos2unix',  # convert Windows line endings to Unix ones
+    'cronie',  # anacron implementation
     # =========================
     # CLI programs for GUIs
     # =========================
