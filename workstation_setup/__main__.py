@@ -9,7 +9,9 @@ from pathlib import Path
 import re
 import shlex
 import socket
+import sys
 import subprocess
+import platform
 
 import workstation_setup
 
@@ -49,14 +51,17 @@ def _run_cmd(command: str, work_directory='.', allow_fail=False) -> subprocess.C
     stdout, stderr = None, None
     check = not allow_fail
 
-    # TODO show output on fails
-    return subprocess.run(
-        shlex.split(command),
-        check=check,
-        cwd=work_directory,
-        stdout=stdout,
-        stderr=stderr,
-    )
+    try:
+        return subprocess.run(
+            shlex.split(command),
+            check=check,
+            cwd=work_directory,
+            stdout=stdout,
+            stderr=stderr,
+        )
+    except subprocess.CalledProcessError as ex:
+        log.error(f"Command: '{command}' failed with status {ex.returncode}.")
+        sys.exit("ERROR! Shell command failed!")
 
 
 def _get_cmd_output(command: str) -> str:
@@ -172,8 +177,10 @@ def set_qt_theme():
 def enable_services():
     log.info('Making sure certain services are enabled, running, and usable...')
 
-    _run_cmd('sudo systemctl enable --now docker')
-    subprocess.run('sudo usermod -a -G docker $(whoami)', shell=True, check=True)
+    # No working docker on ARM? Something errors out if I try to enable Docker...
+    if not _is_arm_cpu():
+        _run_cmd('sudo systemctl enable --now docker')
+        subprocess.run('sudo usermod -a -G docker $(whoami)', shell=True, check=True)
 
     # needed so that yubico-authenticator can talk with the yubikey
     _run_cmd('sudo systemctl enable --now pcscd')
@@ -218,6 +225,12 @@ def describe_manual_steps():
 - restart so that XFCE configuration loads
 """
     log.info(text)
+
+
+def _is_arm_cpu():
+    # This will work for the ognisko, which is an RPI4,
+    # but can be expanded in the future.
+    return platform.machine() == 'aarch64'
 
 
 if __name__ == '__main__':
