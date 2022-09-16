@@ -4,6 +4,7 @@ alias vv='tmux_ide_panel'
 
 # quick adding of untracked or changed files
 alias ga='git add $(git ls-files --modified --others --exclude-standard | fzf) && git status'
+alias gb='git branch'
 alias gcf='git checkout -- $(git ls-files --modified --others --exclude-standard | fzf) && git status'
 alias gs='git status'
 alias gl='git log -3 --graph'
