@@ -6,12 +6,12 @@ This script installs software and applies configurations that I want in my Manja
 import logging
 import os
 from pathlib import Path
+import platform
 import re
 import shlex
 import socket
-import sys
 import subprocess
-import platform
+import sys
 
 import workstation_setup
 
@@ -250,6 +250,8 @@ if __name__ == '__main__':
 #   (maybe sharing the keepass DB that's used by Brave on different machines causes issues?):
 #   - make gnome keyring run as secrets service keyring
 #     https://itnext.io/linux-gnome-keyring-setup-as-freedesktop-secretservice-99521a20e9c4
+#     (it looks to be running, really. And brave is creating "Brave safe storage",
+#     visible with seahorse in the "login" under "passwords")
 #   - disable gnomekeyring
 #     https://www.chucknemeth.com/linux/security/keyring/keepassxc-keyring
 # - run this as sudo, impersonating the user where it's necessary
