@@ -75,6 +75,7 @@ PACMAN_NO_GUI_PACKAGES = {
     'syncthing',  # file synchronization
     'dos2unix',  # convert Windows line endings to Unix ones
     'cronie',  # anacron implementation
+    'odt2txt',  # for preview of OpenDocument in ranger
     # =========================
     # CLI programs for GUIs
     # =========================
