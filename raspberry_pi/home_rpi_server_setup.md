@@ -29,6 +29,9 @@ Passphrase=YOUR WIFI PASSWORD GOES HERE
 
 in this file: `/run/media/butla/ROOT_MNJRO/var/lib/iwd/<network_ssid>.psk`
 
+If you want to use USB3 devices use only 5GHz WiFi.
+Looks like there's [interference between 2.4GHz and USB3](https://github.com/raspberrypi/firmware/issues/1430)
+
 **unmount the sdcard**
 
 **scan the current status of your local network before turning RPI on**
