@@ -76,6 +76,7 @@ PACMAN_NO_GUI_PACKAGES = {
     'dos2unix',  # convert Windows line endings to Unix ones
     'cronie',  # anacron implementation
     'odt2txt',  # for preview of OpenDocument in ranger
+    'hd-idle',  # tool for spinning down hard disks after inactivity or immediately
     # =========================
     # CLI programs for GUIs
     # =========================
