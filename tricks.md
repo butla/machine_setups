@@ -3,6 +3,9 @@ Spell book
 
 Various tricks, snippets, commands for doing things.
 
+## Check what package a file belongs to
+pacman -Qo <file>
+
 ## Dealing with pacman / pamac invalid GPG signatures
 
 Looks like this:
