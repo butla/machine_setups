@@ -113,7 +113,7 @@ PACMAN_GUI_PACKAGES = {
     'pdfmod',  # PDF editor
     'xournalpp',  # writing on PDFs
     'simple-scan',  # simple scanner operation
-    'mpv',  # a nice video player
+    'mpv',  # a nice video player with fast jumping and subtitle adjustment
     'vlc',  # an alternative video player
     'kolourpaint',  # Microsoft Paint clone
     'signal-desktop', # private communicator
@@ -126,7 +126,6 @@ PACMAN_GUI_PACKAGES = {
     'adapta-maia-theme',  # a theme for XFCE that I like
     'kvantum-manjaro',  # themes for QT apps
     'asunder',  # audio CD ripper
-    'mplayer',  # video player with fast jumping and subtitle adjustment
     'krita',  # drawing program with tablet support
     'audacity',  # sound editor
     'system-config-printer',  # Manjaro or XFCE printer setup GUI
@@ -148,7 +147,9 @@ AUR_GUI_PACKAGES = {
     'tor-browser',
     'zoom',  # video conferencing
     'freemind',  # mindmapping tool
-    # TODO get something good for recording videos.
+    'losslesscut-bin',  # fast and simple video editor
+    'olive',  # video editor. Alternatives: https://github.com/nschloe/stargraph#video-editors
+    # TODO get something good for recording videos - OBS?
     # Simple/crude screencasting / desktop recording.
     # 'screenstudio',
     # Kazam looks nicer but is broken without a fix:
