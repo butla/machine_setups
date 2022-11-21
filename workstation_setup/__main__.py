@@ -3,17 +3,17 @@
 This script installs software and applies configurations that I want in my Manjaro workstations.
 """
 
+from functools import partial
 import logging
 import os
 from pathlib import Path
 import platform
 import re
-import shlex
 import socket
 import subprocess
-import sys
 
 import workstation_setup
+from workstation_setup import shell
 
 # Colors taken from "colorama". I don't want to depend on it, though.
 # I'll be using a color, so I can easily see my log message by glancing at the output
@@ -47,59 +47,57 @@ def main():
     log.info('All done.')
 
 
-def _run_cmd(command: str, work_directory='.', allow_fail=False) -> subprocess.CompletedProcess:
-    stdout, stderr = None, None
-    check = not allow_fail
-
-    try:
-        return subprocess.run(
-            shlex.split(command),
-            check=check,
-            cwd=work_directory,
-            stdout=stdout,
-            stderr=stderr,
-        )
-    except subprocess.CalledProcessError as ex:
-        log.error(f"Command: '{command}' failed with status {ex.returncode}.")
-        sys.exit("ERROR! Shell command failed!")
-
-
-def _get_cmd_output(command: str) -> str:
-    return subprocess.check_output(shlex.split(command)).decode()
-
-
-def _check_command_exists(command: str) -> str:
-    return subprocess.run(f'command -v {command}', shell=True, stdout=subprocess.DEVNULL).returncode == 0
-
-
 def sync_packages():
     log.info('Making sure pamac can install from AUR...')
     # uncommenting some lines
-    _run_cmd(r"sudo sed -i -E 's|^.*EnableAUR|EnableAUR|' /etc/pamac.conf")
-    _run_cmd(r"sudo sed -i -E 's|^.*CheckAURUpdates|CheckAURUpdates|' /etc/pamac.conf")
+    # TODO add a "replace line in file" function
+    shell.run_cmd(r"sudo sed -i -E 's|^.*EnableAUR|EnableAUR|' /etc/pamac.conf")
+    shell.run_cmd(r"sudo sed -i -E 's|^.*CheckAURUpdates|CheckAURUpdates|' /etc/pamac.conf")
 
     log.info('Updating the package index and packages...')
-    _run_cmd('sudo pamac upgrade')
-    if _check_command_exists('flatpak'):
+    shell.run_cmd('sudo pamac upgrade --no-confirm')
+    if shell.check_command_exists('flatpak'):
         log.info('Updating flatpak packages...')
-        _run_cmd('flatpak update')
+        shell.run_cmd('flatpak update')
 
     log.info('Installing the necessary packages...')
     packages_string = ' '.join(workstation_setup.packages.get_packages_for_host())
-    _run_cmd(f'sudo pamac install --no-confirm {packages_string}')
+
+    _add_package_keys()
+    shell.run_cmd(f'sudo pamac install --no-confirm {packages_string}')
 
     log.info('Removing unused packages...')
-    _run_cmd('sudo pamac remove --orphans --no-confirm', allow_fail=True)
+    shell.run_cmd('sudo pamac remove --orphans --no-confirm', allow_fail=True)
+
+
+def _add_package_keys():
+    run_key_cmd = partial(subprocess.run, shell=True, check=True)
+    keys_from_web = [
+        'https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg',
+    ]
+    for key_url in keys_from_web:
+        run_key_cmd(f'curl -sS {key_url} | sudo gpg --import -')
+
+    gpg_keys = [
+        # dropbox
+        '1C61A2656FB57B7E4DE0F4C1FC918B335044912E',
+    ]
+    for key in gpg_keys:
+        run_key_cmd(f'sudo gpg --recv-keys {key}')
+
+    # TODO tor-browser upgrade is causing PGP signature errors when run with
+    # sudo pamac install tor-browser
+    run_key_cmd('gpg --auto-key-locate nodefault,wkd --locate-keys torbrowser@torproject.org')
 
 
 def _clone_or_update_git_repo(repo_url: str, clone_location: Path):
     if clone_location.exists():
         log.info('Updating Git repo: %s', clone_location)
-        _run_cmd('git pull', work_directory=clone_location)
+        shell.run_cmd('git pull', work_directory=clone_location)
     else:
         log.info('Pulling Git repo %s into %s', repo_url, clone_location)
         clone_location.parent.mkdir(parents=True, exist_ok=True)
-        _run_cmd(f'git clone {repo_url} {clone_location}')
+        shell.run_cmd(f'git clone {repo_url} {clone_location}')
 
 
 def install_oh_my_zsh():
@@ -124,37 +122,38 @@ def setup_neovim():
     neovim_virtualenv_path = Path('~/.virtualenvs/neovim').expanduser()
     if not neovim_virtualenv_path.exists():
         log.info('Creating a virtualenv for NeoVim Python integration...')
-        _run_cmd(f'python3 -m venv {neovim_virtualenv_path}')
-        _run_cmd(f'{neovim_virtualenv_path}/bin/pip install pynvim')
+        shell.run_cmd(f'python3 -m venv {neovim_virtualenv_path}')
+        shell.run_cmd(f'{neovim_virtualenv_path}/bin/pip install pynvim')
     else:
         log.info('Updating NeoVim Python integration virtualenv...')
-        _run_cmd(f'{neovim_virtualenv_path}/bin/pip install --upgrade pynvim')
+        shell.run_cmd(f'{neovim_virtualenv_path}/bin/pip install --upgrade pynvim')
 
     vim_color_scheme_file = Path('~/.vim/colors/darcula.vim').expanduser()
     if not vim_color_scheme_file.exists():
         log.info('Pulling the colorsheme file for NeoVim...')
         vim_color_scheme_file.parent.mkdir(parents=True, exist_ok=True)
         color_scheme_url = 'https://raw.githubusercontent.com/blueshirts/darcula/master/colors/darcula.vim'
-        _run_cmd(f'wget -O {vim_color_scheme_file} {color_scheme_url}')
+        shell.run_cmd(f'wget -O {vim_color_scheme_file} {color_scheme_url}')
 
     log.info('Synchronizing NeoVim plugins with vim-plug...')
-    _run_cmd('nvim +PlugUpgrade +PlugClean +PlugUpdate +qall')
+    shell.run_cmd('nvim +PlugUpgrade +PlugClean +PlugUpdate +qall')
 
     regular_vim_binary = Path('/usr/bin/vim')
     if not regular_vim_binary.exists():
         log.info('Setting up link to NeoVim at %s', regular_vim_binary)
-        regular_vim_binary.symlink_to('/usr/bin/nvim')
+        shell.run_cmd(f'sudo ln -s /usr/bin/nvim {regular_vim_binary}')
 
 
 def ensure_ntp():
     log.info('Ensuring time is synced with NTP.')
-    _run_cmd('sudo timedatectl set-ntp true')
+    shell.run_cmd('sudo timedatectl set-ntp true')
 
 
 def set_zsh_as_shell():
     if not os.environ['SHELL'].endswith('/zsh'):
         log.info('Setting up ZSH as the default shell...')
-        _run_cmd('chsh -s /usr/bin/zsh')
+        # TODO this messes up the script's output. Fix it.
+        shell.run_cmd('chsh -s /usr/bin/zsh')
 
 
 def set_qt_theme():
@@ -179,16 +178,16 @@ def enable_services():
 
     # No working docker on ARM? Something errors out if I try to enable Docker...
     if not _is_arm_cpu():
-        _run_cmd('sudo systemctl enable --now docker')
+        shell.run_cmd('sudo systemctl enable --now docker')
         subprocess.run('sudo usermod -a -G docker $(whoami)', shell=True, check=True)
 
     # needed so that yubico-authenticator can talk with the yubikey
-    _run_cmd('sudo systemctl enable --now pcscd')
+    shell.run_cmd('sudo systemctl enable --now pcscd')
 
-    _run_cmd('sudo systemctl enable --now syncthing@butla')
+    shell.run_cmd('sudo systemctl enable --now syncthing@butla')
 
     # so that the hosts get DNS entries like <hostname>.local in the local subnet
-    _run_cmd('sudo systemctl enable --now avahi-daemon.service')
+    shell.run_cmd('sudo systemctl enable --now avahi-daemon.service')
 
 
 
@@ -210,6 +209,8 @@ def setup_crontab():
 
 def describe_manual_steps():
     text = """There are some steps you need to do manually after an initial setup:
+- Syncthing: "Actions" / Show ID; share secrets and documents; set up GUI creds
+- add id_rsa to ~/.ssh
 - KeePassXC: secret's service integration needs to be enabled manually
 - Brave: enable sync (for everything); has to be done when KeePassXC secret's service integration is running
 - Dropbox: log in
@@ -219,7 +220,6 @@ def describe_manual_steps():
 - qbittorrent: enable search plugin -> View/search engine/search plugins, and configure it
 - set up ~/.credentials/borg_key from KeePass
 - pix: set sorting by filename in "view/sort by"
-- set up Syncthing shared folders
 - clock widget: set time format to %Y-%m-%d %H:%M:%S
 - remove XFCE workspace switcher and set up favourites menu
 - restart so that XFCE configuration loads
