@@ -209,7 +209,7 @@ def setup_crontab():
 
 def describe_manual_steps():
     text = """There are some steps you need to do manually after an initial setup:
-- Syncthing: "Actions" / Show ID; share secrets and documents; set up GUI creds
+- Syncthing: "Actions" / Show ID; share secrets and documents (at ~/Documents); set up GUI creds
 - add id_rsa to ~/.ssh
 - KeePassXC: secret's service integration needs to be enabled manually
 - Brave: enable sync (for everything); has to be done when KeePassXC secret's service integration is running
@@ -246,6 +246,10 @@ if __name__ == '__main__':
 # - gthumb - the zoom-in keyboard shortcut problem (https://gitlab.gnome.org/GNOME/gthumb/-/issues/103)
 
 # TODOs
+# - dropbox as an optional package for bh and bl
+# - installing tor-browser and spotify on bp
+# - dark theme for XFCE
+# - touchpad taps as clicks
 # - sort out the secret's service one way or the other
 #   (maybe sharing the keepass DB that's used by Brave on different machines causes issues?):
 #   - make gnome keyring run as secrets service keyring
@@ -254,10 +258,13 @@ if __name__ == '__main__':
 #     visible with seahorse in the "login" under "passwords")
 #   - disable gnomekeyring
 #     https://www.chucknemeth.com/linux/security/keyring/keepassxc-keyring
-# - run this as sudo, impersonating the user where it's necessary
+# - run this as sudo, impersonating the user where it's necessary; upgrade script added for root
 # - All commands without confirmation. Get logs for everything. Async status display of all.
 #   Have a graph of tasks? (check if preconditions for working are met - mark dependencies)
 #   Do everything possible in parallel.
+# - open any image / copy to clipboard with FZF.
+#   Or better - bemenu, with meta+m (for media) (maybe upper case, lower is move)
+#   check "grafika" and whatever photo folders are available
 # - setup python tools with pipx packages (also update them?):
 #   - ocrmypdf
 #   - ptpython (nice python interactive shell), with sympy and others (through pipx inject)
