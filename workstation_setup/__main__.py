@@ -78,6 +78,7 @@ def _add_package_keys():
     for key_url in keys_from_web:
         run_key_cmd(f'curl -sS {key_url} | sudo gpg --import -')
 
+    # TODO this key should be only added for hosts that install Dropbox
     gpg_keys = [
         # dropbox
         '1C61A2656FB57B7E4DE0F4C1FC918B335044912E',
@@ -87,7 +88,7 @@ def _add_package_keys():
 
     # TODO tor-browser upgrade is causing PGP signature errors when run with
     # sudo pamac install tor-browser
-    run_key_cmd('gpg --auto-key-locate nodefault,wkd --locate-keys torbrowser@torproject.org')
+    run_key_cmd('sudo gpg --auto-key-locate nodefault,wkd --locate-keys torbrowser@torproject.org')
 
 
 def _clone_or_update_git_repo(repo_url: str, clone_location: Path):
@@ -246,9 +247,8 @@ if __name__ == '__main__':
 # - gthumb - the zoom-in keyboard shortcut problem (https://gitlab.gnome.org/GNOME/gthumb/-/issues/103)
 
 # TODOs
-# - dropbox as an optional package for bh and bl
-# - installing tor-browser and spotify on bp
-# - dark theme for XFCE
+# - install spotify on bp
+# - XFCE: dark theme for the login widget?
 # - touchpad taps as clicks
 # - sort out the secret's service one way or the other
 #   (maybe sharing the keepass DB that's used by Brave on different machines causes issues?):
