@@ -85,6 +85,7 @@ PACMAN_NO_GUI_PACKAGES = {
     'xclip',  # as above
     'ueberzug',  # needed for ranger's image previews
     'libcanberra',  # needed for "canberra-gtk-play -i bell" for testing that sound is on
+    'xinput',  # can be used to manage input devices (keyboards, touchpads)
     # =========================
     # heavy CLI programs for development
     # =========================
