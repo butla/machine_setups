@@ -53,6 +53,8 @@ def sync_packages():
     shell.replace_in_file('^.*EnableAUR', 'EnableAUR', '/etc/pamac.conf')
     shell.replace_in_file('^.*CheckAURUpdates', 'CheckAURUpdates', '/etc/pamac.conf')
     # TODO set the line that disables database signatures in pacman.conf
+    # first SigLevel, from [options] section. Can an ini reader get that?
+    # Capture group after [options] before next [
 
     log.info('Updating the package index and packages...')
     shell.run_cmd('sudo pamac upgrade --no-confirm')
@@ -225,6 +227,8 @@ def describe_manual_steps():
   - clock widget: set time format to %Y-%m-%d %H:%M:%S
   - remove XFCE workspace switcher and set up favourites menu
   - restart so that XFCE configuration loads
+  - battery level widget
+  - dark theme for the login screen
 """
     log.info(text)
 
@@ -249,6 +253,8 @@ if __name__ == '__main__':
 
 # TODOs
 # - see TODOs from sync packages
+# - setup my GPG secret keys in the keychain and gpg config
+# - setup Manjaro on Gnome
 # - add the method of getting keys with the packages. Ones with keys should be a dict.
 #   There needs to be an intermediate step that wraps the simple string or dict into a Package representation,
 #   that's hashable on the name.
@@ -259,9 +265,11 @@ if __name__ == '__main__':
 #   - litecli (nice SQLite CLI client)
 #   - isort
 #   - subliminal
+# - touchpad turning off on bp - something about sleeping USB that I fixed on bl?
 # - install spotify on bp
-# - XFCE: dark theme for the login widget?
 # - touchpad taps as clicks
+# - kdewallet keeps pops up when trying
+# - replacement to pix that doesn't glitch when going through photo videos
 # - sort out the secret's service one way or the other
 #   (maybe sharing the keepass DB that's used by Brave on different machines causes issues?):
 #   - make gnome keyring run as secrets service keyring
