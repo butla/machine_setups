@@ -53,6 +53,7 @@ def sync_packages():
     # TODO add a "replace line in file" function
     shell.run_cmd(r"sudo sed -i -E 's|^.*EnableAUR|EnableAUR|' /etc/pamac.conf")
     shell.run_cmd(r"sudo sed -i -E 's|^.*CheckAURUpdates|CheckAURUpdates|' /etc/pamac.conf")
+    # TODO set the line that disables database signatures in pacman.conf
 
     log.info('Updating the package index and packages...')
     shell.run_cmd('sudo pamac upgrade --no-confirm')
@@ -247,6 +248,10 @@ if __name__ == '__main__':
 # - gthumb - the zoom-in keyboard shortcut problem (https://gitlab.gnome.org/GNOME/gthumb/-/issues/103)
 
 # TODOs
+# - see TODOs from sync packages
+# - add the method of getting keys with the packages. Ones with keys should be a dict.
+#   There needs to be an intermediate step that wraps the simple string or dict into a Package representation,
+#   that's hashable on the name.
 # - install spotify on bp
 # - XFCE: dark theme for the login widget?
 # - touchpad taps as clicks
