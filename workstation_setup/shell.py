@@ -5,6 +5,7 @@ import sys
 
 log = logging.getLogger(__name__)
 
+
 def run_cmd(command: str, work_directory='.', allow_fail=False) -> subprocess.CompletedProcess:
     result = subprocess.run(
         shlex.split(command),
@@ -23,4 +24,12 @@ def run_cmd(command: str, work_directory='.', allow_fail=False) -> subprocess.Co
 
 
 def check_command_exists(command: str) -> str:
-    return subprocess.run(f'command -v {command}', shell=True, stdout=subprocess.DEVNULL).returncode == 0
+    return subprocess.run(
+        f'command -v {command}',
+        shell=True,
+        stdout=subprocess.DEVNULL
+    ).returncode == 0
+
+
+def replace_in_file(match: str, replacement: str, file: str):
+    run_cmd(f"sudo sed -i -E 's|{match}|{replacement}|' {file}")

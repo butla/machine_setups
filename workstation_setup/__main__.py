@@ -50,9 +50,8 @@ def main():
 def sync_packages():
     log.info('Making sure pamac can install from AUR...')
     # uncommenting some lines
-    # TODO add a "replace line in file" function
-    shell.run_cmd(r"sudo sed -i -E 's|^.*EnableAUR|EnableAUR|' /etc/pamac.conf")
-    shell.run_cmd(r"sudo sed -i -E 's|^.*CheckAURUpdates|CheckAURUpdates|' /etc/pamac.conf")
+    shell.replace_in_file('^.*EnableAUR', 'EnableAUR', '/etc/pamac.conf')
+    shell.replace_in_file('^.*CheckAURUpdates', 'CheckAURUpdates', '/etc/pamac.conf')
     # TODO set the line that disables database signatures in pacman.conf
 
     log.info('Updating the package index and packages...')
@@ -222,9 +221,10 @@ def describe_manual_steps():
 - qbittorrent: enable search plugin -> View/search engine/search plugins, and configure it
 - set up ~/.credentials/borg_key from KeePass
 - pix: set sorting by filename in "view/sort by"
-- clock widget: set time format to %Y-%m-%d %H:%M:%S
-- remove XFCE workspace switcher and set up favourites menu
-- restart so that XFCE configuration loads
+- XFCE:
+  - clock widget: set time format to %Y-%m-%d %H:%M:%S
+  - remove XFCE workspace switcher and set up favourites menu
+  - restart so that XFCE configuration loads
 """
     log.info(text)
 
@@ -252,6 +252,13 @@ if __name__ == '__main__':
 # - add the method of getting keys with the packages. Ones with keys should be a dict.
 #   There needs to be an intermediate step that wraps the simple string or dict into a Package representation,
 #   that's hashable on the name.
+# - setup python tools with pipx packages (also update them?):
+#   - ocrmypdf
+#   - ptpython (nice python interactive shell), with sympy and others (through pipx inject)
+#   - pgcli (nice Postgres CLI client)
+#   - litecli (nice SQLite CLI client)
+#   - isort
+#   - subliminal
 # - install spotify on bp
 # - XFCE: dark theme for the login widget?
 # - touchpad taps as clicks
@@ -270,13 +277,6 @@ if __name__ == '__main__':
 # - open any image / copy to clipboard with FZF.
 #   Or better - bemenu, with meta+m (for media) (maybe upper case, lower is move)
 #   check "grafika" and whatever photo folders are available
-# - setup python tools with pipx packages (also update them?):
-#   - ocrmypdf
-#   - ptpython (nice python interactive shell), with sympy and others (through pipx inject)
-#   - pgcli (nice Postgres CLI client)
-#   - litecli (nice SQLite CLI client)
-#   - isort
-#   - subliminal
 # - On failed steps ask whether to restart or skip them. Or maybe cancel the whole run.
 # - (maybe needed) automatically fix pipx installs and virtualenvs after Manjaro switches to a higher Python version.
 #   Currently, they're all getting broken.
