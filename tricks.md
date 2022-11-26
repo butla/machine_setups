@@ -25,3 +25,9 @@ or [this solution](https://forum.manjaro.org/t/root-tip-how-to-mitigate-and-prev
 **Root cause**
 Looks like the sig files in /var/lib/pacman/sync (and other similar folders) that get downloaded by pacman
 sometimes contain error HTTP responses from the mirror instead of signatures.
+
+## LVM
+**Resize a filesystem**
+- `sudo lvm lvscan` to get the volumes, let's say it's /dev/data/root
+- sudo e2fsck -f /dev/data/root
+- `sudo resize2fs -P /dev/data/root 75G` (last bit is the size)
