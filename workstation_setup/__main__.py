@@ -266,7 +266,6 @@ if __name__ == '__main__':
 #   - isort
 #   - subliminal
 # - touchpad turning off on bp - something about sleeping USB that I fixed on bl?
-# - install spotify on bp
 # - touchpad taps as clicks
 # - kdewallet keeps pops up when trying
 # - replacement to pix that doesn't glitch when going through photo videos
