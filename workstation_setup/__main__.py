@@ -48,6 +48,9 @@ def main():
 
 
 def sync_packages():
+    # TODO list the packages getting installed, updated.
+    # Pipe the command output somewhere else. Log file.
+    # Say "updating packages, log location /var/log/bobr_workstation_setup
     log.info('Making sure pamac can install from AUR...')
     # uncommenting some lines
     shell.replace_in_file('^.*EnableAUR', 'EnableAUR', '/etc/pamac.conf')
