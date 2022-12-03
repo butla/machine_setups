@@ -78,9 +78,3 @@ lsblk | grep -v loop
 # └─nvme0n1p3       259:6    0 953.2G  0 part
 #   └─crypt         254:0    0 953.2G  0 crypt
 #     └─vg0-manjaro 254:1    0   853G  0 lvm
-
-
-# Useful snippets
-# ===============
-# # closing the LVM and LUKS container
-# sudo vgchange -a n vg0 && sudo cryptsetup luksClose crypt
