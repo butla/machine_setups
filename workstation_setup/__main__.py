@@ -258,6 +258,8 @@ if __name__ == '__main__':
 # - see TODOs from sync packages
 # - setup my GPG secret keys in the keychain and gpg config
 # - setup Manjaro on Gnome
+#   - gnome extensions installer https://github.com/brunelli/gnome-shell-extension-installer
+#   - audio switcher, clock format editor
 # - add the method of getting keys with the packages. Ones with keys should be a dict.
 #   There needs to be an intermediate step that wraps the simple string or dict into a Package representation,
 #   that's hashable on the name.
@@ -280,7 +282,8 @@ if __name__ == '__main__':
 #     visible with seahorse in the "login" under "passwords")
 #   - disable gnomekeyring
 #     https://www.chucknemeth.com/linux/security/keyring/keepassxc-keyring
-# - run this as sudo, impersonating the user where it's necessary; upgrade script added for root
+# - run this as sudo, impersonating the user where it's necessary; upgrade script runs python with sudo.
+# - make package update faster: can we skip pamac scan for updates? Can that be done periodically in the background?
 # - All commands without confirmation. Get logs for everything. Async status display of all.
 #   Have a graph of tasks? (check if preconditions for working are met - mark dependencies)
 #   Do everything possible in parallel.
