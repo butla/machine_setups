@@ -35,15 +35,34 @@ sometimes contain error HTTP responses from the mirror instead of signatures.
 **Shrink LVM container inside a LUKS container**
 https://wiki.archlinux.org/title/Resizing_LVM-on-LUKS#Resize_LVM_physical_Volume
 
-- sudo lvs [find lv and vg]
-- sudo lvresize -L 68G [!these are gibibytes!] --resizefs $VG/$LV
-- # organize space in the PV?: https://unix.stackexchange.com/a/193971
-- # TODO reload? sudo lvm pvscan shows nice values
+- [find $LV and $VG]
+- sudo lvs
+- # the units here are gibibytes!
+- sudo lvresize -L 68G --resizefs $VG/$LV
+- # [optionally] defragment the PV: https://unix.stackexchange.com/a/193971
+- # TODO maybe a reload is needed here? sudo lvm pvscan shows nice values
 - sudo pvdisplay <opened luks partition, e.g. "/dev/mapper/crypt_pop_os">
 - NEW_VOLUME_BYTES = 4* PE_SIZE * TOTAL_PE + UNUSABLE_SIZE
 - # if shrinking, calculate the size you want in mebibytes (this is safe, won't let you go below what's taken)
 - sudo pvresize --setphysicalvolumesize 69619M <opened luks partition>
-- # TODO resize luks
+- # get luks sector size
+- sudo cryptsetup status crypt_pop_os
+- # figure out the bytes to give to cryptsetup
+- sudo pvdisplay /dev/mapper/crypt_pop_os
+- NEW_LUKS_SECTOR_COUNT = TOTAL PE * PE Size [BYTES] / LUKS_SECTOR_SIZE [BYTES]
+- sudo cryptsetup -b $NEW_LUKS_SECTOR_COUNT resize crypt_pop_os
+- # closing LVM
+- sudo vgchange -a n data
+- # closing the luks container
+- sudo cryptsetup close crypt_pop_os
+- # resize partition
+- sudo parted /dev/nvme0n1
+  > unit
+  > s
+  > p[rint]
+  # sectors are NEW_LUKS_SECTOR_COUNT + offset sectors from "cryptsetup status"
+  # NEW_PARTITION_SECTOR_END = PARTITION_SECTOR_START + NEW_LUKS_SECTOR_COUNT - 1
+  > resizepart 3 NEW_PARTITION_SECTOR_END
 
 **closing LVM and LUKS container**
-sudo vgchange -a n vg0 && sudo cryptsetup luksClose crypt
+sudo vgchange -a n vg0 && sudo cryptsetup close cryptdisk
