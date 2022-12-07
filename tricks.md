@@ -27,6 +27,9 @@ Looks like the sig files in /var/lib/pacman/sync (and other similar folders) tha
 sometimes contain error HTTP responses from the mirror instead of signatures.
 
 ## Filesystem management
+**closing LVM and LUKS container**
+sudo vgchange -a n vg0 && sudo cryptsetup close cryptdisk
+
 **LVS: resize a filesystem**
 - `sudo lvm lvscan` to get the volumes, let's say it's /dev/data/root
 - sudo e2fsck -f /dev/data/root
@@ -63,6 +66,3 @@ https://wiki.archlinux.org/title/Resizing_LVM-on-LUKS#Resize_LVM_physical_Volume
   # sectors are NEW_LUKS_SECTOR_COUNT + offset sectors from "cryptsetup status"
   # NEW_PARTITION_SECTOR_END = PARTITION_SECTOR_START + NEW_LUKS_SECTOR_COUNT - 1
   > resizepart 3 NEW_PARTITION_SECTOR_END
-
-**closing LVM and LUKS container**
-sudo vgchange -a n vg0 && sudo cryptsetup close cryptdisk
