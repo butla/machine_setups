@@ -270,6 +270,7 @@ if __name__ == '__main__':
 #   - litecli (nice SQLite CLI client)
 #   - isort
 #   - subliminal
+# - setup syncthing shares between hosts automatically?
 # - touchpad turning off on bp - something about sleeping USB that I fixed on bl?
 # - touchpad taps as clicks
 # - kdewallet keeps pops up when trying
