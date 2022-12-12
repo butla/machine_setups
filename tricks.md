@@ -30,7 +30,7 @@ sometimes contain error HTTP responses from the mirror instead of signatures.
 **closing LVM and LUKS container**
 sudo vgchange -a n vg0 && sudo cryptsetup close cryptdisk
 
-**LVS: resize a filesystem**
+**LVM: resize a filesystem**
 - `sudo lvm lvscan` to get the volumes, let's say it's /dev/data/root
 - sudo e2fsck -f /dev/data/root
 - `sudo resize2fs -P /dev/data/root 75G` (last bit is the size)
@@ -53,9 +53,10 @@ https://wiki.archlinux.org/title/Resizing_LVM-on-LUKS#Resize_LVM_physical_Volume
 - # figure out the bytes to give to cryptsetup
 - sudo pvdisplay /dev/mapper/crypt_pop_os
 - NEW_LUKS_SECTOR_COUNT = TOTAL PE * PE Size [BYTES] / LUKS_SECTOR_SIZE [BYTES]
-- sudo cryptsetup -b $NEW_LUKS_SECTOR_COUNT resize crypt_pop_os
-- # closing LVM
+- # close the LVM
 - sudo vgchange -a n data
+- # change the LUKS sector count
+- sudo cryptsetup -b $NEW_LUKS_SECTOR_COUNT resize crypt_pop_os
 - # closing the luks container
 - sudo cryptsetup close crypt_pop_os
 - # resize partition
@@ -66,3 +67,9 @@ https://wiki.archlinux.org/title/Resizing_LVM-on-LUKS#Resize_LVM_physical_Volume
   # sectors are NEW_LUKS_SECTOR_COUNT + offset sectors from "cryptsetup status"
   # NEW_PARTITION_SECTOR_END = PARTITION_SECTOR_START + NEW_LUKS_SECTOR_COUNT - 1
   > resizepart 3 NEW_PARTITION_SECTOR_END
+
+**Move a partition (100 MiB backwards)**
+echo '+100M,' | sudo sfdisk --move-data /dev/nvme0n1 -N 3
+
+**Grow partition to take up the unallocated space after it**
+echo ", +" | ./sfdisk -N 1 /dev/sdc
