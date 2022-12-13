@@ -138,6 +138,8 @@ AUR_NO_GUI_PACKAGES = {
     'toilet',  # printing large letters in terminal
     'hollywood',  # "Fill your console with Hollywood melodrama technobabble"
     'qbittorrent-cli-bin',  # CLI for the non-GUI torrent client, TODO, make it work
+    # maybe use it one day
+    # 'woeusb',  # creating bootable Windows USBs
 }
 
 AUR_GUI_PACKAGES = {
@@ -147,8 +149,8 @@ AUR_GUI_PACKAGES = {
     'zoom',  # video conferencing
     'freemind',  # mindmapping tool
     'losslesscut-bin',  # fast and simple video editor
-    'olive',  # video editor. Alternatives: https://github.com/nschloe/stargraph#video-editors
-    # TODO get something good for recording videos - OBS?
+    # TODO get something good for recording videos - OBS? Figure out a good video editor
+    # 'olive',  # video editor. Alternatives: https://github.com/nschloe/stargraph#video-editors
     # Simple/crude screencasting / desktop recording.
     # 'screenstudio',
     # Kazam looks nicer but is broken without a fix:
