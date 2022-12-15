@@ -71,7 +71,9 @@ PACMAN_NO_GUI_PACKAGES = {
     'gnu-netcat',  # TCP client/listener
     'gendesk',  # desktop file generator for apps, used while building some AUR packages
     'youtube-dl',  # download video and audio from YouTube
-    'ventoy',  # convert USB drives, so that you make bootable USBs by copying over an (Linux/Windows) ISO file.
+    # Convert USB drives, so that you make bootable USBs by copying over an (Linux/Windows) ISO file.
+    # woeusb from AUR can be an alternative.
+    'ventoy',
     'syncthing',  # file synchronization
     'dos2unix',  # convert Windows line endings to Unix ones
     'cronie',  # anacron implementation
@@ -138,8 +140,6 @@ AUR_NO_GUI_PACKAGES = {
     'toilet',  # printing large letters in terminal
     'hollywood',  # "Fill your console with Hollywood melodrama technobabble"
     'qbittorrent-cli-bin',  # CLI for the non-GUI torrent client, TODO, make it work
-    # maybe use it one day
-    # 'woeusb',  # creating bootable Windows USBs
 }
 
 AUR_GUI_PACKAGES = {
