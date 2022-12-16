@@ -14,7 +14,7 @@ Also, it'll replace various configuration files with links to the config files i
 Rerunning the script will update the setup (packages, Git repos, plugins).
 
 Usage
-------------
+-----
 
 To setup all the software and configuration or to update it later run the setup command from `Makefile` with `make`.
 
@@ -24,6 +24,11 @@ If you want to fork this repository and adjust it for your purposes you might wa
 repo in `.gitmodules`, or just remove the file altogether.
 With that, you'll need to remove the line in Python code (from `workstation_setup/config_links.py`)
 that uses my private configs.
+
+Docs
+----
+
+To check out some documentation, see `./docs`.
 
 Similar tools
 -------------
