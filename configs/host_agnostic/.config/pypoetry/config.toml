@@ -1,3 +1,4 @@
 [virtualenvs]
-in-project = true
+# poetry should create virtualenvs in .venv directory in project roots
 create = true
+in-project = true

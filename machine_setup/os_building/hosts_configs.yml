@@ -1,6 +1,7 @@
 ---
 # TODO finish up and start using this file
 
+# TODO setup GRUB on lemur with console output to see what's wrong with the boot
 bl:
   # Hmm... wonder if exposing my drive UUIDs (and other drive info) is a security risk...
   # If you, Dear Reader, can explain how exactly is it a risk, I'd love to know.
