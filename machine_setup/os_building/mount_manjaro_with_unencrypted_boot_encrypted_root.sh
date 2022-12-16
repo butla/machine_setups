@@ -8,6 +8,7 @@ function log() {
     echo '---' $(date --iso-8601=seconds) $@ '---'
 }
 
+# TODO parameterize this, move common code into a function in another (sourced) file in this directory
 EFI_PARTITION=/dev/nvme0n1p1
 BOOT_PARTITION=/dev/nvme0n1p2
 # this will be encrypted

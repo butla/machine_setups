@@ -1,0 +1,19 @@
+---
+# TODO finish up and start using this file
+
+bl:
+  # Hmm... wonder if exposing my drive UUIDs (and other drive info) is a security risk...
+  # If you, Dear Reader, can explain how exactly is it a risk, I'd love to know.
+  # If somebody could log into my device (which means I'm a bit fucked anyway) and see `blkid`, they could
+  # identify, that they are, indeed, on my machine.
+  efi_partition: "TODO this should be a UUID"  # /dev/nvme0n1p1/
+  root_file_system:
+    partition: "TODO UUID"  # /dev/nvme0n1p2
+    crypt_name: crypt_priv_systems
+    lvm_vg: priv_systems
+    lv: manjaro
+  bootloader: grub/systemd-boot
+
+b-tv:
+
+ognisko:

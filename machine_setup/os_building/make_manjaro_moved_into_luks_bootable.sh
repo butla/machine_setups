@@ -1,5 +1,7 @@
 set -e
 
+# TODO parameterize this, move common code into a function in another (sourced) file in this directory.
+# The directory should contain folders for each of my hosts.
 EFI_PARTITION=/dev/nvme0n1p1
 # get this from `sudo blkid`
 CRYPT_PARTITION_ID=050a93bf-d0d3-4d01-83c7-b65d060d2cc5

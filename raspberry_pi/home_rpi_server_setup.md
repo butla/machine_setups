@@ -73,7 +73,7 @@ unique for the RPI (but one I can remember, 4 words), saved in my KeyPass.
 
 **Continuation**
 
-See `./machine_setup/os_building_scripts/setup_rpi_manjaro_headless_server.sh`
+See `./machine_setup/os_building/setup_rpi_manjaro_headless_server.sh`
 
 ### TODO
 

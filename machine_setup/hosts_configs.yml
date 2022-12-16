@@ -1,0 +1,10 @@
+---
+# TODO finish up and start using this file
+bl:
+  efi_partition:
+  root_partition:
+  bootloader: grub/systemd-boot
+
+b-tv:
+
+ognisko:
