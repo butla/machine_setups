@@ -255,6 +255,12 @@ if __name__ == '__main__':
 # - gthumb - the zoom-in keyboard shortcut problem (https://gitlab.gnome.org/GNOME/gthumb/-/issues/103)
 
 # TODOs
+# - don't use `sudo pamac`
+#   - use pacman for installing regular packages
+#   - sync AUR packages with Git to a directory (~/.cache/aur_packages)
+#   - install AUR package dependencies (gather them from packages) with "sudo pacman -S --asdeps <packages>"
+#   - build as regular user: `makepkg`
+#   - install with `sudo pacman -U <package file>`
 # - see TODOs from sync packages
 # - setup my GPG secret keys in the keychain and gpg config
 # - setup Manjaro on Gnome
