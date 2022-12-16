@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """
-This script installs software and applies configurations that I want in my Manjaro workstations.
+This script installs software and applies configuration that I want in any of my Manjaro computers (machines).
+
+"Computer" sounds weird here, even though it would be an accurate name :)
+So I prefer to use "machine" ¯\_(ツ)_/¯
 """
 
 from functools import partial
@@ -12,8 +15,8 @@ import re
 import socket
 import subprocess
 
-import workstation_setup
-from workstation_setup import shell
+import machine_setup
+from machine_setup import shell
 
 # Colors taken from "colorama". I don't want to depend on it, though.
 # I'll be using a color, so I can easily see my log message by glancing at the output
@@ -50,7 +53,7 @@ def main():
 def sync_packages():
     # TODO list the packages getting installed, updated.
     # Pipe the command output somewhere else. Log file.
-    # Say "updating packages, log location /var/log/bobr_workstation_setup
+    # Say "updating packages, log location /var/log/bobr_machine_setup
     log.info('Making sure pamac can install from AUR...')
     # uncommenting some lines
     shell.replace_in_file('^.*EnableAUR', 'EnableAUR', '/etc/pamac.conf')
@@ -66,7 +69,7 @@ def sync_packages():
         shell.run_cmd('flatpak update')
 
     log.info('Installing the necessary packages...')
-    packages_string = ' '.join(workstation_setup.packages.get_packages_for_host())
+    packages_string = ' '.join(machine_setup.packages.get_packages_for_host())
 
     _add_package_keys()
     shell.run_cmd(f'sudo pamac install --no-confirm {packages_string}')
@@ -112,7 +115,7 @@ def install_oh_my_zsh():
 
 
 def ensure_configs_and_scripts():
-    workstation_setup.config_links.setup_all_links()
+    machine_setup.config_links.setup_all_links()
 
 
 def setup_tmux_plugins():

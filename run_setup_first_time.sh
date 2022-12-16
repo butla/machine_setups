@@ -7,4 +7,4 @@ set -e
 echo "----- Refreshing the the package mirrors... -----"
 sudo pacman-mirrors -f
 echo "----- Running the setup... -----"
-python3 -m workstation_setup
+python3 -m machine_setup

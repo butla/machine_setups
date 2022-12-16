@@ -5,15 +5,15 @@ SHELL:=/bin/bash
 
 LOG_PATH=$(HOME)/.local/var/log
 
-setup_workstation:
+setup_machine:
 	echo "Ensuring a path for logs: $(LOG_PATH)"
 	@mkdir -p $(LOG_PATH)
-	python3 -m workstation_setup | tee --append $(LOG_PATH)/upgrade.log
+	python3 -m machine_setup | tee --append $(LOG_PATH)/upgrade.log
 
 # The below commands require setting up a virtualenv, activating it, and running `poetry install` in it.
 
 validate_continously:
-	fd '\.py$$' workstation_setup/ configs/ tests/ | entr -c make --keep-going validate
+	fd '\.py$$' machine_setup/ configs/ tests/ | entr -c make --keep-going validate
 
 # Pylint can find errors in the code that can cause multiple tests to fail
 # (which would produce a lot of pytest output), so we run it first.
@@ -28,7 +28,7 @@ test:
 
 pylint:
 	@echo ===Pylint===
-	poetry pylint workstation_setup/ tests/
+	poetry pylint machine_setup/ tests/
 
 isort_check:
 	@echo ===Isort===

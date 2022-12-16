@@ -23,7 +23,7 @@ ssh-copy-id butla@$RPI_IP
 
 # git clone git@github.com:butla/machine_setups  # could be done with HTTP
 # cd machine_setups
-# python3 -m workstation_setup
+# python3 -m machine_setup
 
 # TODOs:
 # - Warning: Could not load "/usr/lib/graphviz/libgvplugin_gtk.so.6" - It was found, so perhaps one of its dependents was not.  Try ldd.
