@@ -2,20 +2,32 @@ set -e
 
 # TODO parameterize this, move common code into a function in another (sourced) file in this directory.
 # The directory should contain folders for each of my hosts.
+
+# === huawei ===
 EFI_PARTITION=/dev/nvme0n1p1
 # get this from `sudo blkid`
 CRYPT_PARTITION_ID=050a93bf-d0d3-4d01-83c7-b65d060d2cc5
 CRYPT_PARTITION_NAME=crypt
+SET_TAB_FILES=true
+
+# === lemur ===
+EFI_PARTITION=/dev/nvme0n1p1
+# get this from `sudo blkid`
+CRYPT_PARTITION_ID=5e1bd4b3-0260-42bf-9afb-aec5f29a31a9
+CRYPT_PARTITION_NAME=crypt_priv_systems
+SET_TAB_FILES=false
 
 function log() {
     echo '---' $(date --iso-8601=seconds) $@ '---'
 }
 
-log "Setting up crypttab and fstab with proper partition IDs..."
 
-# cat reads input from the "here document", redirects it to sudoed tee (it needs to write root files).
-# Since we don't want the output it's redirected to /dev/null
-cat <<EOF | sudo tee /mnt/etc/crypttab > /dev/null
+function setup_tab_files () {
+    log "Setting up crypttab and fstab with proper partition IDs..."
+
+    # cat reads input from the "here document", redirects it to sudoed tee (it needs to write root files).
+    # Since we don't want the output it's redirected to /dev/null
+    cat <<EOF | sudo tee /mnt/etc/crypttab > /dev/null
 # /etc/crypttab: mappings for encrypted partitions.
 #
 # Each mapped device will be created in /dev/mapper, so your /etc/fstab
@@ -32,8 +44,8 @@ cat <<EOF | sudo tee /mnt/etc/crypttab > /dev/null
 $CRYPT_PARTITION_NAME	UUID=$CRYPT_PARTITION_ID	none luks
 EOF
 
-# the only thing I'm changing here is the root (/) UUID
-cat <<EOF | sudo tee /mnt/etc/fstab > /dev/null
+    # the only thing I'm changing here is the root (/) UUID
+    cat <<EOF | sudo tee /mnt/etc/fstab > /dev/null
 # /etc/fstab: static file system information.
 #
 # Use 'blkid' to print the universally unique identifier for a device; this may
@@ -47,6 +59,11 @@ UUID=4f3c8672-650d-4a8b-9697-1817ec53bb78 /boot          ext4    defaults,noatim
 tmpfs                                     /tmp           tmpfs   defaults,noatime,mode=1777 0 0
 /swapfile 				  none 		 swap 	 defaults 0 0
 EOF
+}
+
+if [ $SET_TAB_FILES = true ]; then
+    setup_tab_files
+fi
 
 log "Adding LVM and LUKS modules to the initial ramdisk for the OS"
 # New modules (encrypt and lvm2) and "keyboard" need to be before filesystems, according to TODO link!
