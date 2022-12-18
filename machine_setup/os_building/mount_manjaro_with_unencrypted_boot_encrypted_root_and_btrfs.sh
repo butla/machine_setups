@@ -33,17 +33,20 @@ sudo lvs > /dev/null
 
 log "Mounting the existing OS partitions..."
 
-sudo mount /dev/mapper/${LVM_VG}-${LV} /mnt
-# TODO fix the mounts!
-sudo mount $BOOT_PARTITION /mnt/@/boot
-sudo mount $EFI_PARTITION /mnt/@/boot/efi
+sudo mount /dev/mapper/${LVM_VG}-${LV} /mnt -t btrfs -o 'subvol=/@'
+sudo mount /dev/mapper/${LVM_VG}-${LV} /mnt/home -t btrfs -o 'subvol=/@home'
+sudo mount /dev/mapper/${LVM_VG}-${LV} /mnt/var/cache -t btrfs -o 'subvol=/@cache'
+sudo mount /dev/mapper/${LVM_VG}-${LV} /mnt/var/log -t btrfs -o 'subvol=/@log'
+
+sudo mount $BOOT_PARTITION /mnt/boot -t btrfs
+sudo mount $EFI_PARTITION /mnt/boot/efi
 
 log "Mounting psuedo file systems..."
 
-sudo mount --bind /proc /mnt/@/proc
-sudo mount --bind /sys /mnt/@/sys
-sudo mount --bind /dev /mnt/@/dev
-sudo mount --bind /dev/pts /mnt/@/dev/pts
+sudo mount --bind /proc /mnt/proc
+sudo mount --bind /sys /mnt/sys
+sudo mount --bind /dev /mnt/dev
+sudo mount --bind /dev/pts /mnt/dev/pts
 
 log "Success! Stuff should be ready for chroot. Check out the mounts:"
 
