@@ -63,7 +63,7 @@ def sync_packages():
     # Capture group after [options] before next [
 
     log.info('Updating the package index and packages...')
-    shell.run_cmd('sudo pamac upgrade --no-confirm')
+    shell.run_cmd('pamac upgrade --no-confirm')
     if shell.check_command_exists('flatpak'):
         log.info('Updating flatpak packages...')
         shell.run_cmd('flatpak update')
@@ -72,7 +72,7 @@ def sync_packages():
     packages_string = ' '.join(machine_setup.packages.get_packages_for_host())
 
     _add_package_keys()
-    shell.run_cmd(f'sudo pamac install --no-confirm {packages_string}')
+    shell.run_cmd(f'pamac install --no-confirm {packages_string}')
 
     log.info('Removing unused packages...')
     shell.run_cmd('sudo pamac remove --orphans --no-confirm', allow_fail=True)
@@ -84,7 +84,7 @@ def _add_package_keys():
         'https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg',
     ]
     for key_url in keys_from_web:
-        run_key_cmd(f'curl -sS {key_url} | sudo gpg --import -')
+        run_key_cmd(f'curl -sS {key_url} | gpg --import -')
 
     # TODO this key should be only added for hosts that install Dropbox
     gpg_keys = [
@@ -92,11 +92,9 @@ def _add_package_keys():
         '1C61A2656FB57B7E4DE0F4C1FC918B335044912E',
     ]
     for key in gpg_keys:
-        run_key_cmd(f'sudo gpg --recv-keys {key}')
+        run_key_cmd(f'gpg --recv-keys {key}')
 
-    # TODO tor-browser upgrade is causing PGP signature errors when run with
-    # sudo pamac install tor-browser
-    run_key_cmd('sudo gpg --auto-key-locate nodefault,wkd --locate-keys torbrowser@torproject.org')
+    run_key_cmd('gpg --auto-key-locate nodefault,wkd --locate-keys torbrowser@torproject.org')
 
 
 def _clone_or_update_git_repo(repo_url: str, clone_location: Path):
@@ -258,6 +256,10 @@ if __name__ == '__main__':
 # - gthumb - the zoom-in keyboard shortcut problem (https://gitlab.gnome.org/GNOME/gthumb/-/issues/103)
 
 # TODOs
+# - setup Manjaro on Gnome
+#   - dconf: keybindings, normal scroll direction
+#   - gnome extensions installer https://github.com/brunelli/gnome-shell-extension-installer
+#   - audio switcher, clock format editor
 # - don't use `sudo pamac`
 #   - use pacman for installing regular packages
 #   - sync AUR packages with Git to a directory (~/.cache/aur_packages)
@@ -266,9 +268,6 @@ if __name__ == '__main__':
 #   - install with `sudo pacman -U <package file>`
 # - see TODOs from sync packages
 # - setup my GPG secret keys in the keychain and gpg config
-# - setup Manjaro on Gnome
-#   - gnome extensions installer https://github.com/brunelli/gnome-shell-extension-installer
-#   - audio switcher, clock format editor
 # - add the method of getting keys with the packages. Ones with keys should be a dict.
 #   There needs to be an intermediate step that wraps the simple string or dict into a Package representation,
 #   that's hashable on the name.
