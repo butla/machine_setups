@@ -68,10 +68,11 @@ def sync_packages():
         log.info('Updating flatpak packages...')
         shell.run_cmd('flatpak update')
 
+    log.info('Adding GPG keys for some packages...')
+    _add_package_keys()
+
     log.info('Installing the necessary packages...')
     packages_string = ' '.join(machine_setup.packages.get_packages_for_host())
-
-    _add_package_keys()
     shell.run_cmd(f'pamac install --no-confirm {packages_string}')
 
     log.info('Removing unused packages...')
