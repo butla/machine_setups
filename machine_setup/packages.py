@@ -15,6 +15,7 @@ PACMAN_NO_GUI_PACKAGES = {
     'wget',  # download files from the web
     'htop',  # see system resource usage
     'base-devel',  # basic compilers, etc
+    'make',
     'cmake',
     'entr', # rerunning commands on file changes
     'fd',  # file finder
