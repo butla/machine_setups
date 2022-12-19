@@ -216,7 +216,11 @@ def setup_crontab():
 
 def describe_manual_steps():
     text = """There are some steps you need to do manually after an initial setup:
-- Syncthing: "Actions" / Show ID; share secrets and documents (at ~/Documents); set up GUI creds
+- Syncthing:
+  - http://localhost:8384
+  - "Actions" / Show ID
+  - share secrets and documents (at ~/Documents)
+  - set up GUI creds
 - add id_rsa to ~/.ssh
 - KeePassXC: secret's service integration needs to be enabled manually
 - Brave: enable sync (for everything); has to be done when KeePassXC secret's service integration is running
