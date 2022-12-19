@@ -26,6 +26,10 @@ or [this solution](https://forum.manjaro.org/t/root-tip-how-to-mitigate-and-prev
 Looks like the sig files in /var/lib/pacman/sync (and other similar folders) that get downloaded by pacman
 sometimes contain error HTTP responses from the mirror instead of signatures.
 
+## Adding a program to autostart
+
+Find it's `.desktop` file (`pacman -Fl caffeine-ng | grep .desktop`) and copy it `~/.config/autostart`.
+
 ## Filesystem management
 **closing LVM and LUKS container**
 sudo vgchange -a n vg0 && sudo cryptsetup close cryptdisk

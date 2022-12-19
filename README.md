@@ -34,14 +34,3 @@ Similar tools
 -------------
 
 - [chezmoi](https://www.chezmoi.io/)
-
-Expanding the setup; tips
--------------------------
-
-### Adding app to autostart
-
-Find its `.desktop` file and copy it to our autostart configs. E.g.:
-
-```
-yay -Fl caffeine-ng | grep .desktop
-```
