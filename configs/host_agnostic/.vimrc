@@ -30,7 +30,9 @@ Plug 'tpope/vim-commentary'
 " Git integration
 Plug 'tpope/vim-fugitive'
 " Python semantic coloring
-" TODO :UpdateRemotePlugins doesn't seem to be called automatically
+" TODO :UpdateRemotePlugins doesn't seem to be called automatically.
+" Maybe the upgrade script needs to run PlugUpdate! (with the bang on the end)
+" https://github.com/junegunn/vim-plug/issues/1119#issuecomment-1066479981
 Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
 " I use this for renaming stuff in Python
 Plug 'davidhalter/jedi-vim'
