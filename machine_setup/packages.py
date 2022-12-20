@@ -80,6 +80,7 @@ PACMAN_NO_GUI_PACKAGES = {
     'cronie',  # anacron implementation
     'odt2txt',  # for preview of OpenDocument in ranger
     'hd-idle',  # tool for spinning down hard disks after inactivity or immediately
+    'smartmontools',  # has smartctl - utility for getting drive diagnostics
     # =========================
     # CLI programs for GUIs
     # =========================
