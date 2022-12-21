@@ -225,10 +225,10 @@ def describe_manual_steps():
 - add id_rsa to ~/.ssh
 - KeePassXC: secret's service integration needs to be enabled manually
 - Brave: enable sync (for everything); has to be done when KeePassXC secret's service integration is running
+- Signal: sync with phone
 - Dropbox: log in
 - PIA: set it up - run `pia_download`, etc.
 - Exodus wallet: set it up - go to https://www.exodus.com/download/, restore the wallet
-- Signal: sync with phone
 - qbittorrent: enable search plugin -> View/search engine/search plugins, and configure it
 - set up ~/.credentials/borg_key from KeePass
 - pix: set sorting by filename in "view/sort by"
@@ -265,12 +265,14 @@ if __name__ == '__main__':
 #   - dconf: keybindings, normal scroll direction
 #   - gnome extensions installer https://github.com/brunelli/gnome-shell-extension-installer
 #   - audio switcher, clock format editor
+#   - gnome calendar - start the day with Monday
 # - don't use `sudo pamac`
 #   - use pacman for installing regular packages
 #   - sync AUR packages with Git to a directory (~/.cache/aur_packages)
 #   - install AUR package dependencies (gather them from packages) with "sudo pacman -S --asdeps <packages>"
 #   - build as regular user: `makepkg`
 #   - install with `sudo pacman -U <package file>`
+# - signal settings - allow access to mic and cam / autostart
 # - see TODOs from sync packages
 # - setup my GPG secret keys in the keychain and gpg config
 # - add the method of getting keys with the packages. Ones with keys should be a dict.
