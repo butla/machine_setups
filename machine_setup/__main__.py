@@ -215,6 +215,7 @@ def setup_crontab():
     )
 
 
+# TODO move the below to docs, mention checking that out, separate ones for XFCE
 def describe_manual_steps():
     text = """There are some steps you need to do manually after an initial setup:
 - Syncthing:
@@ -260,11 +261,25 @@ if __name__ == '__main__':
 # - gthumb - the zoom-in keyboard shortcut problem (https://gitlab.gnome.org/GNOME/gthumb/-/issues/103)
 
 # TODOs
-# - setup Manjaro on Gnome
+# - setup Manjaro on Gnome (detect if we have gnome running)
 #   - dconf: keybindings, normal scroll direction
+#     - https://askubuntu.com/questions/597395/how-to-set-custom-keyboard-shortcuts-from-terminal
+#     - https://unix.stackexchange.com/questions/323160/gnome3-adding-keyboard-custom-shortcuts-using-dconf-without-need-of-logging
+#       - maximize window: super+up
+#       - hide window: super+down
+#       - move window: super+m
+#       - zoom in / zoom out -> super and = and -
+#       - custom: brave, alacritty + tmux, keepassxc, gnome-calculator
 #   - gnome extensions installer https://github.com/brunelli/gnome-shell-extension-installer
-#   - audio switcher, clock format editor
-#   - gnome calendar - start the day with Monday
+#   - audio switcher, clock format editor (maybe not necessary)
+#   - gnome calendar - start the day with Monday (setting "formats" to polish does this; maybe just set locales)
+#   - delete trash and temp data after 30 days
+#   - battery show percentage
+#   - gsettings set org.gnome.desktop.peripherals.mouse natural-scroll false
+#   - gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll false
+#   - /org/gnome/desktop/wm/keybindings/close = alt+f4
+#   - accessibility: zoom: on, magnification: 1.00
+#   - TODO keybindings: alt f4, sleep, poweroff, show desktop
 # - don't use `sudo pamac`
 #   - use pacman for installing regular packages
 #   - sync AUR packages with Git to a directory (~/.cache/aur_packages)
@@ -286,17 +301,7 @@ if __name__ == '__main__':
 #   - subliminal
 # - setup syncthing shares between hosts automatically?
 # - touchpad turning off on bp - something about sleeping USB that I fixed on bl?
-# - touchpad taps as clicks
-# - kdewallet keeps pops up when trying
 # - replacement to pix that doesn't glitch when going through photo videos
-# - sort out the secret's service one way or the other
-#   (maybe sharing the keepass DB that's used by Brave on different machines causes issues?):
-#   - make gnome keyring run as secrets service keyring
-#     https://itnext.io/linux-gnome-keyring-setup-as-freedesktop-secretservice-99521a20e9c4
-#     (it looks to be running, really. And brave is creating "Brave safe storage",
-#     visible with seahorse in the "login" under "passwords")
-#   - disable gnomekeyring
-#     https://www.chucknemeth.com/linux/security/keyring/keepassxc-keyring
 # - run this as sudo, impersonating the user where it's necessary; upgrade script runs python with sudo.
 # - make package update faster: can we skip pamac scan for updates? Can that be done periodically in the background?
 # - All commands without confirmation. Get logs for everything. Async status display of all.
