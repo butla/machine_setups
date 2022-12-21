@@ -220,11 +220,10 @@ def describe_manual_steps():
 - Syncthing:
   - http://localhost:8384
   - "Actions" / Show ID
-  - share secrets and documents (at ~/Documents)
+  - share documents (at ~/Documents)
   - set up GUI creds
 - add id_rsa to ~/.ssh
-- KeePassXC: secret's service integration needs to be enabled manually
-- Brave: enable sync (for everything); has to be done when KeePassXC secret's service integration is running
+- Brave: enable sync (everything but passwords)
 - Signal: sync with phone
 - Dropbox: log in
 - PIA: set it up - run `pia_download`, etc.
