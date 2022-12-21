@@ -261,9 +261,8 @@ if __name__ == '__main__':
 # - gthumb - the zoom-in keyboard shortcut problem (https://gitlab.gnome.org/GNOME/gthumb/-/issues/103)
 
 # TODOs
-# - set autostart files with a script, different signal for Gnome (vs old XFCE);
-#   Still keep the files in the repo, in some dedicated dir: files_to_copy/{gnome, xfce, common}.
-#   Rename "configs" to "files_to_link"
+# - Rename "configs" to "files_to_link"
+#   dedicated dir: files_to_link|files_to_copy/{gnome, xfce, common}.
 # - setup Manjaro on Gnome (detect if we have gnome running)
 #   - dconf: keybindings, normal scroll direction
 #     - https://askubuntu.com/questions/597395/how-to-set-custom-keyboard-shortcuts-from-terminal
@@ -308,6 +307,7 @@ if __name__ == '__main__':
 # - KeyboardInterrupt handling.
 # - setup syncthing shares between hosts automatically?
 # - touchpad turning off on bp - something about sleeping USB that I fixed on bl?
+# - touchpad taps as clicks
 # - replacement to pix that doesn't glitch when going through photo videos
 # - run this as sudo, impersonating the user where it's necessary; upgrade script runs python with sudo.
 # - make package update faster: can we skip pamac scan for updates? Can that be done periodically in the background?
