@@ -14,31 +14,36 @@ log = logging.getLogger(__name__)
 def setup_all_links():
     log.info('Ensuring up-to-date configurations and scripts...')
     home_path = Path('~').expanduser()
-    setup_links(
+    set_up_links(
         source_dir=Path('configs/host_agnostic/'),
         target_dir=home_path,
     )
     current_host = platform.node()
-    setup_links(
+    set_up_links(
         source_dir=Path(f'configs/host_specific/{current_host}/'),
         target_dir=home_path,
     )
+
+    desktop_env = os.environ.get('XDG_CURRENT_DESKTOP')
+    # TODO setup env-specific ones
+
     # TODO make sure the files here are chmod 600
-    setup_links(
+    # TODO skip if doesn't exist
+    set_up_links(
         source_dir=Path('configs/configs_private/home/'),
         target_dir=home_path,
     )
 
 
-def setup_links(source_dir: Path, target_dir: Path):
+def set_up_links(source_dir: Path, target_dir: Path):
     source_dir = source_dir.absolute()
     target_dir = target_dir.absolute()
 
     files_and_dirs_to_link = list(source_dir.glob('**/*'))
     files_to_link = [path for path in files_and_dirs_to_link
-                     if _should_ensure_link(path)]
+                     if _should_set_up_link(path)]
 
-    links_to_create = _get_links_to_ensure(
+    links_to_create = _get_links_to_set_up(
         files_to_link=files_to_link,
         files_dir=source_dir,
         links_location=target_dir,
@@ -55,7 +60,7 @@ def setup_links(source_dir: Path, target_dir: Path):
         link_to_create.location.symlink_to(link_to_create.target)
 
 
-def _should_ensure_link(path):
+def _should_set_up_link(path) -> bool:
     """Given a path in a source directory, says whether a link for it should be created in the target directory.
     """
     return (
@@ -66,16 +71,16 @@ def _should_ensure_link(path):
 
 
 @dataclass
-class _LinkToEnsure:
+class _LinkToSetUp:
     target: Path
     location: Path
 
 
-def _get_links_to_ensure(
+def _get_links_to_set_up(
         files_to_link: List[Path],
         files_dir: Path,
         links_location: Path,
-) -> List[_LinkToEnsure]:
+) -> List[_LinkToSetUp]:
     file_path_strings = [str(path) for path in files_to_link]
     link_path_strings = [
         re.sub(f'^{files_dir}', str(links_location), path)
@@ -84,13 +89,13 @@ def _get_links_to_ensure(
     link_paths = [Path(path) for path in link_path_strings]
 
     initial_links = [
-        _LinkToEnsure(target=link_target, location=link_path)
+        _LinkToSetUp(target=link_target, location=link_path)
         for link_target, link_path in zip(files_to_link, link_paths)
     ]
     return [link for link in initial_links if not _is_link_set_up(link)]
 
 
-def _is_link_set_up(link: _LinkToEnsure):
+def _is_link_set_up(link: _LinkToSetUp):
     """Prevents us doing anything if the link is already set up correctly.
     """
     if link.location.exists() and link.location.is_symlink():

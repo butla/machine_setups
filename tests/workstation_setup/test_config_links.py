@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from machine_setup.config_links import BACKUP_SUFFIX, setup_links
+from machine_setup.config_links import BACKUP_SUFFIX, set_up_links
 
 
 @pytest.fixture
@@ -45,7 +45,7 @@ def test_setup_links_creates_the_correct_links(source_dir: Path, target_dir: Pat
 
     # act
     # ===========
-    setup_links(
+    set_up_links(
         source_dir=source_dir,
         target_dir=target_dir,
     )
@@ -80,7 +80,7 @@ def test_setup_links_backs_up_and_replaces_existing_files(source_dir: Path, targ
     old_system_file.parent.mkdir(parents=True)
     old_system_file.write_text(old_system_file_content)
 
-    setup_links(
+    set_up_links(
         source_dir=source_dir,
         target_dir=target_dir,
     )
@@ -100,7 +100,7 @@ def test_setup_links_backs_up_and_replaces_existing_links(source_dir: Path, targ
     # Creating a link pointing to an existing file. This link should get backed up and replaced.
     created_link_path.symlink_to(old_link_target)
 
-    setup_links(
+    set_up_links(
         source_dir=source_dir,
         target_dir=target_dir,
     )
@@ -125,7 +125,7 @@ def test_setup_links_replaces_broken_symlinks_without_backing_them_up(
     # Creating a link pointing to a file that doesn't exist. The link should get replaced.
     created_link_path.symlink_to(tmp_path / "I_dont_exist")
 
-    setup_links(
+    set_up_links(
         source_dir=source_dir,
         target_dir=target_dir,
     )
@@ -138,7 +138,7 @@ def test_second_pass_of_setup_links_doesnt_change_anything(source_dir, target_di
     source_file = source_dir / 'aaa'
     source_file.write_text('some content')
 
-    setup_links(
+    set_up_links(
         source_dir=source_dir,
         target_dir=target_dir,
     )
@@ -149,7 +149,7 @@ def test_second_pass_of_setup_links_doesnt_change_anything(source_dir, target_di
     assert os.readlink(expected_link) == str(source_file)
 
     # run again
-    setup_links(
+    set_up_links(
         source_dir=source_dir,
         target_dir=target_dir,
     )
