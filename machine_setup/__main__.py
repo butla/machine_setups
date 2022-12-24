@@ -261,6 +261,9 @@ if __name__ == '__main__':
 # - gthumb - the zoom-in keyboard shortcut problem (https://gitlab.gnome.org/GNOME/gthumb/-/issues/103)
 
 # TODOs
+# - set autostart files with a script, different signal for Gnome (vs old XFCE);
+#   Still keep the files in the repo, in some dedicated dir: files_to_copy/{gnome, xfce, common}.
+#   Rename "configs" to "files_to_link"
 # - setup Manjaro on Gnome (detect if we have gnome running)
 #   - dconf: keybindings, normal scroll direction
 #     - https://askubuntu.com/questions/597395/how-to-set-custom-keyboard-shortcuts-from-terminal
@@ -272,21 +275,24 @@ if __name__ == '__main__':
 #       - custom: brave, alacritty + tmux, keepassxc, gnome-calculator
 #   - gnome extensions installer https://github.com/brunelli/gnome-shell-extension-installer
 #   - audio switcher, clock format editor (maybe not necessary)
-#   - gnome calendar - start the day with Monday (setting "formats" to polish does this; maybe just set locales)
+#   - gnome calendar - start the day with Monday (setting "formats" to polish does this; set locale.conf)
 #   - delete trash and temp data after 30 days
 #   - battery show percentage
 #   - gsettings set org.gnome.desktop.peripherals.mouse natural-scroll false
 #   - gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll false
 #   - /org/gnome/desktop/wm/keybindings/close = alt+f4
 #   - accessibility: zoom: on, magnification: 1.00
-#   - TODO keybindings: alt f4, sleep, poweroff, show desktop
+#   - TODO keybindings: alt f4, sleep, poweroff, show desktop, super+f for file explorer
+#   - fix from journalctl; reason for desktop hang after two-finger right-click on the touchpad?
+#     "Error connecting to Touchégg daemon: Could not connect: Connection refused"
+#   - exodus from AUR?
 # - don't use `sudo pamac`
 #   - use pacman for installing regular packages
 #   - sync AUR packages with Git to a directory (~/.cache/aur_packages)
 #   - install AUR package dependencies (gather them from packages) with "sudo pacman -S --asdeps <packages>"
 #   - build as regular user: `makepkg`
 #   - install with `sudo pacman -U <package file>`
-# - signal settings - allow access to mic and cam / autostart
+# - signal settings - allow access to mic and cam / autostart / notifications should only contain the name
 # - see TODOs from sync packages
 # - setup my GPG secret keys in the keychain and gpg config
 # - add the method of getting keys with the packages. Ones with keys should be a dict.
@@ -299,6 +305,7 @@ if __name__ == '__main__':
 #   - litecli (nice SQLite CLI client)
 #   - isort
 #   - subliminal
+# - KeyboardInterrupt handling.
 # - setup syncthing shares between hosts automatically?
 # - touchpad turning off on bp - something about sleeping USB that I fixed on bl?
 # - replacement to pix that doesn't glitch when going through photo videos
