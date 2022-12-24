@@ -24,24 +24,29 @@ def setup_all_links():
         target_dir=home_path,
     )
 
-    desktop_env = os.environ.get('XDG_CURRENT_DESKTOP')
-    # TODO setup env-specific ones
+    desktop_env = os.environ.get('XDG_CURRENT_DESKTOP', '').lower()
+    if desktop_env:
+        set_up_links(
+            source_dir=Path(f'configs/desktop_env_specific/{desktop_env}'),
+            target_dir=home_path,
+        )
 
     # TODO make sure the files here are chmod 600
-    # TODO skip if doesn't exist
     set_up_links(
         source_dir=Path('configs/configs_private/home/'),
         target_dir=home_path,
     )
 
 
-def set_up_links(source_dir: Path, target_dir: Path):
+def set_up_links(source_dir: Path, target_dir: Path) -> None:
     source_dir = source_dir.absolute()
     target_dir = target_dir.absolute()
 
     files_and_dirs_to_link = list(source_dir.glob('**/*'))
     files_to_link = [path for path in files_and_dirs_to_link
                      if _should_set_up_link(path)]
+    if not files_to_link:
+        return
 
     links_to_create = _get_links_to_set_up(
         files_to_link=files_to_link,
