@@ -37,7 +37,7 @@ def main():
 
     sync_packages()
     install_oh_my_zsh()
-    ensure_configs_and_scripts()
+    setup_file_links()
     setup_tmux_plugins()
     setup_neovim()
     ensure_ntp()
@@ -113,7 +113,7 @@ def install_oh_my_zsh():
     _clone_or_update_git_repo('https://github.com/ohmyzsh/ohmyzsh.git', oh_my_zsh_path)
 
 
-def ensure_configs_and_scripts():
+def setup_file_links():
     machine_setup.config_links.setup_all_links()
 
 
