@@ -263,6 +263,8 @@ if __name__ == '__main__':
 # TODOs
 # - Rename "configs" to "files_to_link"
 #   dedicated dir: files_to_link|files_to_copy/{gnome, xfce, common}.
+#   files_to_copy from current "manually_linked". Set them up with root.
+# - link setup DE detection needs to work over SSH
 # - setup Manjaro on Gnome (detect if we have gnome running)
 #   - dconf: keybindings, normal scroll direction
 #     - https://askubuntu.com/questions/597395/how-to-set-custom-keyboard-shortcuts-from-terminal
@@ -281,7 +283,11 @@ if __name__ == '__main__':
 #   - gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll false
 #   - /org/gnome/desktop/wm/keybindings/close = alt+f4
 #   - accessibility: zoom: on, magnification: 1.00
-#   - TODO keybindings: alt f4, sleep, poweroff, show desktop, super+f for file explorer
+#   - keybindings:
+#      - alt f4 - close window?
+#      - sleep
+#      - hide all normal windows: super+d
+#      - super+f for file explorer
 #   - fix from journalctl; reason for desktop hang after two-finger right-click on the touchpad?
 #     "Error connecting to Touchégg daemon: Could not connect: Connection refused"
 #   - exodus from AUR?
