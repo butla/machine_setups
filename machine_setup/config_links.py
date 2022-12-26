@@ -24,6 +24,7 @@ def setup_all_links():
         target_dir=home_path,
     )
 
+    # TODO do detection with some tool instead of an env var that doesn't work over SSH
     desktop_env = os.environ.get('XDG_CURRENT_DESKTOP', '').lower()
     if desktop_env:
         set_up_links(
