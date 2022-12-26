@@ -261,11 +261,9 @@ if __name__ == '__main__':
 # - gthumb - the zoom-in keyboard shortcut problem (https://gitlab.gnome.org/GNOME/gthumb/-/issues/103)
 
 # TODOs
-# - Rename "configs" to "files_to_link"
-#   dedicated dir: files_to_link|files_to_copy/{gnome, xfce, common}.
-#   files_to_copy from current "manually_linked". Set them up with root.
-# - link setup DE detection needs to work over SSH
 # - setup Manjaro on Gnome (detect if we have gnome running)
+#   - fix from journalctl; reason for desktop hang after two-finger right-click on the touchpad?
+#     "Error connecting to Touchégg daemon: Could not connect: Connection refused"
 #   - dconf: keybindings, normal scroll direction
 #     - https://askubuntu.com/questions/597395/how-to-set-custom-keyboard-shortcuts-from-terminal
 #     - https://unix.stackexchange.com/questions/323160/gnome3-adding-keyboard-custom-shortcuts-using-dconf-without-need-of-logging
@@ -288,9 +286,11 @@ if __name__ == '__main__':
 #      - sleep
 #      - hide all normal windows: super+d
 #      - super+f for file explorer
-#   - fix from journalctl; reason for desktop hang after two-finger right-click on the touchpad?
-#     "Error connecting to Touchégg daemon: Could not connect: Connection refused"
 #   - exodus from AUR?
+# - Rename "configs" to "files_to_link"
+#   dedicated dir: files_to_link|files_to_copy/{gnome, xfce, common}.
+#   files_to_copy from current "manually_linked". Set them up with root.
+# - link setup DE detection needs to work over SSH
 # - don't use `sudo pamac`
 #   - use pacman for installing regular packages
 #   - sync AUR packages with Git to a directory (~/.cache/aur_packages)
