@@ -72,7 +72,13 @@ function upgrade()
         ssh-add
     fi
 
-    (cd ~/development/machine_setups; git pull; make setup_machine)
+    (
+        cd ~/development/machine_setups;
+        echo "Git-pulling machine_setups repo...";
+        git pull || exit;
+        echo "Running make setup_machine..."
+        make setup_machine;
+    )
 }
 
 function record_voice()
