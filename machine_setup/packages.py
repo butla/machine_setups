@@ -135,6 +135,8 @@ PACMAN_GUI_PACKAGES = {
     'audacity',  # sound editor
     'system-config-printer',  # Manjaro or XFCE printer setup GUI
     'qt6ct',  # QT6 theme configurator, needed for new qbittorent
+    'xsensors',  # shows hardware sensor info, like temperatures
+    'gnome-system-monitor',  # nice GUI to show resource usage charts
 }
 
 AUR_NO_GUI_PACKAGES = {

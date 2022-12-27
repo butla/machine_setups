@@ -259,6 +259,8 @@ if __name__ == '__main__':
 #     https://github.com/calandoa/movescreen
 #     https://github.com/jc00ke/move-to-next-monitor
 # - gthumb - the zoom-in keyboard shortcut problem (https://gitlab.gnome.org/GNOME/gthumb/-/issues/103)
+# - timeshift emits errors on package updates on BTRFS
+#   https://forum.manjaro.org/t/btrfs-updating-leads-to-e-error-cant-list-qgroups-quotas-not-enabled/110375/8?u=butla
 
 # TODOs
 # - setup Manjaro on Gnome (detect if we have gnome running)
@@ -274,7 +276,6 @@ if __name__ == '__main__':
 #       - custom: brave, alacritty + tmux, keepassxc, gnome-calculator
 #   - gnome extensions installer https://github.com/brunelli/gnome-shell-extension-installer
 #   - audio switcher, clock format editor (maybe not necessary)
-#   - gnome calendar - start the day with Monday (setting "formats" to polish does this; set locale.conf)
 #   - delete trash and temp data after 30 days
 #   - battery show percentage
 #   - gsettings set org.gnome.desktop.peripherals.mouse natural-scroll false
@@ -282,10 +283,9 @@ if __name__ == '__main__':
 #   - /org/gnome/desktop/wm/keybindings/close = alt+f4
 #   - accessibility: zoom: on, magnification: 1.00
 #   - keybindings:
-#      - alt f4 - close window?
 #      - sleep
 #      - hide all normal windows: super+d
-#      - super+f for file explorer
+#      - super+f for file explorer (nautilus)
 #   - exodus from AUR?
 # - Rename "configs" to "files_to_link"
 #   dedicated dir: files_to_link|files_to_copy/{gnome, xfce, common}.
@@ -328,6 +328,7 @@ if __name__ == '__main__':
 #   Currently, they're all getting broken.
 #   My current process is recreating all virtualenvs and all pipx installs.
 #   ~/.local/pipx/ might need to get deleted as well.
+# - a single widget with reboot/poweroff/suspend options for Gnome (like in XFCE), opened with a hotkey
 # - Alternative packages different hosts:
 #   - bl: matebook-applet (AUR), for enabling/disabling fn-lock. It's not working right now
 # - GRUB setup for machines (/etc/grub.d/40_custom, other necessary ones)
