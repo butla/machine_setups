@@ -80,3 +80,8 @@ echo ", +" | ./sfdisk -N 1 /dev/sdc
 
 ## Test anacrontab
 anacron -d -t ${HOME}/.local/etc/anacrontab -S /home/butla/.local/var/spool/anacron
+
+## Syncthing showing folders up-to-date but out-of-sync with devices
+sudo systemctl stop syncthing@butla
+syncthing --reset-database
+sudo systemctl start syncthing@butla
