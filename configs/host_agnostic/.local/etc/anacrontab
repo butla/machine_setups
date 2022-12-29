@@ -1,1 +1,3 @@
-@monthly ${HOME}/bin/new_accounting_month
+# See `man anacrontab`.
+# fields: "period in days", "delay in minutes", "job identifier", "command"
+@monthly 0 accounting-dirs-setup ${HOME}/bin/new_accounting_month

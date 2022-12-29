@@ -77,3 +77,6 @@ echo '+100M,' | sudo sfdisk --move-data /dev/nvme0n1 -N 3
 
 **Grow partition to take up the unallocated space after it**
 echo ", +" | ./sfdisk -N 1 /dev/sdc
+
+## Test anacrontab
+anacron -d -t ${HOME}/.local/etc/anacrontab -S /home/butla/.local/var/spool/anacron
