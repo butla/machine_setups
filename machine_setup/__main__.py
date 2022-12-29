@@ -61,6 +61,7 @@ def sync_packages():
     # TODO set the line that disables database signatures in pacman.conf
     # first SigLevel, from [options] section. Can an ini reader get that?
     # Capture group after [options] before next [
+    # Or just copy the whole config file.
 
     log.info('Updating the package index and packages...')
     shell.run_cmd('pamac upgrade --no-confirm')
@@ -255,7 +256,7 @@ if __name__ == '__main__':
 # notes for the future (maybe):
 # - removing .zcompdump might be needed after installing oh-my-zsh (wasn't the last time I installed it)
 # - removing keyring requirements for Python packages: https://stackoverflow.com/questions/64570510/why-does-pip3-want-to-create-a-kdewallet-after-installing-updating-packages-on-u pylint: disable=line-too-long
-# - shortcuts for moving windows between screens:
+# - XFCE shortcuts for moving windows between screens:
 #     https://github.com/calandoa/movescreen
 #     https://github.com/jc00ke/move-to-next-monitor
 # - gthumb - the zoom-in keyboard shortcut problem (https://gitlab.gnome.org/GNOME/gthumb/-/issues/103)
@@ -264,8 +265,6 @@ if __name__ == '__main__':
 
 # TODOs
 # - setup Manjaro on Gnome (detect if we have gnome running)
-#   - fix from journalctl; reason for desktop hang after two-finger right-click on the touchpad?
-#     "Error connecting to Touchégg daemon: Could not connect: Connection refused"
 #   - dconf: keybindings, normal scroll direction
 #     - https://askubuntu.com/questions/597395/how-to-set-custom-keyboard-shortcuts-from-terminal
 #     - https://unix.stackexchange.com/questions/323160/gnome3-adding-keyboard-custom-shortcuts-using-dconf-without-need-of-logging
@@ -275,7 +274,7 @@ if __name__ == '__main__':
 #       - zoom in / zoom out -> super and = and -
 #       - custom: brave, alacritty + tmux, keepassxc, gnome-calculator
 #   - gnome extensions installer https://github.com/brunelli/gnome-shell-extension-installer
-#   - audio switcher, clock format editor (maybe not necessary)
+#   - audio switcher
 #   - delete trash and temp data after 30 days
 #   - battery show percentage
 #   - gsettings set org.gnome.desktop.peripherals.mouse natural-scroll false
