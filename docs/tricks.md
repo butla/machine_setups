@@ -6,31 +6,17 @@ Various tricks, snippets, commands for doing things.
 ## Check what package a file belongs to
 pacman -Qo <file>
 
-## Dealing with pacman / pamac invalid GPG signatures
-
-Looks like this:
-
-```
-Refreshing multilib.db...
-Error: multilib.db: GPGME error: No data
-```
-
-**Solution**
-- sudo rm -rf /var/lib/pacman/sync /var/tmp/pamac/dbs/sync/ /var/cache/pkgfile
-- have good mirrors.
-- sudo pamac upgrade
-
-or [this solution](https://forum.manjaro.org/t/root-tip-how-to-mitigate-and-prevent-gpgme-error-when-syncing-your-system/84700)
-
-**Root cause**
-Looks like the sig files in /var/lib/pacman/sync (and other similar folders) that get downloaded by pacman
-sometimes contain error HTTP responses from the mirror instead of signatures.
-
 ## Adding a program to autostart
 
 Find it's `.desktop` file (`pacman -Fl caffeine-ng | grep .desktop`) and copy it `~/.config/autostart`.
 
 ## Filesystem management
+**setup LUKS1-type partition**
+sudo cryptsetup luksFormat --type luks1 /dev/drive
+
+**backup LUKS headers**
+sudo cryptsetup luksHeaderBackup --header-backup-file backup-location /dev/nvme0n1p5
+
 **closing LVM and LUKS container**
 sudo vgchange -a n vg0 && sudo cryptsetup close cryptdisk
 
@@ -77,11 +63,3 @@ echo '+100M,' | sudo sfdisk --move-data /dev/nvme0n1 -N 3
 
 **Grow partition to take up the unallocated space after it**
 echo ", +" | ./sfdisk -N 1 /dev/sdc
-
-## Test anacrontab
-anacron -d -t ${HOME}/.local/etc/anacrontab -S /home/butla/.local/var/spool/anacron
-
-## Syncthing showing folders up-to-date but out-of-sync with devices
-sudo systemctl stop syncthing@butla
-syncthing --reset-database
-sudo systemctl start syncthing@butla
