@@ -28,3 +28,6 @@ anacron -d -t ${HOME}/.local/etc/anacrontab -S /home/butla/.local/var/spool/anac
 sudo systemctl stop syncthing@butla
 syncthing --reset-database
 sudo systemctl start syncthing@butla
+
+## KeepassXC doesn't remember the last open database
+Open the database, then do really shutdown keepass (ctrl+q).
