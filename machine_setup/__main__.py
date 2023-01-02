@@ -206,8 +206,13 @@ def setup_crontab():
     users_anacron_spool_dir = Path('~/.local/var/spool/anacron').expanduser()
     users_anacron_spool_dir.mkdir(parents=True, exist_ok=True)
 
-    # We'll run anacron through cron. Check out https://serverfault.com/a/172994/499078
-    crontab_contents = f'@hourly anacron -t ${{HOME}}/.local/etc/anacrontab -S {users_anacron_spool_dir}\n'
+    crontab_contents = f"""
+# We'll run anacron through cron. Check out https://serverfault.com/a/172994/499078
+@hourly anacron -t ${{HOME}}/.local/etc/anacrontab -S {users_anacron_spool_dir}
+
+# first day of the month
+* * 1 * * ${{HOME}}/bin/new_accounting_month
+"""
     subprocess.run(
         ['crontab', '-'],
         input=crontab_contents,
