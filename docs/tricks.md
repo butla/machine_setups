@@ -63,3 +63,7 @@ echo '+100M,' | sudo sfdisk --move-data /dev/nvme0n1 -N 3
 
 **Grow partition to take up the unallocated space after it**
 echo ", +" | ./sfdisk -N 1 /dev/sdc
+
+## Convert a set of images into a PDF
+`convert <image paths> output.pdf`
+`convert` is part of imagemagick
