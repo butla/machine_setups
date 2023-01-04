@@ -1,0 +1,18 @@
+---
+bh:
+
+bl:
+  efi_partition: "587E-B484"
+  crypt_partition: "5e1bd4b3-0260-42bf-9afb-aec5f29a31a9"
+  crypt_name: crypt_priv_systems
+  boot_partition:
+  bootloader: grub/systemd-boot
+
+b-tv:
+
+bp:
+  efi_partition: "FED9-732E"
+  crypt_partition: "f82aa744-b93c-491e-b598-d33b73396804"
+  crypt_name: crypt_root
+
+ognisko:

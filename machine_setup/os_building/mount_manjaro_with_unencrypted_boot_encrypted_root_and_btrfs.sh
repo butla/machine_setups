@@ -1,14 +1,6 @@
 #!/bin/bash
 
-# TODO setup correct btrfs mounts for everything that's in fstab
-# https://fedoramagazine.org/os-chroot-101-covering-btrfs-subvolumes/
-# UUID=28eb9094-4cba-4d0f-9d2d-22475a8b83a7 /boot          btrfs   defaults,discard=async,ssd 0 0
-# UUID=1a0fa2f5-2f5d-46c2-b0ab-6aef6595ccdc /              btrfs   subvol=/@,defaults 0 0
-# UUID=1a0fa2f5-2f5d-46c2-b0ab-6aef6595ccdc /home          btrfs   subvol=/@home,defaults 0 0
-# UUID=1a0fa2f5-2f5d-46c2-b0ab-6aef6595ccdc /var/cache     btrfs   subvol=/@cache,defaults 0 0
-# UUID=1a0fa2f5-2f5d-46c2-b0ab-6aef6595ccdc /var/log       btrfs   subvol=/@log,defaults 0 0
-
-# TODO setup GRUB on lemur with console output to see what's wrong with the boot
+# TODO unify with "mount_filesystem_for_chroot"
 
 set -e
 

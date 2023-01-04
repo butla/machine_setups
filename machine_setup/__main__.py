@@ -230,14 +230,13 @@ def describe_manual_steps():
   - share documents (at ~/Documents)
   - set up GUI creds
 - add id_rsa to ~/.ssh
-- Brave: enable sync (everything but passwords)
+- Brave: enable sync (everything but passwords and open tabs)
 - Signal: sync with phone
 - Dropbox: log in
 - PIA: set it up - run `pia_download`, etc.
 - Exodus wallet: set it up - go to https://www.exodus.com/download/, restore the wallet
 - qbittorrent: enable search plugin -> View/search engine/search plugins, and configure it
 - set up ~/.credentials/borg_key from KeePass
-- pix: set sorting by filename in "view/sort by"
 - XFCE:
   - clock widget: set time format to %Y-%m-%d %H:%M:%S
   - remove XFCE workspace switcher and set up favourites menu
@@ -270,7 +269,7 @@ if __name__ == '__main__':
 
 # TODOs
 # - setup Manjaro on Gnome (detect if we have gnome running)
-#   - dconf: keybindings, normal scroll direction
+#   - dconf: keybindings, normal scroll direction (check if all of this can be safely set on XFCE)
 #     - https://askubuntu.com/questions/597395/how-to-set-custom-keyboard-shortcuts-from-terminal
 #     - https://unix.stackexchange.com/questions/323160/gnome3-adding-keyboard-custom-shortcuts-using-dconf-without-need-of-logging
 #       - maximize window: super+up
@@ -291,6 +290,7 @@ if __name__ == '__main__':
 #      - hide all normal windows: super+d
 #      - super+f for file explorer (nautilus)
 #   - exodus from AUR?
+#   - pix set config value: dconf -> /org/x/pix/browser/sort-type -> file::name
 # - Rename "configs" to "files_to_link"
 #   dedicated dir: files_to_link|files_to_copy/{gnome, xfce, common}.
 #   files_to_copy from current "manually_linked". Set them up with root.
@@ -333,7 +333,5 @@ if __name__ == '__main__':
 #   My current process is recreating all virtualenvs and all pipx installs.
 #   ~/.local/pipx/ might need to get deleted as well.
 # - a single widget with reboot/poweroff/suspend options for Gnome (like in XFCE), opened with a hotkey
-# - Alternative packages different hosts:
-#   - bl: matebook-applet (AUR), for enabling/disabling fn-lock. It's not working right now
 # - GRUB setup for machines (/etc/grub.d/40_custom, other necessary ones)
 #   https://wiki.archlinux.org/title/GRUB#Custom_grub.cfg
