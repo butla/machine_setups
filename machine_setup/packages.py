@@ -144,6 +144,7 @@ AUR_NO_GUI_PACKAGES = {
     'toilet',  # printing large letters in terminal
     'hollywood',  # "Fill your console with Hollywood melodrama technobabble"
     'qbittorrent-cli-bin',  # CLI for the non-GUI torrent client, TODO, make it work
+    'battop',  # battery stats
 }
 
 AUR_GUI_PACKAGES = {
