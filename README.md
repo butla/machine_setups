@@ -33,4 +33,5 @@ To check out some documentation, see `./docs`.
 Similar tools
 -------------
 
+- [TJ DeVries's config_manager](https://github.com/tjdevries/config_manager)
 - [chezmoi](https://www.chezmoi.io/)

@@ -289,7 +289,6 @@ if __name__ == '__main__':
 #      - sleep
 #      - hide all normal windows: super+d
 #      - super+f for file explorer (nautilus)
-#   - exodus from AUR?
 #   - pix set config value: dconf -> /org/x/pix/browser/sort-type -> file::name
 # - Rename "configs" to "files_to_link"
 #   dedicated dir: files_to_link|files_to_copy/{gnome, xfce, common}.

@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Exodus
-GenericName=Cryptocurrency Wallet
-Comment=Secure, manage, and trade blockchain assets.
-Exec=/home/butla/bin/Exodus-linux-x64/Exodus
-Terminal=false
-Categories=Utility;Network;Finance;
-MimeType=x-scheme-handler/exodus;
