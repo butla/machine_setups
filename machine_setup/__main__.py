@@ -293,7 +293,7 @@ if __name__ == '__main__':
 # - Rename "configs" to "files_to_link"
 #   dedicated dir: files_to_link|files_to_copy/{gnome, xfce, common}.
 #   files_to_copy from current "manually_linked". Set them up with root.
-# - link setup DE detection needs to work over SSH
+# - desktop detection needs to work over SSH - use inxi --system?
 # - don't use `sudo pamac`
 #   - use pacman for installing regular packages
 #   - sync AUR packages with Git to a directory (~/.cache/aur_packages)
