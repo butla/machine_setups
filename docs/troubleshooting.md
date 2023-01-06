@@ -31,3 +31,7 @@ sudo systemctl start syncthing@butla
 
 ## KeepassXC doesn't remember the last open database
 Open the database, then do really shutdown keepass (ctrl+q).
+
+## Dropbox trey icon not showing on Gnome
+- enable app indicator extension
+- dropbox-cli stop && dropbox-cli start

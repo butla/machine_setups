@@ -290,7 +290,6 @@ if __name__ == '__main__':
 #      - hide all normal windows: super+d
 #      - super+f for file explorer (nautilus)
 #   - pix set config value: dconf -> /org/x/pix/browser/sort-type -> file::name
-#   - dropbox trey icon: https://superuser.com/questions/1037769/dropbox-system-tray-icon-missing-not-working
 # - Rename "configs" to "files_to_link"
 #   dedicated dir: files_to_link|files_to_copy/{gnome, xfce, common}.
 #   files_to_copy from current "manually_linked". Set them up with root.
