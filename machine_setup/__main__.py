@@ -26,7 +26,7 @@ _BACKGROUND_RESET = '\x1b[49m'
 logging.basicConfig(
     level=logging.INFO,
     format=f'{_BACKGROUND_GREEN}--- %(asctime)s{_BACKGROUND_RESET} | %(levelname)s | %(message)s',
-    datefmt='%Y-%d-%m %H:%M:%S',
+    datefmt='%Y-%m-%d %H:%M:%S',
 )
 
 log = logging.getLogger(__name__)
