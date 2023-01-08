@@ -3,7 +3,7 @@
 This script installs software and applies configuration that I want in any of my Manjaro computers (machines).
 
 "Computer" sounds weird here, even though it would be an accurate name :)
-So I prefer to use "machine" ¯\_(ツ)_/¯
+So I prefer to use "machine".
 """
 
 from functools import partial
@@ -37,7 +37,8 @@ def main():
 
     sync_packages()
     install_oh_my_zsh()
-    setup_file_links()
+    machine_setup.config_links.setup_all_links()
+    set_gsettings()
     setup_tmux_plugins()
     setup_neovim()
     ensure_ntp()
@@ -114,8 +115,36 @@ def install_oh_my_zsh():
     _clone_or_update_git_repo('https://github.com/ohmyzsh/ohmyzsh.git', oh_my_zsh_path)
 
 
-def setup_file_links():
-    machine_setup.config_links.setup_all_links()
+def set_gsettings():
+    """Sets settings with gsettings. These are used by Gnome/GTK apps."""
+    # keybindings
+    # gsettings set org.gnome.desktop.wm.keybindings maximize "['<Super>Up']"
+    # gsettings set org.gnome.desktop.wm.keybindings minimize "['<Super>Down']"
+    # gsettings set org.gnome.desktop.wm.keybindings close "['<Alt>F4']"
+    # gsettings set org.gnome.desktop.wm.keybindings show-desktop "['<Super>d']"
+    # gsettings set org.gnome.desktop.wm.keybindings begin-move "['<Super>m']"
+    # gsettings set org.gnome.settings-daemon.plugins.media-keys magnifier-zoom-out "['<Super>minus']"
+    # gsettings set org.gnome.settings-daemon.plugins.media-keys magnifier-zoom-in "['<Super>equal']"
+
+    # touchpad scroll
+    # gsettings set org.gnome.desktop.peripherals.mouse natural-scroll false
+    # gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll false
+
+    # show battery percentage
+    # gsettings set org.gnome.desktop.interface show-battery-percentage true
+
+    # pix image browser
+    # gsettings get org.x.pix.browser sort-type "'file::name'"
+
+    # enabling desktop zoom
+    # gsettings set org.gnome.desktop.interface toolkit-accessibility true
+    # TODO zoom: on, magnification: 1.00
+
+    # automatically remove old trash and temp files
+    # gsettings set org.gnome.desktop.privacy old-files-age 30
+    # gsettings set org.gnome.desktop.privacy remove-old-trash-files true
+    # gsettings set org.gnome.desktop.privacy remove-old-temp-files true
+    pass
 
 
 def setup_tmux_plugins():
@@ -269,27 +298,16 @@ if __name__ == '__main__':
 
 # TODOs
 # - setup Manjaro on Gnome (detect if we have gnome running)
-#   - dconf: keybindings, normal scroll direction (check if all of this can be safely set on XFCE)
+#   - dconf: keybindings (check if all of this can be safely set on XFCE)
 #     - https://askubuntu.com/questions/597395/how-to-set-custom-keyboard-shortcuts-from-terminal
 #     - https://unix.stackexchange.com/questions/323160/gnome3-adding-keyboard-custom-shortcuts-using-dconf-without-need-of-logging
-#       - maximize window: super+up
-#       - hide window: super+down
-#       - move window: super+m
-#       - zoom in / zoom out -> super and = and -
-#       - custom: brave, alacritty + tmux, keepassxc, gnome-calculator
+#   - custom keybindings (todo check them out):
+#      - brave, clementine, keypassxc, gnome-calculator
+#      - tmux terminal
+#      - sleep
+#      - super+f for file explorer (nautilus)
 #   - gnome extensions installer https://github.com/brunelli/gnome-shell-extension-installer
 #   - audio switcher
-#   - delete trash and temp data after 30 days
-#   - battery show percentage
-#   - gsettings set org.gnome.desktop.peripherals.mouse natural-scroll false
-#   - gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll false
-#   - /org/gnome/desktop/wm/keybindings/close = alt+f4
-#   - accessibility: zoom: on, magnification: 1.00
-#   - keybindings:
-#      - sleep
-#      - hide all normal windows: super+d
-#      - super+f for file explorer (nautilus)
-#   - pix set config value: dconf -> /org/x/pix/browser/sort-type -> file::name
 # - Rename "configs" to "files_to_link"
 #   dedicated dir: files_to_link|files_to_copy/{gnome, xfce, common}.
 #   files_to_copy from current "manually_linked". Set them up with root.

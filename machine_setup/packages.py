@@ -137,6 +137,7 @@ PACMAN_GUI_PACKAGES = {
     'qt6ct',  # QT6 theme configurator, needed for new qbittorent
     'xsensors',  # shows hardware sensor info, like temperatures
     'gnome-system-monitor',  # nice GUI to show resource usage charts
+    'dconf-editor'  # find and edit Gnome/GTK app settings
 }
 
 AUR_NO_GUI_PACKAGES = {
