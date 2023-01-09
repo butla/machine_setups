@@ -6,6 +6,10 @@ Various tricks, snippets, commands for doing things.
 ## Check what package a file belongs to
 pacman -Qo <file>
 
+## Show value of an option in Tmux
+`:show -A <option name>`
+[More info](https://www.seanh.cc/2020/12/28/setting-options-in-tmux/)
+
 ## Adding a program to autostart
 
 Find it's `.desktop` file (`pacman -Fl caffeine-ng | grep .desktop`) and copy it `~/.config/autostart`.
