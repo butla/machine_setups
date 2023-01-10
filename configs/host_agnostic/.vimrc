@@ -33,14 +33,19 @@ Plug 'tpope/vim-fugitive'
 " TODO :UpdateRemotePlugins doesn't seem to be called automatically.
 " Maybe the upgrade script needs to run PlugUpdate! (with the bang on the end)
 " https://github.com/junegunn/vim-plug/issues/1119#issuecomment-1066479981
-Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
+" Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
 " I use this for renaming stuff in Python
 Plug 'davidhalter/jedi-vim'
 Plug 'fisadev/vim-isort'
 " highlighting Python test coverage
 Plug 'mgedmin/coverage-highlight.vim'
-" automatic Python imports
+" automatic Python imports TODO maybe won't be needed with auto imports with LSP
 Plug 'relastle/vim-nayvy'
+" telescope: fuzzy finders
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-telescope/telescope.nvim'
 
 call plug#end()
 

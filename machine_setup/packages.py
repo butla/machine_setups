@@ -81,6 +81,11 @@ PACMAN_NO_GUI_PACKAGES = {
     'odt2txt',  # for preview of OpenDocument in ranger
     'hd-idle',  # tool for spinning down hard disks after inactivity or immediately
     'smartmontools',  # has smartctl - utility for getting drive diagnostics
+    'ripgrep'  # faster grep, ag alternative. Used by telescope.
+    'python-lsp-server',  # needed for Python completions in NeoVim
+    'python-rope',
+    'yapf',  # for python-lsp-server
+    'python-whatthepatch',  # for YAPF used with LSP server
     # =========================
     # CLI programs for GUIs
     # =========================
