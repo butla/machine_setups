@@ -28,10 +28,10 @@ test:
 
 pylint:
 	@echo ===Pylint===
-	poetry pylint machine_setup/ tests/
+	poetry run pylint machine_setup/ tests/
 
 isort_check:
 	@echo ===Isort===
-	poetry isort -c .
+	poetry run isort -c .
 
 # TODO formatting
