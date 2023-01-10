@@ -6,6 +6,8 @@ import platform
 import re
 from typing import Iterable, List
 
+from machine_setup import machine_info
+
 BACKUP_SUFFIX = '.bak'
 
 log = logging.getLogger(__name__)
@@ -24,8 +26,7 @@ def setup_all_links():
         target_dir=home_path,
     )
 
-    # TODO do detection with some tool instead of an env var that doesn't work over SSH
-    desktop_env = os.environ.get('XDG_CURRENT_DESKTOP', '').lower()
+    desktop_env = machine_info.get_desktop_environment()
     if desktop_env:
         set_up_links(
             source_dir=Path(f'configs/desktop_env_specific/{desktop_env}'),

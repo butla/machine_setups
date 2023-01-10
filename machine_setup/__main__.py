@@ -115,10 +115,13 @@ def install_oh_my_zsh():
 
 def set_gsettings():
     """Sets settings with gsettings. These are used by Gnome/GTK apps."""
-    if not machine_info.check_gui_present():
-        return
-    log.info('Setting up GTK/Gnome app settings with GSettings...')
+    log.info('Setting up GTK app settings with GSettings...')
+    shell.run_cmd('gsettings set org.x.pix.browser sort-type file::name')
 
+    if machine_info.get_desktop_environment() != 'gnome':
+        return
+
+    log.info('Setting up Gnome settings with GSettings...')
     # keybindings
     shell.run_cmd('gsettings set org.gnome.desktop.wm.keybindings maximize "[\'<Super>Up\']"')
     shell.run_cmd('gsettings set org.gnome.desktop.wm.keybindings minimize "[\'<Super>Down\']"')
@@ -134,9 +137,6 @@ def set_gsettings():
 
     # show battery percentage
     shell.run_cmd('gsettings set org.gnome.desktop.interface show-battery-percentage true')
-
-    # pix image browser
-    shell.run_cmd('gsettings set org.x.pix.browser sort-type file::name')
 
     # desktop zoom
     shell.run_cmd('gsettings set org.gnome.desktop.interface toolkit-accessibility true')
