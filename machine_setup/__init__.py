@@ -1,1 +1,1 @@
-from . import config_links, packages
+from . import config_links, machine_info, packages

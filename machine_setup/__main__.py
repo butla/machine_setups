@@ -10,13 +10,12 @@ from functools import partial
 import logging
 import os
 from pathlib import Path
-import platform
 import re
 import socket
 import subprocess
 
 import machine_setup
-from machine_setup import shell
+from machine_setup import machine_info, shell
 
 # Colors taken from "colorama". I don't want to depend on it, though.
 # I'll be using a color, so I can easily see my log message by glancing at the output
@@ -117,37 +116,43 @@ def install_oh_my_zsh():
 
 def set_gsettings():
     """Sets settings with gsettings. These are used by Gnome/GTK apps."""
+    if not machine_info.check_gui_present():
+        return
+    log.info('Setting up GTK/Gnome app settings with GSettings...')
+
     # keybindings
-    # gsettings set org.gnome.desktop.wm.keybindings maximize "['<Super>Up']"
-    # gsettings set org.gnome.desktop.wm.keybindings minimize "['<Super>Down']"
-    # gsettings set org.gnome.desktop.wm.keybindings close "['<Alt>F4']"
-    # gsettings set org.gnome.desktop.wm.keybindings show-desktop "['<Super>d']"
-    # gsettings set org.gnome.desktop.wm.keybindings begin-move "['<Super>m']"
-    # gsettings set org.gnome.settings-daemon.plugins.media-keys magnifier-zoom-out "['<Super>minus']"
-    # gsettings set org.gnome.settings-daemon.plugins.media-keys magnifier-zoom-in "['<Super>equal']"
+    shell.run_cmd('gsettings set org.gnome.desktop.wm.keybindings maximize "[\'<Super>Up\']"')
+    shell.run_cmd('gsettings set org.gnome.desktop.wm.keybindings minimize "[\'<Super>Down\']"')
+    shell.run_cmd('gsettings set org.gnome.desktop.wm.keybindings close "[\'<Alt>F4\']"')
+    shell.run_cmd('gsettings set org.gnome.desktop.wm.keybindings show-desktop "[\'<Super>d\']"')
+    shell.run_cmd('gsettings set org.gnome.desktop.wm.keybindings begin-move "[\'<Super>m\']"')
+    shell.run_cmd('gsettings set org.gnome.settings-daemon.plugins.media-keys magnifier-zoom-out "[\'<Super>minus\']"')
+    shell.run_cmd('gsettings set org.gnome.settings-daemon.plugins.media-keys magnifier-zoom-in "[\'<Super>equal\']"')
 
     # touchpad scroll
-    # gsettings set org.gnome.desktop.peripherals.mouse natural-scroll false
-    # gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll false
+    shell.run_cmd('gsettings set org.gnome.desktop.peripherals.mouse natural-scroll false')
+    shell.run_cmd('gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll false')
 
     # show battery percentage
-    # gsettings set org.gnome.desktop.interface show-battery-percentage true
+    shell.run_cmd('gsettings set org.gnome.desktop.interface show-battery-percentage true')
 
     # pix image browser
-    # gsettings get org.x.pix.browser sort-type "'file::name'"
+    shell.run_cmd('gsettings set org.x.pix.browser sort-type file::name')
 
-    # enabling desktop zoom
-    # gsettings set org.gnome.desktop.interface toolkit-accessibility true
-    # TODO zoom: on, magnification: 1.00
+    # desktop zoom
+    shell.run_cmd('gsettings set org.gnome.desktop.interface toolkit-accessibility true')
+    shell.run_cmd('gsettings set org.gnome.desktop.a11y.applications screen-magnifier-enabled true')
+    shell.run_cmd('gsettings set org.gnome.desktop.a11y.magnifier mag-factor 1.0')
 
     # automatically remove old trash and temp files
-    # gsettings set org.gnome.desktop.privacy old-files-age 30
-    # gsettings set org.gnome.desktop.privacy remove-old-trash-files true
-    # gsettings set org.gnome.desktop.privacy remove-old-temp-files true
-    pass
+    shell.run_cmd('gsettings set org.gnome.desktop.privacy old-files-age 30')
+    shell.run_cmd('gsettings set org.gnome.desktop.privacy remove-old-trash-files true')
+    shell.run_cmd('gsettings set org.gnome.desktop.privacy remove-old-temp-files true')
 
 
 def setup_tmux_plugins():
+    log.info('Setting up Tmux pluggins...')
+
     tmux_plugins = ['tpm', 'tmux-yank']
     tmux_plugins_dir = Path('~/.tmux/plugins').expanduser()
 
@@ -195,10 +200,11 @@ def set_zsh_as_shell():
 
 
 def set_qt_theme():
-    if socket.gethostname() in ['ognisko']:
-        # non-GUI machines don't have QT, so there's no need for settings
+    if not machine_info.check_gui_present():
         return
+
     theme_config = Path('~/.config/qt5ct/qt5ct.conf').expanduser()
+    log.info('Setting theme for QT in %s', theme_config)
     config_contents = theme_config.read_text()
 
     expected_theme_line = 'style=kvantum-dark'
@@ -206,7 +212,6 @@ def set_qt_theme():
     if re.findall(f'^{expected_theme_line}', config_contents, flags=re.MULTILINE):
         return
 
-    log.info('Setting theme for QT in %s', theme_config)
     new_config_contents = re.sub('^style=.*', expected_theme_line, config_contents, flags=re.MULTILINE)
     theme_config.write_text(new_config_contents)
 
@@ -215,7 +220,7 @@ def enable_services():
     log.info('Making sure certain services are enabled, running, and usable...')
 
     # No working docker on ARM? Something errors out if I try to enable Docker...
-    if not _is_arm_cpu():
+    if not machine_info.check_is_arm_cpu():
         shell.run_cmd('sudo systemctl enable --now docker')
         subprocess.run('sudo usermod -a -G docker $(whoami)', shell=True, check=True)
 
@@ -274,12 +279,6 @@ def describe_manual_steps():
   - dark theme for the login screen
 """
     log.info(text)
-
-
-def _is_arm_cpu():
-    # This will work for the ognisko, which is an RPI4,
-    # but can be expanded in the future.
-    return platform.machine() == 'aarch64'
 
 
 if __name__ == '__main__':
