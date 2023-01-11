@@ -329,6 +329,7 @@ if __name__ == '__main__':
 #   - litecli (nice SQLite CLI client)
 #   - isort
 #   - subliminal
+# - qbittorrent settings (~/.config/qBittorrent); settings/behavior/"prevent sleep"
 # - KeyboardInterrupt handling.
 # - setup syncthing shares between hosts automatically?
 # - touchpad turning off on bp - something about sleeping USB that I fixed on bl?
