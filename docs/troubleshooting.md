@@ -35,3 +35,6 @@ Open the database, then do really shutdown keepass (ctrl+q).
 ## Dropbox trey icon not showing on Gnome
 - enable app indicator extension
 - dropbox-cli stop && dropbox-cli start
+
+## Restart Gnome
+killall -HUP gnome-shell
