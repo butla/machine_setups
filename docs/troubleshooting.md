@@ -38,3 +38,6 @@ Open the database, then do really shutdown keepass (ctrl+q).
 
 ## Restart Gnome
 killall -HUP gnome-shell
+
+## Nautilus crashing after start (Gnome file explorer)
+Copy something to clipboard. [More context.](https://gitlab.gnome.org/GNOME/nautilus/-/issues/2539)

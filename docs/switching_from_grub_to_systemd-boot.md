@@ -15,7 +15,7 @@ Based on [this article](https://forum.manjaro.org/t/how-to-convert-to-systemd-bo
 - fixup fstab: change ESP to /efi, don't mount /boot
 - mount ESP to /efi
 - sudo bootctl install
-- sudo pacman -S systemd-kernel-maintenance
+- sudo pacman -S systemd-kernel-maintenance (TODO: maybe use the kernel-install automation?)
 - sudo pacman -Rn grub-btrfs grub-theme-manjaro grub
 - reinstall the current kernels, so that their systemd-boot entries get generated, e.g. sudo pacman -S linux515 linux419
 
