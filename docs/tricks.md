@@ -71,3 +71,12 @@ echo ", +" | ./sfdisk -N 1 /dev/sdc
 ## Convert a set of images into a PDF
 `convert <image paths> output.pdf`
 `convert` is part of imagemagick
+
+## Check open ports / sockets
+`$ ss`
+
+## iptables, IP forwarding
+`$ nftables`
+
+## WiFi CLI
+`$ iw`
