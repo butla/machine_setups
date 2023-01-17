@@ -146,6 +146,7 @@ AUR_NO_GUI_PACKAGES = {
     'hollywood',  # "Fill your console with Hollywood melodrama technobabble"
     'qbittorrent-cli-bin',  # CLI for the non-GUI torrent client, TODO, make it work
     'battop',  # battery stats
+    'dstask',  # task/note manager, git-based
 }
 
 AUR_GUI_PACKAGES = {
