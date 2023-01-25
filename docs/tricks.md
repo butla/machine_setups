@@ -83,3 +83,8 @@ echo ", +" | ./sfdisk -N 1 /dev/sdc
 
 ## Drive diagnostics
 `sudo smartctl -a <drive device>`
+
+## Enabling Toggl Track integration with Trello, Gitlab, Github
+Has to be done for every synced Brave instance, it seems.
+Toggl extension installed in the browser as an extension.
+Open extension settings for Toggl, enable Trello, Gitlab, Github.
