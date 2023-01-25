@@ -80,3 +80,6 @@ echo ", +" | ./sfdisk -N 1 /dev/sdc
 
 ## WiFi CLI
 `$ iw`
+
+## Drive diagnostics
+`sudo smartctl -a <drive device>`
