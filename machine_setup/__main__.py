@@ -66,7 +66,7 @@ def sync_packages():
     shell.run_cmd('pamac upgrade --no-confirm')
     if shell.check_command_exists('flatpak'):
         log.info('Updating flatpak packages...')
-        shell.run_cmd('flatpak update')
+        shell.run_cmd('flatpak update --assumeyes')
 
     log.info('Adding GPG keys for some packages...')
     _add_package_keys()
