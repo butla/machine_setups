@@ -254,30 +254,9 @@ def setup_crontab():
     )
 
 
-# TODO move the below to docs, mention checking that out, separate ones for XFCE
 def describe_manual_steps():
-    text = """There are some steps you need to do manually after an initial setup:
-- Syncthing:
-  - http://localhost:8384
-  - "Actions" / Show ID
-  - share documents (at ~/Documents)
-  - set up GUI creds
-- add id_rsa to ~/.ssh
-- Brave: enable sync (everything but passwords and open tabs)
-- Signal: sync with phone
-- Dropbox: log in
-- PIA: set it up - run `pia_download`, etc.
-- Exodus wallet: set it up - go to https://www.exodus.com/download/, restore the wallet
-- qbittorrent: enable search plugin -> View/search engine/search plugins, and configure it
-- set up ~/.credentials/borg_key from KeePass
-- XFCE:
-  - clock widget: set time format to %Y-%m-%d %H:%M:%S
-  - remove XFCE workspace switcher and set up favourites menu
-  - restart so that XFCE configuration loads
-  - battery level widget
-  - dark theme for the login screen
-"""
-    log.info(text)
+    log.info("Check out docs/initial_setup_fixups.md to check the steps  you need to do manually "
+            "after running the initial setup.")
 
 
 if __name__ == '__main__':
