@@ -136,6 +136,7 @@ PACMAN_GUI_PACKAGES = {
     'system-config-printer',  # Manjaro or XFCE printer setup GUI
     'qt6ct',  # QT6 theme configurator, needed for new qbittorent
     'xsensors',  # shows hardware sensor info, like temperatures
+    'psensor',  # temperature sensors chart
     'gnome-system-monitor',  # nice GUI to show resource usage charts
     'dconf-editor'  # find and edit Gnome/GTK app settings
 }
