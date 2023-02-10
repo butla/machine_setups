@@ -14,7 +14,9 @@ Things to do
 - PIA: set it up - run `pia_download`, etc.
 - Exodus wallet: set it up - go to https://www.exodus.com/download/, restore the wallet
 - qbittorrent
-  - enable search plugin -> View/search engine/search plugins, and configure it (TODO is it still needed?)
+  - enable search:
+    - View -> "search engine"
+    - go to search panel, find "search plugins" button
   - right click the torrent list's column heareds - add "completed date" - sort by it
 - set up ~/.credentials/borg_key from KeePass
 - XFCE:
