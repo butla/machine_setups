@@ -41,6 +41,8 @@ Plug 'fisadev/vim-isort'
 Plug 'mgedmin/coverage-highlight.vim'
 " automatic Python imports
 Plug 'relastle/vim-nayvy'
+" unix file operations on open files
+Plug 'tpope/vim-eunuch'
 
 call plug#end()
 
