@@ -310,10 +310,10 @@ if __name__ == '__main__':
 #   - subliminal
 # - qbittorrent settings (~/.config/qBittorrent); settings/behavior/"prevent sleep"
 # - KeyboardInterrupt handling.
+#   Check if commands get interrupted when exiting with ctrl+c. If I kill the script, pamac should exit as well.
 # - setup syncthing shares between hosts automatically?
-# - touchpad turning off on bp - something about sleeping USB that I fixed on bl?
 # - touchpad taps as clicks
-# - replacement to pix that doesn't glitch when going through photo videos
+# - replacement to pix that doesn't glitch/hang for a few seconds when opening a heavy video
 # - run this as sudo, impersonating the user where it's necessary; upgrade script runs python with sudo.
 # - make package update faster: can we skip pamac scan for updates? Can that be done periodically in the background?
 # - All commands without confirmation. Get logs for everything. Async status display of all.
@@ -327,6 +327,5 @@ if __name__ == '__main__':
 #   Currently, they're all getting broken.
 #   My current process is recreating all virtualenvs and all pipx installs.
 #   ~/.local/pipx/ might need to get deleted as well.
+# - font configs in alacritty that switch when a monitor is attached? Have configs for alien, lemur, iiyama (monitor)
 # - a single widget with reboot/poweroff/suspend options for Gnome (like in XFCE), opened with a hotkey
-# - GRUB setup for machines (/etc/grub.d/40_custom, other necessary ones)
-#   https://wiki.archlinux.org/title/GRUB#Custom_grub.cfg
