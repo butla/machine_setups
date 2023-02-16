@@ -1,5 +1,5 @@
-Initial setup fixups
-====================
+Initial setup manual steps
+==========================
 
 Things to do
 - Syncthing:
