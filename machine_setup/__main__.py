@@ -36,13 +36,13 @@ def main():
     sync_packages()
     install_oh_my_zsh()
     machine_setup.config_links.setup_all_links()
-    set_gsettings()
     setup_tmux_plugins()
     setup_neovim()
-    ensure_ntp()
     set_zsh_as_shell()
+    set_gsettings()
     set_qt_theme()
     enable_services()
+    ensure_ntp()
     setup_crontab()
     describe_manual_steps()
 
@@ -239,6 +239,9 @@ def setup_crontab():
     users_anacron_spool_dir = Path('~/.local/var/spool/anacron').expanduser()
     users_anacron_spool_dir.mkdir(parents=True, exist_ok=True)
 
+    # TODO this doesn't work as expected. If the day is skipped, then the action doesn't happen.
+    # It has to be set up with anacrontab with manipulation of the spool file, so that the action is run on first
+    # day of the month. Or maybe there's some other way to do it.
     crontab_contents = f"""
 # We'll run anacron through cron. Check out https://serverfault.com/a/172994/499078
 @hourly anacron -t ${{HOME}}/.local/etc/anacrontab -S {users_anacron_spool_dir}
@@ -262,16 +265,6 @@ def describe_manual_steps():
 if __name__ == '__main__':
     main()
 
-
-# notes for the future (maybe):
-# - removing .zcompdump might be needed after installing oh-my-zsh (wasn't the last time I installed it)
-# - removing keyring requirements for Python packages: https://stackoverflow.com/questions/64570510/why-does-pip3-want-to-create-a-kdewallet-after-installing-updating-packages-on-u pylint: disable=line-too-long
-# - XFCE shortcuts for moving windows between screens:
-#     https://github.com/calandoa/movescreen
-#     https://github.com/jc00ke/move-to-next-monitor
-# - gthumb - the zoom-in keyboard shortcut problem (https://gitlab.gnome.org/GNOME/gthumb/-/issues/103)
-# - timeshift emits errors on package updates on BTRFS
-#   https://forum.manjaro.org/t/btrfs-updating-leads-to-e-error-cant-list-qgroups-quotas-not-enabled/110375/8?u=butla
 
 # TODOs
 # - setup Manjaro on Gnome (detect if we have gnome running)
