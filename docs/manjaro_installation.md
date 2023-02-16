@@ -1,15 +1,24 @@
 Manjaro installation
 ====================
 
+- boot from live USB
+- if there are invalid installs on some drives - wipe old boot info from EFI partitions and EFI vars (efibootmgr)
 - prep partitions:
-  - the EFI partition
-  - LUKS partition with a btrfs partition inside
-  - an ext4 boot partition (1024 MiB)
-- mount partitions
+  - the EFI partition: 2GB (systemd-boot uses more space there)
+  - LUKS partition with a btrfs partition inside (create with luks2?)
 - run the Manjaro installer
-- manual partitioning
-- [if calamares is unmounting the mounted partitions and can't install],
-  [`cd` into dirs the partitions are mounted to](https://github.com/calamares/calamares/issues/1920#issuecomment-1101789100)
+- [when root partition is directly in LUKS]
+  - select manual partitioning
+  - choose an empty partition for root, edit it, format to BTRFS, select encryption
+  - mount ESP to /boot/efi for now
+- [when root partition is in LVM in LUKS]
+  - select manual partitioning
+  - when adding mountpoints always "keep" content so it doesn't try to format anything
+  - mount ESP to /boot/efi for now
+  - if calamares is unmounting the mounted partitions and can't install,
+    `cd` into dirs the partitions are mounted to
+    https://github.com/calamares/calamares/issues/1920#issuecomment-1101789100
+- TODO: set up systemd-boot and ESP on /efi
 - TODO:
   - don't have a boot partition, chroot into the thing to setup systemd-boot?
     - maybe this needs a bind mount of /etc/resolv.conf

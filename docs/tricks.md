@@ -73,13 +73,13 @@ echo ", +" | ./sfdisk -N 1 /dev/sdc
 `convert` is part of imagemagick
 
 ## Check open ports / sockets
-`$ ss`
+`ss`
 
 ## iptables, IP forwarding
-`$ nftables`
+`nftables`
 
 ## WiFi CLI
-`$ iw`
+`iw`
 
 ## Drive diagnostics
 `sudo smartctl -a <drive device>`
@@ -88,3 +88,7 @@ echo ", +" | ./sfdisk -N 1 /dev/sdc
 Has to be done for every synced Brave instance, it seems.
 Toggl extension installed in the browser as an extension.
 Open extension settings for Toggl, enable Trello, Gitlab, Github.
+
+## EFI boot management
+`efibootmgr -v` - show boot options
+`sudo efibootmgr --delete-bootnum --bootnum 0000` - removing a boot option
