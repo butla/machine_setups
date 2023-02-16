@@ -122,14 +122,6 @@ def set_gsettings():
         return
 
     log.info('Setting up Gnome settings with GSettings...')
-    # keybindings
-    shell.run_cmd('gsettings set org.gnome.desktop.wm.keybindings maximize "[\'<Super>Up\']"')
-    shell.run_cmd('gsettings set org.gnome.desktop.wm.keybindings minimize "[\'<Super>Down\']"')
-    shell.run_cmd('gsettings set org.gnome.desktop.wm.keybindings close "[\'<Alt>F4\']"')
-    shell.run_cmd('gsettings set org.gnome.desktop.wm.keybindings show-desktop "[\'<Super>d\']"')
-    shell.run_cmd('gsettings set org.gnome.desktop.wm.keybindings begin-move "[\'<Super>m\']"')
-    shell.run_cmd('gsettings set org.gnome.settings-daemon.plugins.media-keys magnifier-zoom-out "[\'<Super>minus\']"')
-    shell.run_cmd('gsettings set org.gnome.settings-daemon.plugins.media-keys magnifier-zoom-in "[\'<Super>equal\']"')
 
     # touchpad scroll
     shell.run_cmd('gsettings set org.gnome.desktop.peripherals.mouse natural-scroll false')
@@ -147,6 +139,37 @@ def set_gsettings():
     shell.run_cmd('gsettings set org.gnome.desktop.privacy old-files-age 30')
     shell.run_cmd('gsettings set org.gnome.desktop.privacy remove-old-trash-files true')
     shell.run_cmd('gsettings set org.gnome.desktop.privacy remove-old-temp-files true')
+
+    # keybindings
+    shell.run_cmd('gsettings set org.gnome.desktop.wm.keybindings maximize "[\'<Super>Up\']"')
+    shell.run_cmd('gsettings set org.gnome.desktop.wm.keybindings minimize "[\'<Super>Down\']"')
+    shell.run_cmd('gsettings set org.gnome.desktop.wm.keybindings close "[\'<Alt>F4\']"')
+    shell.run_cmd('gsettings set org.gnome.desktop.wm.keybindings show-desktop "[\'<Super>d\']"')
+    shell.run_cmd('gsettings set org.gnome.desktop.wm.keybindings begin-move "[\'<Super>m\']"')
+    shell.run_cmd('gsettings set org.gnome.settings-daemon.plugins.media-keys magnifier-zoom-out "[\'<Super>minus\']"')
+    shell.run_cmd('gsettings set org.gnome.settings-daemon.plugins.media-keys magnifier-zoom-in "[\'<Super>equal\']"')
+
+    # custom keybindings, based on https://askubuntu.com/a/597414
+    custom_keybindings = [
+        ('brave', '<Super>1', 'brave'),
+        ('clementine', '<Super>2', 'clementine'),
+        ('keepassxc', '<Super>3', 'keepassxc'),
+        ('calculator', '<Super>4', 'gnome-calculator'),
+        ('terminal with tmux', '<Super>t', 'alacritty --command tmux'),
+        ('file explorer', '<Super>f', 'nautilus'),
+        ('sleep', '<Shift><Super>l', 'systemctl suspend'),
+    ]
+    keybinding_entry_paths = [f'/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom{index}/'
+                              for index in range(len(custom_keybindings))]
+    # create a number of entries that will be filled with values below
+    shell.run_cmd('gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings '
+                  f'"{str(keybinding_entry_paths)}"')
+    for index, custom_keybinding in enumerate(custom_keybindings):
+        set_command_base = ('gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding'
+                            ':/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom{index}/ '
+                            '{field_name} "{value}"')
+        for field_name, value in zip(['name', 'binding', 'command'], custom_keybinding):
+            shell.run_cmd(set_command_base.format(index=index, field_name=field_name, value=value))
 
 
 def setup_tmux_plugins():
@@ -268,14 +291,6 @@ if __name__ == '__main__':
 
 # TODOs
 # - setup Manjaro on Gnome (detect if we have gnome running)
-#   - dconf: keybindings (check if all of this can be safely set on XFCE)
-#     - https://askubuntu.com/questions/597395/how-to-set-custom-keyboard-shortcuts-from-terminal
-#     - https://unix.stackexchange.com/questions/323160/gnome3-adding-keyboard-custom-shortcuts-using-dconf-without-need-of-logging
-#   - custom keybindings (todo check them out):
-#      - brave, clementine, keypassxc, gnome-calculator
-#      - tmux terminal
-#      - sleep
-#      - super+f for file explorer (nautilus)
 #   - gnome extensions installer https://github.com/brunelli/gnome-shell-extension-installer
 #   - audio switcher
 # - Rename "configs" to "files_to_link"
