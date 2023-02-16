@@ -290,9 +290,6 @@ if __name__ == '__main__':
 
 
 # TODOs
-# - setup Manjaro on Gnome (detect if we have gnome running)
-#   - gnome extensions installer https://github.com/brunelli/gnome-shell-extension-installer
-#   - audio switcher
 # - Rename "configs" to "files_to_link"
 #   dedicated dir: files_to_link|files_to_copy/{gnome, xfce, common}.
 #   files_to_copy from current "manually_linked". Set them up with root.
