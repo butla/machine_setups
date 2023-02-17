@@ -82,7 +82,7 @@ def sync_packages():
 def _add_package_keys():
     run_key_cmd = partial(subprocess.run, shell=True, check=True)
     keys_from_web = [
-        'https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg',
+        'https://download.spotify.com/debian/pubkey_7A3A762FAFD4A51F.gpg',
     ]
     for key_url in keys_from_web:
         run_key_cmd(f'curl -sS {key_url} | gpg --import -')
@@ -281,18 +281,21 @@ def setup_crontab():
 
 
 def describe_manual_steps():
-    log.info("Check out docs/initial_setup_fixups.md to check the steps  you need to do manually "
+    log.info("Check out docs/initial_setup.md to check the steps you need to do manually "
             "after running the initial setup.")
 
 
 if __name__ == '__main__':
     main()
 
+# TODOs for NOW
+# - enable num-lock on boot?
 
 # TODOs
 # - Rename "configs" to "files_to_link"
-#   dedicated dir: files_to_link|files_to_copy/{gnome, xfce, common}.
-#   files_to_copy from current "manually_linked". Set them up with root.
+#   - dedicated dir: files_to_link|files_to_copy/{gnome, xfce, common}.
+#   - Pull "manually_linked" into files_to_copy from current "manually_linked". Set them up with root.
+#   - files are copied only when they are different
 # - desktop detection needs to work over SSH - use inxi --system?
 # - don't use `sudo pamac`
 #   - use pacman for installing regular packages

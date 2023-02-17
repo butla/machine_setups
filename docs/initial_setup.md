@@ -19,4 +19,5 @@ Things to do
     - go to search panel, find "search plugins" button
   - right click the torrent list's column heareds - add "completed date" - sort by it
 - set up ~/.credentials/borg_key from KeePass
+- copy files from "manually_linked" and "files_to_copy" (this should be done automatically in the future)
 - check desktop environment doc for initial steps for it
