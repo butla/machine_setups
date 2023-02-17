@@ -37,13 +37,13 @@ def main():
     install_oh_my_zsh()
     machine_setup.config_links.setup_all_links()
     setup_tmux_plugins()
-    setup_neovim()
     set_zsh_as_shell()
     set_gsettings()
     set_qt_theme()
     enable_services()
     ensure_ntp()
     setup_crontab()
+    setup_neovim()
     describe_manual_steps()
 
     log.info('All done.')
@@ -201,7 +201,9 @@ def setup_neovim():
         shell.run_cmd(f'wget -O {vim_color_scheme_file} {color_scheme_url}')
 
     log.info('Synchronizing NeoVim plugins with vim-plug...')
-    shell.run_cmd('nvim +PlugUpgrade +PlugClean +PlugUpdate +qall')
+    # UpdateRemotePlugins shouldn't be necessary, because vim-plug is supposed to run it for semshi, but it doesn't.
+    # TODO this looks to be messing something up in the output
+    shell.run_cmd('nvim +PlugUpgrade +PlugClean +PlugUpdate +UpdateRemotePlugins +qall ')
 
     regular_vim_binary = Path('/usr/bin/vim')
     if not regular_vim_binary.exists():
@@ -243,6 +245,7 @@ def enable_services():
 
     # No working docker on ARM? Something errors out if I try to enable Docker...
     if not machine_info.check_is_arm_cpu():
+        # TODO looks like this might fail during the run on a clean system
         shell.run_cmd('sudo systemctl enable --now docker')
         subprocess.run('sudo usermod -a -G docker $(whoami)', shell=True, check=True)
 
@@ -290,8 +293,10 @@ if __name__ == '__main__':
 
 # TODOs for NOW
 # - enable num-lock on boot?
+# - custom keybindings with super+number don't work
 
 # TODOs
+# - make neovim plugin update not mess up the script's output
 # - Rename "configs" to "files_to_link"
 #   - dedicated dir: files_to_link|files_to_copy/{gnome, xfce, common}.
 #   - Pull "manually_linked" into files_to_copy from current "manually_linked". Set them up with root.
