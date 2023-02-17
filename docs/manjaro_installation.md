@@ -1,6 +1,7 @@
 Manjaro installation
 ====================
 
+## Initial system install
 - boot from live USB
 - if there are invalid installs on some drives - wipe old boot info from EFI partitions and EFI vars (efibootmgr)
 - prep partitions:
@@ -18,6 +19,13 @@ Manjaro installation
   - if calamares is unmounting the mounted partitions and can't install,
     `cd` into dirs the partitions are mounted to
     https://github.com/calamares/calamares/issues/1920#issuecomment-1101789100
+- reboot
+
+## System configuration
+- `mkdir -p ~/development`
+- `git clone https://github.com/butla/machine_setups ~/development/machine_setups`
+- `cd ~/development/machine_setups && ./run_setup_first_time.sh`
+- pull `machine_setups` from Git and run ``
 - TODO: set up systemd-boot and ESP on /efi
 - TODO:
   - don't have a boot partition, chroot into the thing to setup systemd-boot?

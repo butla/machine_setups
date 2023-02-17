@@ -19,9 +19,4 @@ Things to do
     - go to search panel, find "search plugins" button
   - right click the torrent list's column heareds - add "completed date" - sort by it
 - set up ~/.credentials/borg_key from KeePass
-- XFCE:
-  - clock widget: set time format to %Y-%m-%d %H:%M:%S
-  - remove XFCE workspace switcher and set up favourites menu
-  - restart so that XFCE configuration loads
-  - battery level widget
-  - dark theme for the login screen
+- check desktop environment doc for initial steps for it
