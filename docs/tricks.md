@@ -92,3 +92,10 @@ Open extension settings for Toggl, enable Trello, Gitlab, Github.
 ## EFI boot management
 `efibootmgr -v` - show boot options
 `sudo efibootmgr --delete-bootnum --bootnum 0000` - removing a boot option
+
+## SSH port tunnelling
+**access port on the remote host from local port**
+`ssh <user>@<address> -N -L <local port>:localhost:<port on remote machine>`
+
+**allow for remote host to access a local port**
+`ssh -f -N <user>@<address> -R <remote port>:localhost:<local port>`

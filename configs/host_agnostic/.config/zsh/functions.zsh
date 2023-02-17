@@ -239,12 +239,3 @@ function configs_audit()
     # log "Stopping auditd service after tracing..."
     # sudo systemctl stop auditd.service
 }
-
-# $1 - user@host
-# $2 - remote port
-# $3 - local port
-# TODO fix: "$2:" seems to be eating up the 'l' in localhost
-function ssh_tunnel_remote_to_our()
-{
-    ssh -f -N $1 -R $2:localhost:$3
-}
