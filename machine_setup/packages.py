@@ -139,6 +139,7 @@ PACMAN_GUI_PACKAGES = {
     'psensor',  # temperature sensors chart
     'gnome-system-monitor',  # nice GUI to show resource usage charts
     'dconf-editor'  # find and edit Gnome/GTK app settings
+    'clementine',  # music player
 }
 
 AUR_NO_GUI_PACKAGES = {

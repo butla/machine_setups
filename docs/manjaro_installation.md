@@ -21,13 +21,9 @@ Manjaro installation
     https://github.com/calamares/calamares/issues/1920#issuecomment-1101789100
 - reboot
 
-## System configuration
+## System configuration after boot
 - `mkdir -p ~/development`
 - `git clone https://github.com/butla/machine_setups ~/development/machine_setups`
 - `cd ~/development/machine_setups && ./run_setup_first_time.sh`
-- pull `machine_setups` from Git and run ``
-- TODO: set up systemd-boot and ESP on /efi
-- TODO:
-  - don't have a boot partition, chroot into the thing to setup systemd-boot?
-    - maybe this needs a bind mount of /etc/resolv.conf
-  - setup GRUB and kernel cmdline so we don't need a separate boot partition. Then boot into it and setup systemd-boot?
+- pull `machine_setups` from Git and run `make setup_machine`
+- follow `docs/switching_from_grub_to_systemd-boot.md`

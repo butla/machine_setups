@@ -9,3 +9,6 @@ gthumb - the zoom-in keyboard shortcut problem (https://gitlab.gnome.org/GNOME/g
 
 Timeshift emits errors on package updates on BTRFS. Not a real problem
 https://forum.manjaro.org/t/btrfs-updating-leads-to-e-error-cant-list-qgroups-quotas-not-enabled/110375/8
+
+Syncthing syncs symbolic links, not their targets. They might not sync correctly to the phone.
+Don't have links in synced folders.

@@ -1,6 +1,12 @@
 Gnome desktop notes
 ===================
 
+## Initial setup
+
+Switch from Wayland to XServer: before logging in, check the cog icon in lower left corner, choose "Gnome on Xorg".
+
+## Notes
+
 Shutdown shortcut - ctrl+alt+delete
 
 CLI gnome extensions installer: https://github.com/brunelli/gnome-shell-extension-installer

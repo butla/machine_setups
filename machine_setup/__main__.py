@@ -148,8 +148,18 @@ def set_gsettings():
     shell.run_cmd('gsettings set org.gnome.desktop.wm.keybindings begin-move "[\'<Super>m\']"')
     shell.run_cmd('gsettings set org.gnome.settings-daemon.plugins.media-keys magnifier-zoom-out "[\'<Super>minus\']"')
     shell.run_cmd('gsettings set org.gnome.settings-daemon.plugins.media-keys magnifier-zoom-in "[\'<Super>equal\']"')
+    # this makes sure alt-tab doesn't group stuff together
+    shell.run_cmd('gsettings set org.gnome.desktop.wm.keybindings switch-windows "[\'<Alt>Tab\']"')
+    shell.run_cmd('gsettings set org.gnome.desktop.wm.keybindings switch-windows-backward "[\'<Shift><Alt>Tab\']"')
+    shell.run_cmd('gsettings set org.gnome.desktop.wm.keybindings switch-applications "[]"')
+    shell.run_cmd('gsettings set org.gnome.desktop.wm.keybindings switch-applications-backward "[]"')
 
-    # custom keybindings, based on https://askubuntu.com/a/597414
+    # clear bindings for switching workspaces, so that they don't conflict with the custom ones
+    for index in range(1, 10):
+        shell.run_cmd(f'gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-{index} "[]"')
+
+    # Custom keybindings, based on https://askubuntu.com/a/597414
+    # Gnome restart is required for these to start working.
     custom_keybindings = [
         ('brave', '<Super>1', 'brave'),
         ('clementine', '<Super>2', 'clementine'),
@@ -291,9 +301,6 @@ def describe_manual_steps():
 if __name__ == '__main__':
     main()
 
-# TODOs for NOW
-# - enable num-lock on boot?
-# - custom keybindings with super+number don't work
 
 # TODOs
 # - make neovim plugin update not mess up the script's output
