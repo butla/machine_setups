@@ -118,8 +118,8 @@ handle_extension() {
         ## Direct Stream Digital/Transfer (DSDIFF) and wavpack aren't detected
         ## by file(1).
         dff|dsf|wv|wvc)
-            mediainfo "${FILE_PATH}" && exit 5
             exiftool "${FILE_PATH}" && exit 5
+            mediainfo "${FILE_PATH}" && exit 5
             ;; # Continue with next handler on failure
     esac
 }
@@ -333,8 +333,8 @@ handle_mime() {
 
         ## Video and audio
         video/* | audio/*)
-            mediainfo "${FILE_PATH}" && exit 5
             exiftool "${FILE_PATH}" && exit 5
+            mediainfo "${FILE_PATH}" && exit 5
             exit 1;;
     esac
 }
