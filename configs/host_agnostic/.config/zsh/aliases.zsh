@@ -31,7 +31,7 @@ alias d='docker'
 alias dk='docker-compose'
 
 # get free disk space without the trash output from Snap. Also shows file system types.
-alias dff='df -hT | grep -E "btrfs|ext4|vfat" | grep -v "/snap"'
+alias dff='df -hT | grep -Ev "/snap|tmpfs"'
 # get bulk devices without the trash output from Snap
 alias lsblkk='lsblk | grep -v "/snap"'
 
