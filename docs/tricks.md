@@ -99,3 +99,6 @@ Open extension settings for Toggl, enable Trello, Gitlab, Github.
 
 **allow for remote host to access a local port**
 `ssh -f -N <user>@<address> -R <remote port>:localhost:<local port>`
+
+## Play a sound
+canberra-gtk-play -i bell
