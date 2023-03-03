@@ -9,6 +9,8 @@ from pprint import pprint
 import exif
 import ffmpeg
 
+# TODO have an AUR package? Set the dependencies, don't rely on Poetry.
+
 
 # TODO make this a generator
 def find_media_files(folder_to_search: Path):
