@@ -140,6 +140,7 @@ PACMAN_GUI_PACKAGES = {
     'gnome-system-monitor',  # nice GUI to show resource usage charts
     'dconf-editor',  # find and edit Gnome/GTK app settings
     'clementine',  # music player
+    'freeplane',  # mind-mapping tool, successor to freemind
 }
 
 AUR_NO_GUI_PACKAGES = {
@@ -156,7 +157,6 @@ AUR_GUI_PACKAGES = {
     'spotify',
     'tor-browser',
     'zoom',  # video conferencing
-    'freemind',  # mindmapping tool
     'losslesscut-bin',  # fast and simple video editor
     # TODO get something good for recording videos - OBS? Figure out a good video editor
     # 'olive',  # video editor. Alternatives: https://github.com/nschloe/stargraph#video-editors
