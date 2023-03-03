@@ -35,7 +35,7 @@ def main():
 
     sync_packages()
     install_oh_my_zsh()
-    machine_setup.config_links.setup_all_links()
+    machine_setup.links_setup.setup_all_links()
     setup_tmux_plugins()
     set_zsh_as_shell()
     set_gsettings()

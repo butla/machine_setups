@@ -22,6 +22,9 @@ validate_continously:
 # (which we wouldn't get, since "make" normally stops processing on the first error).
 check: pylint test isort_check
 
+setup_development:
+	poetry install
+
 test:
 	@echo ===Tests===
 	PYTHONPATH=.:configs/host_agnostic/bin poetry run pytest -v tests

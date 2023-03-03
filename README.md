@@ -22,7 +22,7 @@ If you change any config file that's linked to this repo you can inspect and com
 
 If you want to fork this repository and adjust it for your purposes you might want to replace my private configs
 repo in `.gitmodules`, or just remove the file altogether.
-With that, you'll need to remove the line in Python code (from `machine_setup/config_links.py`)
+With that, you'll need to remove the line in Python code (from `machine_setup/links_setup.py`)
 that uses my private configs.
 
 Docs

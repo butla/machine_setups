@@ -1,3 +1,8 @@
+"""
+Setting up links from this repository, to the broader filesystems.
+Mainly used to ensure that any manual config changes will be caught by Git.
+"""
+
 from dataclasses import dataclass
 import logging
 import os

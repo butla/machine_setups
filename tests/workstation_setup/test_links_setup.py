@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from machine_setup.config_links import BACKUP_SUFFIX, set_up_links
+from machine_setup.links_setup import BACKUP_SUFFIX, set_up_links
 
 
 @pytest.fixture
