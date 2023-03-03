@@ -1,4 +1,5 @@
 import logging
+from pathlib import Path
 import shlex
 import subprocess
 import sys
@@ -27,9 +28,20 @@ def check_command_exists(command: str) -> str:
     return subprocess.run(
         f'command -v {command}',
         shell=True,
-        stdout=subprocess.DEVNULL
+        stdout=subprocess.DEVNULL,
+        check=False,
     ).returncode == 0
 
 
 def replace_in_file(match: str, replacement: str, file: str):
     run_cmd(f"sudo sed -i -E 's|{match}|{replacement}|' {file}")
+
+
+def clone_or_update_git_repo(repo_url: str, clone_location: Path):
+    if clone_location.exists():
+        log.info('Updating Git repo: %s', clone_location)
+        run_cmd('git pull', work_directory=clone_location)
+    else:
+        log.info('Pulling Git repo %s into %s', repo_url, clone_location)
+        clone_location.parent.mkdir(parents=True, exist_ok=True)
+        run_cmd(f'git clone {repo_url} {clone_location}')

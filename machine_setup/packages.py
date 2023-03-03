@@ -90,6 +90,7 @@ PACMAN_NO_GUI_PACKAGES = {
     'ueberzug',  # needed for ranger's image previews
     'libcanberra',  # needed for "canberra-gtk-play -i bell" for testing that sound is on
     'xorg-xinput',  # can be used to manage input devices (keyboards, touchpads)
+    'jre17-openjdk',  # Java runtime for programs like freeplane
     # =========================
     # heavy CLI programs for development
     # =========================

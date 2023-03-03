@@ -24,6 +24,8 @@ score = false
 disable = [
     "missing-docstring",
     "fixme",
+    # not such a performance issue in this project
+    "logging-fstring-interpolation",
 ]
 
 [tool.poetry.dependencies]
