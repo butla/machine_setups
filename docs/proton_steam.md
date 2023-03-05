@@ -12,6 +12,13 @@ Select Path: Z:\home\butla\.local\share\Steam\steamapps\common\Vampire The Masqu
 
 Set game launch options in steam: -full -game Unofficial_Patch
 
+#### Keybindings
+quick save - F5 (F9 crashes on proton)
+quick load - unset
+printscreen - f12 (TODO does that work, even?)
+autorenew disciplines - on
+stop disciplines - middle mouse button (works even on a touchpad)
+
 ### Notes
 
 **Hear the logos but can't skip them?**
