@@ -113,7 +113,7 @@ def setup_neovim():
     log.info('Synchronizing NeoVim plugins with vim-plug...')
     # UpdateRemotePlugins shouldn't be necessary, because vim-plug is supposed to run it for semshi, but it doesn't.
     # TODO this looks to be messing something up in the output
-    shell.run_cmd('nvim +PlugUpgrade +PlugClean +PlugUpdate +UpdateRemotePlugins +qall ')
+    shell.run_cmd('nvim +PlugUpgrade +PlugClean +PlugUpdate +UpdateRemotePlugins +qall')
 
     regular_vim_binary = Path('/usr/bin/vim')
     if not regular_vim_binary.exists():
