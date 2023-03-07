@@ -200,3 +200,17 @@ def set_java_version():
     java_version = 'java-17-openjdk'
     log.info(f'Ensuring Java runtime being used is {java_version}')
     shell.run_cmd(f'sudo archlinux-java set {java_version}')
+
+
+def apply_app_specific_config_patches():
+    freeplane_config = Path('~/.config/freeplane/1.10.x/auto.properties').expanduser()
+    shell.ensure_file_line(
+        path=freeplane_config,
+        line_matcher=r'lookandfeel=.*',
+        line_content='lookandfeel=com.formdev.flatlaf.FlatDarculaLaf',
+    )
+    shell.ensure_file_line(
+        path=freeplane_config,
+        line_matcher=r'standard_template=.*',
+        line_content='standard_template=dark_nord_template.mm',
+    )

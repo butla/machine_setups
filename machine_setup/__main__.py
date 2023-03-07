@@ -42,6 +42,7 @@ def main():
     os_configuration.ensure_ntp()
     os_configuration.setup_crontab()
     os_configuration.set_java_version()
+    os_configuration.apply_app_specific_config_patches()
     os_configuration.setup_neovim()
     describe_manual_steps()
 
@@ -137,6 +138,7 @@ if __name__ == '__main__':
 #   - litecli (nice SQLite CLI client)
 #   - isort
 #   - subliminal
+# - extract code and tests into an "src" directory?
 # - qbittorrent settings (~/.config/qBittorrent); settings/behavior/"prevent sleep"
 # - KeyboardInterrupt handling.
 #   Check if commands get interrupted when exiting with ctrl+c. If I kill the script, pamac should exit as well.

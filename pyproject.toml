@@ -17,7 +17,7 @@ build-backend = "poetry.core.masonry.api"
 force_sort_within_sections = true
 
 [tool.pylint.master]
-load-plugins = 'pylint_pytest'
+load-plugins = "pylint_pytest"
 
 [tool.pylint.format]
 max-line-length = 120

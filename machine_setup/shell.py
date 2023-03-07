@@ -1,8 +1,10 @@
 import logging
 from pathlib import Path
+import re
 import shlex
 import subprocess
 import sys
+from typing import Union
 
 log = logging.getLogger(__name__)
 
@@ -35,6 +37,41 @@ def check_command_exists(command: str) -> str:
 
 def replace_in_file(match: str, replacement: str, file: str):
     run_cmd(f"sudo sed -i -E 's|{match}|{replacement}|' {file}")
+
+
+def ensure_file_line(path: Union[str, Path], line_matcher: str, line_content: str):
+    """Ensures a given line exists in the file.
+    If the file doesn't exist it'll be created.
+
+    Args:
+        line_matcher: regex used to match the line that'll be set.
+            If it doesn't match anything, the line will be added at the end of the file.
+    """
+    path = Path(path)
+    change_message = f'File {path} - ensured line {line_content}'
+
+    if not path.exists():
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(line_content)
+        log.info(change_message)
+        return
+
+    file_contents = path.read_text()
+
+    any_lines_match = bool(re.findall(line_matcher, file_contents, flags=re.M))
+    if not any_lines_match:
+        with path.open(mode='a') as file_handle:
+            file_handle.write(line_content + '\n')
+        log.info(change_message)
+        return
+
+    contents_after_change = re.sub(line_matcher, line_content, file_contents, flags = re.M)
+
+    if file_contents == contents_after_change:
+        log.info(f'File {path} already has line: {line_content}')
+    else:
+        path.write_text(contents_after_change)
+        log.info(change_message)
 
 
 def clone_or_update_git_repo(repo_url: str, clone_location: Path):

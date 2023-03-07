@@ -42,3 +42,4 @@ isort_check:
 	poetry run isort -c .
 
 # TODO formatting
+# TODO mypy
