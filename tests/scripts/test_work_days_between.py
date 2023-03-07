@@ -1,7 +1,8 @@
 from datetime import datetime
 
 import pytest
-import work_days_between
+
+from python_scripts_for_machine import work_days_between
 
 
 def _date(day):

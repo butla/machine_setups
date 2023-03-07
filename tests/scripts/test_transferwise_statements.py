@@ -1,7 +1,8 @@
 from datetime import datetime
 
 import pytest
-import transferwise_statements
+
+from python_scripts_for_machine import transferwise_statements
 
 
 @pytest.mark.parametrize("year, month, expected_start, expected_end", [

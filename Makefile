@@ -12,9 +12,6 @@ setup_machine:
 
 # The below commands require setting up a virtualenv, activating it, and running `poetry install` in it.
 
-validate_continously:
-	fd '\.py$$' machine_setup/ configs/ tests/ | entr -c make --keep-going validate
-
 # Pylint can find errors in the code that can cause multiple tests to fail
 # (which would produce a lot of pytest output), so we run it first.
 # If we ran "test" first and got many test errors because of issues detectable by Pylint,
@@ -22,12 +19,19 @@ validate_continously:
 # (which we wouldn't get, since "make" normally stops processing on the first error).
 check: pylint test isort_check
 
+check_continously:
+	# --keep-going instructs "make" to not stop on the first command that fails, so we get a result for all the checks
+	fd '\.py$$' machine_setup/ configs/ tests/ | entr -c make --keep-going check
+
 setup_development:
 	poetry install
 
 test:
 	@echo ===Tests===
-	PYTHONPATH=.:configs/host_agnostic/bin poetry run pytest -v tests
+	poetry run pytest -v tests
+
+test_continously:
+	fd '\.py$$' machine_setup/ configs/ tests/ | entr -c make test
 
 pylint:
 	@echo ===Pylint===
