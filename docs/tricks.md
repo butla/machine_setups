@@ -102,3 +102,6 @@ Open extension settings for Toggl, enable Trello, Gitlab, Github.
 
 ## Play a sound
 canberra-gtk-play -i bell
+
+## Connect to a WiFi network
+nmcli device wifi connect <netword SSID>
