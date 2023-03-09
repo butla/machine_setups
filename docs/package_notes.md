@@ -64,3 +64,9 @@ Looks like .webp animations [don't work yet](https://github.com/linuxmint/pix/is
 Initial info pull: `sudo mbn update` or `sudo mbn update -m` if repo is unavailable.
 
 Check package version on a branch (e.g. unstable): `mbn info <package> --unstable`
+
+## youtube-dl
+
+It's bugged right now, and it didn't have a release in a while.
+yt-dlp is a more up-to date fork, but the current Manjaro version has the same bug.
+It's up to date on pypi (installable with pipx), though.
