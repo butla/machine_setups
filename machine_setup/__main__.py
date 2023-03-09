@@ -118,13 +118,16 @@ if __name__ == '__main__':
 #   - dedicated dir: files_to_link|files_to_copy/{gnome, xfce, common}.
 #   - Pull "manually_linked" into files_to_copy from current "manually_linked". Set them up with root.
 #   - files are copied only when they are different
-# - desktop detection needs to work over SSH - use inxi --system?
 # - don't use `sudo pamac`
 #   - use pacman for installing regular packages
 #   - sync AUR packages with Git to a directory (~/.cache/aur_packages), maybe just use pamac build for AUR packages
 #   - install AUR package dependencies (gather them from packages) with "sudo pacman -S --asdeps <packages>"
 #   - build as regular user: `makepkg`
 #   - install with `sudo pacman -U <package file>`
+# - desktop detection needs to work over SSH - use inxi --system?
+# - digikam settings sync:
+#   - /home/butla/.config/digikamrc
+#   - set only some sections/options, create a file if empty (implement ensure_line_in_ini_file)
 # - signal settings - allow access to mic and cam / autostart / notifications should only contain the name
 # - see TODOs from sync packages
 # - setup my GPG secret keys in the keychain and gpg config

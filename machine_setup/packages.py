@@ -81,6 +81,7 @@ PACMAN_NO_GUI_PACKAGES = {
     'odt2txt',  # for preview of OpenDocument in ranger
     'hd-idle',  # tool for spinning down hard disks after inactivity or immediately
     'smartmontools',  # has smartctl - utility for getting drive diagnostics
+    'manjaro-check-repos',  # has mbn tool for comparing packages across different Manjaro branches
     # =========================
     # CLI programs for GUIs
     # =========================
