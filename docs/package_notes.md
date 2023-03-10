@@ -65,6 +65,47 @@ Initial info pull: `sudo mbn update` or `sudo mbn update -m` if repo is unavaila
 
 Check package version on a branch (e.g. unstable): `mbn info <package> --unstable`
 
+## shotcut
+
+### Bugs
+
+Errors in the log on extracting clips? ~42B, unplayble clips being created
+
+### Open file
+Gotta add video to playlist to add markers (M).
+Previous/next marker: <, >
+
+### Make a clip
+Set to some time in the timeline.
+clip start: Player -> Trim Clip In (I)
+clip end: Player -> Trim Clip Out (O)
+
+## Losseless cut
+
+### Bugs
+Can't manually insert a time to jump to...
+https://github.com/mifi/lossless-cut/issues/1491
+
+### Manual
+Enable advanced view - icon in lower left corner of the screen
+Real settings: cog in the upper right corner
+Keyboard shortcuts: real settings -> Keyboard and Mouse shortcuts
+
+During export - smart cut experimental
+
+[In real settings]
+
+(maybe this isn't needed when using the "smart cut")
+Cut at specific point in time, not only on keyframes: "Options affecting exported files -> Keyframe cut mode"
+Auto load timecode from file as an offset in the timeline? - Yes
+
+Keyboard shortcuts and workflow (additional requests):
+https://github.com/mifi/lossless-cut/issues/254
+
+https://github.com/mifi/lossless-cut/blob/master/README.md
+"Press H to view help and all keyboard shortcuts"
+Yeah... nothing happens.
+
 ## youtube-dl
 
 It's bugged right now, and it didn't have a release in a while.

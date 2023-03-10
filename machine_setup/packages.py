@@ -159,7 +159,7 @@ AUR_GUI_PACKAGES = {
     'spotify',
     'tor-browser',
     'zoom',  # video conferencing
-    'losslesscut-bin',  # fast and simple video editor
+    'losslesscut-bin',  # minimal and fast video editor
     # TODO get something good for recording videos - OBS? Figure out a good video editor
     # 'olive',  # video editor. Alternatives: https://github.com/nschloe/stargraph#video-editors
     # Simple/crude screencasting / desktop recording.
