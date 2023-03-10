@@ -68,6 +68,7 @@ def set_gsettings():
         ('terminal with tmux', '<Super>t', 'alacritty --command tmux'),
         ('file explorer', '<Super>f', 'nautilus'),
         ('sleep', '<Shift><Super>l', 'systemctl suspend'),
+        ('reboot', '<Shift><Super>r', 'systemctl reboot'),
     ]
     keybinding_entry_paths = [f'/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom{index}/'
                               for index in range(len(custom_keybindings))]
