@@ -25,6 +25,10 @@ stop disciplines - middle mouse button (works even on a touchpad)
 Game launches in full screen but everything's black, and you hear the logos?
 Press Alt+F4 once, and the logos should appear, and you'll be able to skip them with some button.
 
+**no screen after alt-tab out of the game**
+Press alt+f4 when you're at the blank screen after alt-tabbing back into the game.
+Something should happen, and you should be taken back to the game.
+
 ### More info
 AUR: protontricks
 
