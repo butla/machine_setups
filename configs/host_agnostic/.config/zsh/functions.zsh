@@ -95,7 +95,7 @@ function say()
     echo "Say what you want to say."
     read the_thing_to_say
     # I know, it's a tortoise, ugh :) Upstream problems
-    cowsay -f turtle $the_thing_to_say | lolcat --freq 0.2 --seed 900 --speed 300 --animate
+    cowsay -f turtle "${the_thing_to_say}" | lolcat --freq 0.2 --seed 900 --speed 300 --animate
 }
 
 # TODO do this with a param of the first function
