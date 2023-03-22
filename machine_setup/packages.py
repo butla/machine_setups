@@ -92,6 +92,7 @@ PACMAN_NO_GUI_PACKAGES = {
     'libcanberra',  # needed for "canberra-gtk-play -i bell" for testing that sound is on
     'xorg-xinput',  # can be used to manage input devices (keyboards, touchpads)
     'jre17-openjdk',  # Java runtime for programs like freeplane
+    'swh-plugins',  # some audio plugins for shotcut
     # =========================
     # heavy CLI programs for development
     # =========================
@@ -143,6 +144,7 @@ PACMAN_GUI_PACKAGES = {
     'dconf-editor',  # find and edit Gnome/GTK app settings
     'clementine',  # music player
     'freeplane',  # mind-mapping tool, successor to freemind
+    'shotcut',  # a video editor
 }
 
 AUR_NO_GUI_PACKAGES = {
@@ -159,7 +161,7 @@ AUR_GUI_PACKAGES = {
     'spotify',
     'tor-browser',
     'zoom',  # video conferencing
-    'losslesscut-bin',  # minimal and fast video editor
+    'losslesscut-bin',  # minimal and fast lossless video cutter
     # TODO get something good for recording videos - OBS? Figure out a good video editor
     # 'olive',  # video editor. Alternatives: https://github.com/nschloe/stargraph#video-editors
     # Simple/crude screencasting / desktop recording.

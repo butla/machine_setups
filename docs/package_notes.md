@@ -67,18 +67,18 @@ Check package version on a branch (e.g. unstable): `mbn info <package> --unstabl
 
 ## shotcut
 
-### Bugs
-
-Errors in the log on extracting clips? ~42B, unplayble clips being created
-
-### Open file
-Gotta add video to playlist to add markers (M).
-Previous/next marker: <, >
-
-### Make a clip
-Set to some time in the timeline.
-clip start: Player -> Trim Clip In (I)
-clip end: Player -> Trim Clip Out (O)
+### Export a clip
+- add a video to the timeline
+- select a location (start of the clip)
+- "split at playhead (S)"
+- select another location (end of the clip)
+- "split at playhead (S)"
+- select the clip in the timeline with left click
+- ctrl+c
+- add to playlist
+- export:
+  - from playlist
+  - deselect hardware encoding
 
 ## Losseless cut
 
