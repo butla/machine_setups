@@ -111,3 +111,24 @@ Yeah... nothing happens.
 It's bugged right now, and it didn't have a release in a while.
 yt-dlp is a more up-to date fork, but the current Manjaro version has the same bug.
 It's up to date on pypi (installable with pipx), though.
+
+## slidev
+
+### Change font size globally
+Create a `style.css` file in project's root:
+
+```
+.slidev-layout {
+  p {
+    font-size: 20px
+  }
+
+  ul {
+    font-size: 20px
+  }
+}
+```
+
+### Force first paragraph of a slide to have a normal color
+
+Add `<p/>` before the first paragraph.
