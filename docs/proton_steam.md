@@ -42,3 +42,14 @@ Follow this https://github.com/ValveSoftware/Proton/issues/1804#issuecomment-703
 Then, to run the unofficial patch run
 WINEPREFIX=~/.local/share/Steam/steamapps/compatdata/2600/pfx wine VTMBup112rc5.3.exe
 
+
+## Morrowind
+Install from Steam with both Bloodmoon and Tribunal.
+
+Then install mods (TODO figure this out):
+- https://www.reddit.com/r/linux_gaming/comments/e78v9a/morrowind_mge_xe_mod_wine_or_proton/
+- ??? https://gist.github.com/Magotchi/eb2c43c0d9aa1bd09817d5069c9fb680
+- Morrowind code patch: https://www.nexusmods.com/morrowind/mods/19510
+- Morrowind Rebirth: https://www.nexusmods.com/morrowind/mods/37795/
+
+What about OpenMV? https://openmw.org/en/
