@@ -132,3 +132,9 @@ Create a `style.css` file in project's root:
 ### Force first paragraph of a slide to have a normal color
 
 Add `<p/>` before the first paragraph.
+
+## dstask
+
+### Remote sync
+Add remote to the repo created when I added the first task - `~/.dstask`.
+Run `dstask sync`.

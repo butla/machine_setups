@@ -30,6 +30,8 @@ alias gclean='git reset --hard && git clean -f && echo ----------- && git status
 alias d='docker'
 alias dk='docker-compose'
 
+alias ds='dstask'
+
 # get free disk space without the trash output from Snap. Also shows file system types.
 alias dff='df -hT | grep -Ev "/snap|tmpfs"'
 # get bulk devices without the trash output from Snap
