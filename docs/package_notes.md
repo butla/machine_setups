@@ -27,7 +27,7 @@ Digikam can read tags from XMP sidecars made by F-stop, and vice versa.
 Batch [fixes of creation time](https://www.reddit.com/r/kde/comments/qdlk14/comment/hlb35js/?utm_source=share&utm_medium=web2x&context=3)
 (useful when the camera had the wrong time set):
 - Select all the photos you want to adjust the time and date in the same manner.
-- Go to Tools (right hand sight tab)
+- Go to Tools (right hand side tab)
 - Go to "Post-Processing" section and select Adjust Date and Time.
 
 ### Settings to set
