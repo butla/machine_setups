@@ -53,3 +53,7 @@ Then install mods (TODO figure this out):
 - Morrowind Rebirth: https://www.nexusmods.com/morrowind/mods/37795/
 
 What about OpenMV? https://openmw.org/en/
+
+### Increase fov:
+/home/butla/.local/share/Steam/steamapps/common/Morrowind/Morrowind.ini
+TODO - no option to set in vanilla, Morrowind, it seems.
