@@ -236,7 +236,6 @@ let g:ackprg = 'ag --vimgrep --hidden --ignore .git'
 
 " ALE configuration =====================
 
-" TODO if the file is a test file, see if there's .pylintrc-test. Use ale_pattern_options for that?
 " Set the linter depending on what's available in the current environment.
 for linter in ['pylint', 'flake8', 'pycodestyle']
     if system("python3 -c 'import " . linter . "'") == ""
