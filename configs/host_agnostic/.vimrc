@@ -244,7 +244,9 @@ for linter in ['pylint', 'flake8', 'pycodestyle']
     endif
 endfor
 
-let g:ale_fixers = { 'python': ['nayvy#ale_fixer', 'isort'] }
+" So far, the fixers are more annoying than helping, so I'll disable them for
+" the time being. I have isort set up in projects anyway.
+" let g:ale_fixers = { 'python': ['nayvy#ale_fixer', 'isort'] }
 
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_fix_on_save = 1
