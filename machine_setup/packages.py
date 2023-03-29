@@ -93,6 +93,9 @@ PACMAN_NO_GUI_PACKAGES = {
     'xorg-xinput',  # can be used to manage input devices (keyboards, touchpads)
     'jre17-openjdk',  # Java runtime for programs like freeplane
     'swh-plugins',  # some audio plugins for shotcut
+    'libva-intel-driver',  # for OBS
+    'sndio',  # for OBS
+    'v4l2loopback-dkms',  # for OBS
     # =========================
     # heavy CLI programs for development
     # =========================
@@ -146,6 +149,7 @@ PACMAN_GUI_PACKAGES = {
     'clementine',  # music player
     'freeplane',  # mind-mapping tool, successor to freemind
     'shotcut',  # a video editor
+    'obs-studio',  # video recording
 }
 
 AUR_NO_GUI_PACKAGES = {
