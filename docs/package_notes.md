@@ -138,3 +138,14 @@ Add `<p/>` before the first paragraph.
 ### Remote sync
 Add remote to the repo created when I added the first task - `~/.dstask`.
 Run `dstask sync`.
+
+## OBS Studio
+
+Sources:
+- Audio Input Capture (PulseAudio)
+- Video Capture Device (V4L2)
+- Window Capture (PipeWire) (for recording presentations from slidev on the second screen; first has the presenter view)
+
+Better to use the camera mic?
+
+Cropping the video feed - drag with alt
