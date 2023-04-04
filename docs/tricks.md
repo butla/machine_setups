@@ -3,8 +3,14 @@ Spell book
 
 Various tricks, snippets, commands for doing things.
 
-## Check what package a file belongs to
+
+## Manjaro package management
+
+**Check what package a file belongs to**
 pacman -Qo <file>
+
+**Check updateable packages**
+pacman -Qu
 
 ## Show value of an option in Tmux
 `:show -A <option name>`
