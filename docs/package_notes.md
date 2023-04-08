@@ -149,3 +149,5 @@ Sources:
 Better to use the camera mic?
 
 Cropping the video feed - drag with alt
+
+Mute all but one audio source.
