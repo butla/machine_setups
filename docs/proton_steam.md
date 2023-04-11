@@ -1,11 +1,45 @@
-## Bloodlines
+Proton games on Steam
+=====================
+
+## Don't use Steam from Flatpak
+
+## Enabling Proton in Steam
+
+[Top bar menu] -> Steam (first one) -> Settings -> Steam Play
+  -> Advanced -> Enable Steam Play for all titles -> [Choose version: 3-16.9 for VtmB]
+
+## Vampire the Masquerade: Bloodlines (VtMB)
+https://www.protondb.com/app/2600
 
 ### TODOs
-- make quick save / quick load work
+- make quick save / quick load work on original keybindings (F9?)
 
 ### Setup
-set proton 3-16.9 https://www.protondb.com/app/2600
-add game -> non-steam -> pick unofficial patch. Run in directory - VTMB dir from steam
+set proton 3-16.9
+
+#### Install Bloodlines with Steam
+
+#### Unofficial Patch setup
+add game [button below the games' list] -> non-steam
+  -> browse [button below the list that can be loading] -> pick unofficial patch EXE file
+
+Install `wine` package.
+
+Find Bloodlines directory - steam library list -> right-click -> properties -> local files -> etc.
+
+In unofficial patch properties, set run prefix
+
+TODO remove this line: WINEPREFIX=~/.local/share/Steam/steamapps/compatdata/2600/pfx wine VTMBup112rc5.3.exe
+WINEPREFIX=(absolute vtmb directory) wine VTMBup112rc5.3.exe
+
+Force compatibility tool
+TODO where to take the winprefix from? protontricks necessary?
+
+Then, to run the unofficial patch run
+
+#### Rest of the steps
+
+Run in directory - VTMB dir from steam
 
 Run unofficial patch installer as an app in Steam
 Select Path: Z:\home\butla\.local\share\Steam\steamapps\common\Vampire The Masquerade - Bloodlines
@@ -18,6 +52,7 @@ quick load - unset
 printscreen - f12 (TODO does that work, even?)
 autorenew disciplines - on
 stop disciplines - middle mouse button (works even on a touchpad)
+
 
 ### Notes
 
@@ -38,9 +73,6 @@ use that to create a folder like
 
 Follow this https://github.com/ValveSoftware/Proton/issues/1804#issuecomment-703183067:
 
-### Maybe necessary???
-Then, to run the unofficial patch run
-WINEPREFIX=~/.local/share/Steam/steamapps/compatdata/2600/pfx wine VTMBup112rc5.3.exe
 
 
 ## Morrowind
