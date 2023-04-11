@@ -6,7 +6,7 @@ Proton games on Steam
 ## Enabling Proton in Steam
 
 [Top bar menu] -> Steam (first one) -> Settings -> Steam Play
-  -> Advanced -> Enable Steam Play for all titles -> [Choose version: 3-16.9 for VtmB]
+  -> Advanced -> Enable Steam Play for all titles -> [Choose latest stable version]
 
 ## Vampire the Masquerade: Bloodlines (VtMB)
 https://www.protondb.com/app/2600
@@ -19,39 +19,55 @@ set proton 3-16.9
 
 #### Install Bloodlines with Steam
 
+#### Run the game to create prefix directory
+
+#### Check the VtmB install folder in Steam local files
+
+- Right click the game in library -> local files
+- might look like this: 
+  /home/USER/.steam/debian-installation/steamapps/common/Vampire The Masquerade - Bloodlines
+  NOTE: use absolute paths in options
+
 #### Unofficial Patch setup
 add game [button below the games' list] -> non-steam
   -> browse [button below the list that can be loading] -> pick unofficial patch EXE file
 
 Install `wine` package.
 
-Find Bloodlines directory - steam library list -> right-click -> properties -> local files -> etc.
+In unofficial patch properties:
+- set run prefix
+  WINEPREFIX=(absolute vtmb directory) wine VTMBup112rc5.3.exe
+- Force compatibility tool - proton 3-16.9
+  - this may be unavailable before restarting steam completely after first enabling Proton
 
-In unofficial patch properties, set run prefix
+Run the unofficial patch
+- find the location of vampire.exe in your steam files:
+  [steam library list] -> vtmb -> right-click -> properties -> local files -> etc.
+- put that as absolute path as the input for the installer
+- select options: "plus patch", "patch extra"
 
-TODO remove this line: WINEPREFIX=~/.local/share/Steam/steamapps/compatdata/2600/pfx wine VTMBup112rc5.3.exe
-WINEPREFIX=(absolute vtmb directory) wine VTMBup112rc5.3.exe
-
-Force compatibility tool
-TODO where to take the winprefix from? protontricks necessary?
-
-Then, to run the unofficial patch run
-
-#### Rest of the steps
+#### VtmB steam game properties
 
 Run in directory - VTMB dir from steam
 
-Run unofficial patch installer as an app in Steam
-Select Path: Z:\home\butla\.local\share\Steam\steamapps\common\Vampire The Masquerade - Bloodlines
+Force compatibility tool - proton 3-16.9
+- this may be unavailable before restarting steam completely after first enabling Proton
 
 Set game launch options in steam: -full -game Unofficial_Patch
+
+#### Savegames sync with Syncthing
+Saves are normally in a place like this, under the steam's "local files" directory
+./.steam/debian-installation/steamapps/common/Vampire The Masquerade - Bloodlines/Unofficial_Patch/save/
+
+Make that directory into a Syncthing directory
 
 #### Keybindings
 quick save - F5 (F9 crashes on proton)
 quick load - unset
 printscreen - f12 (TODO does that work, even?)
-autorenew disciplines - on
 stop disciplines - middle mouse button (works even on a touchpad)
+
+autorenew disciplines - off
 
 
 ### Notes
@@ -65,13 +81,15 @@ Press alt+f4 when you're at the blank screen after alt-tabbing back into the gam
 Something should happen, and you should be taken back to the game.
 
 ### More info
+Source of knowledge: https://github.com/ValveSoftware/Proton/issues/1804#issuecomment-703183067:
+
+THE BELOW MIGHT NOT BE NECESSARY:
+
 AUR: protontricks
 
 protontricks --gui
 use that to create a folder like
 /home/butla/.local/share/Steam/steamapps/compatdata/2600
-
-Follow this https://github.com/ValveSoftware/Proton/issues/1804#issuecomment-703183067:
 
 
 
