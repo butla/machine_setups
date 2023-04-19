@@ -143,10 +143,10 @@ Run `dstask sync`.
 
 Sources:
 - Audio Input Capture (PulseAudio)
+  - right click -> filters -> noise suppression
 - Video Capture Device (V4L2)
+  - video format set to YUYV makes higher resolution video choppy
 - Window Capture (PipeWire) (for recording presentations from slidev on the second screen; first has the presenter view)
-
-Better to use the camera mic?
 
 Cropping the video feed - drag with alt
 

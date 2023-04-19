@@ -83,15 +83,6 @@ Something should happen, and you should be taken back to the game.
 ### More info
 Source of knowledge: https://github.com/ValveSoftware/Proton/issues/1804#issuecomment-703183067:
 
-THE BELOW MIGHT NOT BE NECESSARY:
-
-AUR: protontricks
-
-protontricks --gui
-use that to create a folder like
-/home/butla/.local/share/Steam/steamapps/compatdata/2600
-
-
 
 ## Morrowind
 Install from Steam with both Bloodmoon and Tribunal.
