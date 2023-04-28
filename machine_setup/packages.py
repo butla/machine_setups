@@ -130,7 +130,6 @@ PACMAN_GUI_PACKAGES = {
     'kolourpaint',  # Microsoft Paint clone
     'signal-desktop', # private communicator
     'discord',  # communicator / chat
-    'yubioath-desktop',  # OTP with a Yubikey connected over USB
     'qbittorrent',
     'qbittorrent-nox',  # non-GUI version of the torrent app
     'virtualbox',
@@ -167,12 +166,9 @@ AUR_GUI_PACKAGES = {
     'tor-browser',
     'zoom',  # video conferencing
     'losslesscut-bin',  # minimal and fast lossless video cutter
-    # TODO get something good for recording videos - OBS? Figure out a good video editor
-    # 'olive',  # video editor. Alternatives: https://github.com/nschloe/stargraph#video-editors
-    # Simple/crude screencasting / desktop recording.
-    # 'screenstudio',
-    # Kazam looks nicer but is broken without a fix:
-    # https://aur.archlinux.org/packages/kazam/
+    # OTP with a Yubikey connected over USB, replaces faulty "yubioath-desktop"
+    # https://bugs.archlinux.org/task/76325
+    'yubico-authenticator-bin',
 }
 
 NO_GUI_PACKAGES = PACMAN_NO_GUI_PACKAGES | AUR_NO_GUI_PACKAGES
