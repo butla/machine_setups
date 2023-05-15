@@ -151,3 +151,13 @@ Sources:
 Cropping the video feed - drag with alt
 
 Mute all but one audio source.
+
+## Krita
+https://defkey.com/krita-shortcuts
+
+drawing: B
+lines: hold V while drawing
+move tool: T
+ctrl+shift+a: deselect everything
+brush size: shift + motion
+
