@@ -161,3 +161,7 @@ move tool: T
 ctrl+shift+a: deselect everything
 brush size: shift + motion
 
+## psql / pgcli
+
+Passing more rare connection options:
+`PGPASSWORD=<password> pgcli "sslmode=require host=<host> dbname=<db> user=<user> port=<number>"`
