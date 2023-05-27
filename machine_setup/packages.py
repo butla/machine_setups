@@ -72,6 +72,7 @@ PACMAN_NO_GUI_PACKAGES = {
     'gnu-netcat',  # TCP client/listener
     'gendesk',  # desktop file generator for apps, used while building some AUR packages
     'yt-dlp',  # download video and audio from YouTube
+    'bat',  # cat with syntax highlighting
     # Convert USB drives, so that you make bootable USBs by copying over an (Linux/Windows) ISO file.
     # woeusb from AUR can be an alternative.
     'ventoy',
