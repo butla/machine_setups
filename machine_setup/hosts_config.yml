@@ -1,7 +1,7 @@
 ---
 alien:
 
-bl:
+lemur:
   efi_partition: "587E-B484"
   crypt_partition: "5e1bd4b3-0260-42bf-9afb-aec5f29a31a9"
   crypt_name: crypt_priv_systems
