@@ -29,3 +29,6 @@ Things to do
 - copy files from "manually_linked" and "files_to_copy" (this should be done automatically in the future)
 - `sudo systemctl enable --now sshd`
 - check desktop environment doc for initial steps for it
+- Graphics card setup may be necessary https://wiki.manjaro.org/index.php/Configure_Graphics_Cards
+  - Intel Graphics card, should have the modesetting driver enabled
+  - NVidia card should use the proprietary driver (video-nvidia)

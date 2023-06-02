@@ -111,3 +111,6 @@ canberra-gtk-play -i bell
 
 ## Connect to a WiFi network
 nmcli device wifi connect <netword SSID>
+
+## Check the active graphics card
+lspci -vnnn | grep "VGA controller"
