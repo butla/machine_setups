@@ -5,7 +5,9 @@ Gnome desktop notes
 
 Switch from Wayland to XServer: before logging in, check the cog icon in lower left corner, choose "Gnome on Xorg".
 
-Enable touchegg service, so that gnome-shell doesn't constantly spam that it can't connect to it: `sudo systemctl enable --now touchegg`.
+Remove touchegg (I don't use X11 gestures, and it spams the journal with connection failures unless I enable
+touchegg.service):
+`pamac remove touche touchegg gnome-shell-extension-x11gestures`
 
 ## Notes
 
