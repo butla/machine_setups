@@ -138,6 +138,8 @@ def set_qt_theme():
     if not machine_info.check_gui_present():
         return
 
+    # Maybe something useful for the future can be found here
+    # https://wiki.archlinux.org/title/Uniform_look_for_Qt_and_GTK_applications
     theme_config = Path('~/.config/qt5ct/qt5ct.conf').expanduser()
     log.info('Setting theme for QT in %s', theme_config)
     config_contents = theme_config.read_text()
