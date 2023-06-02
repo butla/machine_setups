@@ -5,6 +5,8 @@ Gnome desktop notes
 
 Switch from Wayland to XServer: before logging in, check the cog icon in lower left corner, choose "Gnome on Xorg".
 
+Enable touchegg service, so that gnome-shell doesn't constantly spam that it can't connect to it: `sudo systemctl enable --now touchegg`.
+
 ## Notes
 
 Shutdown shortcut - ctrl+alt+delete
