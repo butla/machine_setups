@@ -9,6 +9,8 @@ Remove touchegg (I don't use X11 gestures, and it spams the journal with connect
 touchegg.service):
 `pamac remove touche touchegg gnome-shell-extension-x11gestures`
 
+Baloo file indexer for KDE is just a nuisance. Disable it: `balooctl disable`
+
 ## Notes
 
 Shutdown shortcut - ctrl+alt+delete
