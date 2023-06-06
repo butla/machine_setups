@@ -96,6 +96,7 @@ def setup_tmux_plugins():
 
 def setup_neovim():
     neovim_virtualenv_path = Path('~/.virtualenvs/neovim').expanduser()
+    # TODO self healing for when Python is upgraded
     if not neovim_virtualenv_path.exists():
         log.info('Creating a virtualenv for NeoVim Python integration...')
         shell.run_cmd(f'python3 -m venv {neovim_virtualenv_path}')
