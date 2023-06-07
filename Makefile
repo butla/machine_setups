@@ -23,6 +23,9 @@ check_continously:
 	# --keep-going instructs "make" to not stop on the first command that fails, so we get a result for all the checks
 	fd '\.py$$' machine_setup/ configs/ tests/ | entr -c make --keep-going check
 
+format:
+	isort .
+
 setup_development:
 	poetry install
 
