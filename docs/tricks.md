@@ -114,3 +114,22 @@ nmcli device wifi connect <netword SSID>
 
 ## Check the active graphics card
 lspci -vnnn | grep "VGA controller"
+
+## Systemd service running a single command, created for the user
+Create ~/.config/systemd/user/a-service.service:
+```
+[Unit]
+Description=Disable Gnome's toolkit-accessibility to prevent QT apps from freezing the desktop
+After=graphical.targer
+
+[Service]
+Type=oneshot
+# the service will be marked as healthy after its process exits
+RemainAfterExit=yes
+ExecStart=/bin/sh -c "gsettings set org.gnome.desktop.interface toolkit-accessibility false"
+
+[Install]
+WantedBy=default.target
+```
+
+Enable it: `systemctl --user enable a-service.service`
