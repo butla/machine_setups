@@ -74,6 +74,18 @@ def ensure_file_line(path: Union[str, Path], line_matcher: str, line_content: st
         log.info(change_message)
 
 
+def ensure_file_contents(path: Union[str,Path], contents: str):
+    path = Path(path)
+
+    if path.exists() and path.read_text() == contents:
+        return
+
+    log.info(f'Ensuring file {path} is set up.')
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(contents)
+
+
+
 def clone_or_update_git_repo(repo_url: str, clone_location: Path):
     if clone_location.exists():
         log.info('Updating Git repo: %s', clone_location)

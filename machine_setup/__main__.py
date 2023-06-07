@@ -37,7 +37,6 @@ def main():
     os_configuration.setup_tmux_plugins()
     os_configuration.set_zsh_as_shell()
     os_configuration.set_gsettings()
-    os_configuration.set_qt_theme()
     os_configuration.enable_services()
     os_configuration.ensure_ntp()
     os_configuration.setup_crontab()

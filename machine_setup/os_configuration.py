@@ -5,7 +5,6 @@ Ensuring proper configuration is set up for various programs in the host system.
 import logging
 import os
 from pathlib import Path
-import re
 import subprocess
 
 from machine_setup import machine_info, shell
@@ -31,9 +30,13 @@ def set_gsettings():
     shell.run_cmd('gsettings set org.gnome.desktop.interface show-battery-percentage true')
 
     # desktop zoom
-    shell.run_cmd('gsettings set org.gnome.desktop.interface toolkit-accessibility true')
     shell.run_cmd('gsettings set org.gnome.desktop.a11y.applications screen-magnifier-enabled true')
     shell.run_cmd('gsettings set org.gnome.desktop.a11y.magnifier mag-factor 1.0')
+    # Forcing this to be false, because it makes the entire desktop choppy or freeze sometimes,
+    # especially when using QT apps and trey icons from AppIndicator plugin.
+    shell.run_cmd('gsettings set org.gnome.desktop.interface toolkit-accessibility false')
+    _setup_disabling_accessibility_toolkit_on_login()
+
 
     # automatically remove old trash and temp files
     shell.run_cmd('gsettings set org.gnome.desktop.privacy old-files-age 30')
@@ -81,6 +84,24 @@ def set_gsettings():
                             '{field_name} "{value}"')
         for field_name, value in zip(['name', 'binding', 'command'], custom_keybinding):
             shell.run_cmd(set_command_base.format(index=index, field_name=field_name, value=value))
+
+
+def _setup_disabling_accessibility_toolkit_on_login():
+    """
+    Disabling accessibility toolkit is needed because Gnome will enable it on login if magnifier is enabled,
+    and that leads to GUI issues.
+    """
+    desktop_file = """[Desktop Entry]
+Version=1.0
+Exec=/bin/sh -c "gsettings set org.gnome.desktop.interface toolkit-accessibility false"
+Name=Gnome Accessibility Toolkit disabler
+Terminal=true
+Type=Application
+"""
+    shell.ensure_file_contents(
+        Path('~/.config/autostart/gnome-accessibility-toolkit-disabler.desktop').expanduser(),
+        desktop_file,
+    )
 
 
 def setup_tmux_plugins():
@@ -133,25 +154,6 @@ def set_zsh_as_shell():
         log.info('Setting up ZSH as the default shell...')
         # TODO this messes up the script's output. Fix it.
         shell.run_cmd('chsh -s /usr/bin/zsh')
-
-
-def set_qt_theme():
-    if not machine_info.check_gui_present():
-        return
-
-    # TODO extract the code form this into "replace line in file" function and maybe use it for shotcut config
-
-    # theme_config = Path('~/.config/qt5ct/qt5ct.conf').expanduser()
-    # log.info('Setting theme for QT in %s', theme_config)
-    # config_contents = theme_config.read_text()
-
-    # expected_theme_line = 'style=kvantum-dark'
-
-    # if re.findall(f'^{expected_theme_line}', config_contents, flags=re.MULTILINE):
-    #     return
-
-    # new_config_contents = re.sub('^style=.*', expected_theme_line, config_contents, flags=re.MULTILINE)
-    # theme_config.write_text(new_config_contents)
 
 
 def enable_services():

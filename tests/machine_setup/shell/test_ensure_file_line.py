@@ -6,7 +6,7 @@ from machine_setup import shell
 
 
 @pytest.fixture
-def file_path(tmp_path) -> Path:
+def file_path(tmp_path: Path) -> Path:
     path = tmp_path / 'blabla'
     assert not path.exists()
     return path
