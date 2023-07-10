@@ -150,6 +150,7 @@ PACMAN_GUI_PACKAGES = {
     'freeplane',  # mind-mapping tool, successor to freemind
     'shotcut',  # a video editor
     'obs-studio',  # video recording
+    'chromium',  # browser used by automations with Playwright
 }
 
 AUR_NO_GUI_PACKAGES = {
