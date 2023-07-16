@@ -1,0 +1,76 @@
+import json
+import sys
+import shutil
+from pathlib import Path
+from typing import Dict
+
+OLYMPUS_MEDIA_DEST_DIR = Path("~/zdjęcia_i_filmiki/olympus_photos/").expanduser()
+OLYMPUS_MEDIA_SOURCE_DIR = Path("/run/media/butla/54C9-B006/DCIM/100OLYMP")
+LAST_PULLED_MEDIA_STATE_FILE = OLYMPUS_MEDIA_DEST_DIR / "last_pulled_media.json"
+LAST_PULLED_MEDIA_NAME_FIELD = "name"
+LAST_PULLED_MEDIA_TIME_FIELD = "file_modification_time_ns"
+
+
+def pull_olympus_media():
+    if not OLYMPUS_MEDIA_SOURCE_DIR.exists():
+        sys.exit(f"Looks like the camera isn't mounted - there's no {OLYMPUS_MEDIA_SOURCE_DIR}")
+
+    media_to_pull = _get_media_to_pull()
+    media_to_pull_ordered = sorted(media_to_pull.items(), key= lambda item: item[0])
+    print("About to pull", len(media_to_pull_ordered), "media files...")
+
+    pulled_media_counter = 0
+    last_pulled_mtime_ns, last_pulled_path = None, None
+    try:
+        for mod_time_ns, media_path in media_to_pull_ordered:
+            if (OLYMPUS_MEDIA_DEST_DIR / media_path.name).exists():
+                # Olympus file names loop, so this can happen at some point.
+                # TODO implement finding another name for the file
+                sys.exit("Whoops, we already have an older media file with the same name!")
+
+            shutil.copy(media_path, OLYMPUS_MEDIA_DEST_DIR)
+
+            last_pulled_mtime_ns = mod_time_ns
+            last_pulled_path = media_path
+            pulled_media_counter += 1
+            print("Pulled files:", pulled_media_counter, end='\r')
+    finally:
+        if last_pulled_mtime_ns:
+            _save_last_synced_media_info(last_pulled_mtime_ns, last_pulled_path)
+
+    print("Pulled", pulled_media_counter, "media files.")
+    if pulled_media_counter > 0:
+        print("Last synced file:", last_pulled_path)
+
+
+# Gonna be using file modification times on the camera to keep track of what was pulled.
+# This is not ideal - photo creation times from exif would be better.
+# But since I don't modify photos on the camera it'll work fine, and it'll work faster.
+def _get_last_synced_media_mtime_ns() -> int:
+    info = json.loads(LAST_PULLED_MEDIA_STATE_FILE.read_text())
+    print("About to pull media newer than", info[LAST_PULLED_MEDIA_NAME_FIELD])
+    return info[LAST_PULLED_MEDIA_TIME_FIELD]
+
+
+def _save_last_synced_media_info(mtime_ns: int, media_file: Path):
+    info = {
+        LAST_PULLED_MEDIA_NAME_FIELD: media_file.name,
+        LAST_PULLED_MEDIA_TIME_FIELD: mtime_ns,
+    }
+    LAST_PULLED_MEDIA_STATE_FILE.write_text(json.dumps(info, indent=4))
+
+
+def _get_media_to_pull() -> Dict[int, Path]:
+    last_synced_media_mtime_ns = _get_last_synced_media_mtime_ns()
+
+    media_to_pull = {}
+    for media_path in OLYMPUS_MEDIA_SOURCE_DIR.iterdir():
+        mod_time = media_path.stat().st_mtime_ns
+        if mod_time <= last_synced_media_mtime_ns:
+            continue
+        media_to_pull[mod_time] = media_path
+    return media_to_pull
+
+
+if __name__ == "__main__":
+    pull_olympus_media()
