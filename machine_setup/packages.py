@@ -146,7 +146,7 @@ PACMAN_GUI_PACKAGES = {
     'psensor',  # temperature sensors chart
     'gnome-system-monitor',  # nice GUI to show resource usage charts
     'dconf-editor',  # find and edit Gnome/GTK app settings
-    'clementine',  # music player
+    'strawberry',  # music player
     'freeplane',  # mind-mapping tool, successor to freemind
     'shotcut',  # a video editor
     'obs-studio',  # video recording
