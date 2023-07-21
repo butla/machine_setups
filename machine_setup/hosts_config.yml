@@ -1,18 +1,24 @@
 ---
 alien:
+  efi_partition: "1A2A-E598"
+  crypt_partition: "1ee9550c-b336-4db6-8f47-94834809ec15"
+  crypt_name: crypt_priv_systems
+  bootloader: systemd-boot
 
 lemur:
   efi_partition: "587E-B484"
   crypt_partition: "5e1bd4b3-0260-42bf-9afb-aec5f29a31a9"
   crypt_name: crypt_priv_systems
   boot_partition:
-  bootloader: grub/systemd-boot
+  bootloader: systemd-boot
 
 b-tv:
+  bootloader: grub
 
 bp:
   efi_partition: "FED9-732E"
   crypt_partition: "f82aa744-b93c-491e-b598-d33b73396804"
   crypt_name: crypt_root
+  bootloader: systemd-boot
 
 ognisko:

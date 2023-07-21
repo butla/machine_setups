@@ -47,6 +47,10 @@ else
     sudo mount /dev/disk/by-uuid/$EFI_PARTITION /mnt/boot/efi
 fi
 
+# TODO mount differently depending on whether it's BTRFS or EXT4
+# The code below returns too much.
+# sudo blkid /dev/mapper/crypt_priv_systems | grep -Eo 'TYPE="(.*)"'
+
 log "Mounting psuedo file systems..."
 
 sudo mount --bind /proc /mnt/proc
