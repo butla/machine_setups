@@ -123,8 +123,7 @@ PACMAN_GUI_PACKAGES = {
     'inkscape',  # vector graphics creator
     'cheese',  # taking photos and videos with the camera/webcam
     'okular',  # my preferred PDF viewer
-    'pdfmod',  # PDF editor
-    'xournalpp',  # writing on PDFs
+    'xournalpp',  # PDF editor
     'simple-scan',  # simple scanner operation
     'mpv',  # a nice video player with fast jumping and subtitle adjustment
     'vlc',  # an alternative video player
