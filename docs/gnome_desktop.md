@@ -4,6 +4,7 @@ Gnome desktop notes
 ## Initial setup
 
 Switch from Wayland to XServer: before logging in, check the cog icon in lower left corner, choose "Gnome on Xorg".
+This might not be needed. Wayland seems to work OK right now (2023-07-26).
 
 Remove touchegg (I don't use X11 gestures, and it spams the journal with connection failures unless I enable
 touchegg.service):

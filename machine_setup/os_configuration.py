@@ -29,13 +29,16 @@ def set_gsettings():
     # show battery percentage
     shell.run_cmd('gsettings set org.gnome.desktop.interface show-battery-percentage true')
 
+    # TODO after some new updates the screen magnifier is causing Gnome to crash on startup on X11,
+    # so I'll disable this part for now.
+    #
     # desktop zoom
-    shell.run_cmd('gsettings set org.gnome.desktop.a11y.applications screen-magnifier-enabled true')
-    shell.run_cmd('gsettings set org.gnome.desktop.a11y.magnifier mag-factor 1.0')
-    # Forcing this to be false, because it makes the entire desktop choppy or freeze sometimes,
-    # especially when using QT apps and trey icons from AppIndicator plugin.
-    shell.run_cmd('gsettings set org.gnome.desktop.interface toolkit-accessibility false')
-    _setup_disabling_accessibility_toolkit_on_login()
+    # shell.run_cmd('gsettings set org.gnome.desktop.a11y.applications screen-magnifier-enabled true')
+    # shell.run_cmd('gsettings set org.gnome.desktop.a11y.magnifier mag-factor 1.0')
+    # # Forcing this to be false, because it makes the entire desktop choppy or freeze sometimes,
+    # # especially when using QT apps and trey icons from AppIndicator plugin.
+    # shell.run_cmd('gsettings set org.gnome.desktop.interface toolkit-accessibility false')
+    # _setup_disabling_accessibility_toolkit_on_login()
 
 
     # automatically remove old trash and temp files
