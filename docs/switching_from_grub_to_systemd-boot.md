@@ -16,6 +16,8 @@ Based on [this article](https://forum.manjaro.org/t/how-to-convert-to-systemd-bo
 - mount ESP to /efi
 - sudo bootctl install
 - sudo pacman -S systemd-kernel-maintenance
+  - looks like the above may be buggy. `pamac build kernel-install-mkinitcpio` seems to work well.
+    [More info](https://forum.manjaro.org/t/systemd-kernel-maintenance-stopped-producing-initrd-after-2023-06-04-update/145257)
 - sudo pacman -Rn grub-btrfs grub-theme-manjaro grub
 - reinstall the current kernels, so that their systemd-boot entries get generated, e.g. sudo pacman -S linux515 linux419
 - make sure /etc/kernel/cmdline is fine, e.g.
