@@ -112,17 +112,15 @@ if __name__ == '__main__':
 
 
 # TODOs
+# - run this as sudo, without requiring confirmations. Solid logs needed.
+#   - impersonate the user where necessary
+#   - have a user for `pamac upgrade` with paswordless sudo?
+# - make package update faster: if the last "synchronizing package lists" in /var/log/pacman.log is no older than 8 hours
 # - make neovim plugin update not mess up the script's output
 # - Rename "configs" to "files_to_link"
 #   - dedicated dir: files_to_link|files_to_copy/{gnome, xfce, common}.
 #   - Pull "manually_linked" into files_to_copy from current "manually_linked". Set them up with root.
 #   - files are copied only when they are different
-# - don't use `sudo pamac`
-#   - use pacman for installing regular packages
-#   - sync AUR packages with Git to a directory (~/.cache/aur_packages), maybe just use pamac build for AUR packages
-#   - install AUR package dependencies (gather them from packages) with "sudo pacman -S --asdeps <packages>"
-#   - build as regular user: `makepkg`
-#   - install with `sudo pacman -U <package file>`
 # - desktop detection needs to work over SSH - use inxi --system?
 # - digikam settings sync:
 #   - /home/butla/.config/digikamrc
@@ -145,20 +143,12 @@ if __name__ == '__main__':
 # - KeyboardInterrupt handling.
 #   Check if commands get interrupted when exiting with ctrl+c. If I kill the script, pamac should exit as well.
 # - setup syncthing shares between hosts automatically?
-# - touchpad taps as clicks
 # - replacement to pix that doesn't glitch/hang for a few seconds when opening a heavy video
-# - run this as sudo, impersonating the user where it's necessary; upgrade script runs python with sudo.
-# - make package update faster: can we skip pamac scan for updates? Can that be done periodically in the background?
-# - All commands without confirmation. Get logs for everything. Async status display of all.
+# - Graph of tasks. Async status display of all.
 #   Have a graph of tasks? (check if preconditions for working are met - mark dependencies)
 #   Do everything possible in parallel.
 # - open any image / copy to clipboard with FZF.
 #   Or better - bemenu, with meta+m (for media) (maybe upper case, lower is move)
 #   check "grafika" and whatever photo folders are available
 # - On failed steps ask whether to restart or skip them. Or maybe cancel the whole run.
-# - (maybe needed) automatically fix pipx installs and virtualenvs after Manjaro switches to a higher Python version.
-#   Currently, they're all getting broken.
-#   My current process is recreating all virtualenvs and all pipx installs.
-#   ~/.local/pipx/ might need to get deleted as well.
 # - font configs in alacritty that switch when a monitor is attached? Have configs for alien, lemur, iiyama (monitor)
-# - a single widget with reboot/poweroff/suspend options for Gnome (like in XFCE), opened with a hotkey
