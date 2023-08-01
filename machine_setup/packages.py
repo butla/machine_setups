@@ -150,6 +150,7 @@ PACMAN_GUI_PACKAGES = {
     'shotcut',  # a video editor
     'obs-studio',  # video recording
     'chromium',  # browser used by automations with Playwright
+    'caffeine-ng',  # prevent system from sleeping
 }
 
 AUR_NO_GUI_PACKAGES = {
