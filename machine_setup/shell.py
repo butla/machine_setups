@@ -22,8 +22,9 @@ def run_cmd(
 
     command_failed = result.returncode != 0
     if not allow_fail and command_failed:
-        log.error(f"Command: '{command}' failed with status {result.returncode}.\n")
-        sys.exit("ERROR! Shell command failed!")
+        message = f"Command: '{command}' failed with status {result.returncode}.\n"
+        log.error(message)
+        raise Exception(message)
 
     return result
 
