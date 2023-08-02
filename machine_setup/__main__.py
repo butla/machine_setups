@@ -10,6 +10,8 @@ from functools import partial
 import logging
 from pathlib import Path
 import subprocess
+import sys
+from typing import Callable, List
 
 import machine_setup
 from machine_setup import os_configuration, shell
@@ -28,24 +30,43 @@ logging.basicConfig(
 log = logging.getLogger(__name__)
 
 
-def main():
+# TODO use stop_on_errors in run_setup_first_time!
+def main(stop_on_errors=False):
     log.info('Starting upgrade system...')
 
-    sync_packages()
-    install_oh_my_zsh()
-    machine_setup.links_setup.setup_all_links()
-    os_configuration.setup_tmux_plugins()
-    os_configuration.set_zsh_as_shell()
-    os_configuration.set_gsettings()
-    os_configuration.enable_services()
-    os_configuration.ensure_ntp()
-    os_configuration.setup_crontab()
-    os_configuration.set_java_version()
-    os_configuration.apply_app_specific_config_patches()
-    os_configuration.setup_neovim()
-    describe_manual_steps()
+    upgrade_steps: List[Callable] = [
+        sync_packages,
+        install_oh_my_zsh,
+        machine_setup.links_setup.setup_all_links,
+        os_configuration.setup_tmux_plugins,
+        os_configuration.set_zsh_as_shell,
+        os_configuration.set_gsettings,
+        os_configuration.enable_services,
+        os_configuration.ensure_ntp,
+        os_configuration.setup_crontab,
+        os_configuration.set_java_version,
+        os_configuration.apply_app_specific_config_patches,
+        os_configuration.setup_neovim,
+        describe_manual_steps,
+    ]
+    steps_succeeded = True
+    for upgrade_step_function in upgrade_steps:
+        try:
+            upgrade_step_function()
+        # we don't want to skip next steps if any step fails, usually
+        except Exception:
+            log.exception("ERROR! One of the steps has failed!")
+            steps_succeeded = False
 
-    log.info('All done.')
+            if stop_on_errors:
+                log.error('Stopping execution of further steps...')
+                break
+
+    if steps_succeeded:
+        log.info('All done.')
+    else:
+        # TODO why is this not ending the process with a non-zero code?
+        sys.exit('ERROR! Some steps have failed!')
 
 
 def sync_packages():
@@ -115,6 +136,7 @@ if __name__ == '__main__':
 # - run this as sudo, without requiring confirmations. Solid logs needed.
 #   - impersonate the user where necessary
 #   - have a user for `pamac upgrade` with paswordless sudo?
+# - add precommit: mypy, black, isort
 # - make package update faster: if the last "synchronizing package lists" in /var/log/pacman.log is no older than 8 hours
 # - make neovim plugin update not mess up the script's output
 # - Rename "configs" to "files_to_link"
