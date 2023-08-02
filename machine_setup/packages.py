@@ -181,7 +181,13 @@ NOT_PRESENT_IN_MANJARO_ARM_PACKAGES = {
     "hollywood",
     "manjaro-check-repos",
     "battop",
+    "libva-intel-driver",
 }
+_arm_exclusions_not_present_in_list_of_all = NOT_PRESENT_IN_MANJARO_ARM_PACKAGES - FULL_PACKAGES
+_arm_excluded_packages_are_in_list_of_all = not bool(_arm_exclusions_not_present_in_list_of_all)
+if not _arm_excluded_packages_are_in_list_of_all:
+    raise Exception(f"Some of the packages excluded on ARM aren't in the list of all packages. Remove outdated exclusions!: {_arm_exclusions_not_present_in_list_of_all}")
+
 MAIN_MACHINE_ADDITIONAL_AUR_PACKAGES = {"dropbox", "dropbox-cli", "exodus"}
 MAIN_MACHINE_PACKAGES = FULL_PACKAGES | MAIN_MACHINE_ADDITIONAL_AUR_PACKAGES
 
