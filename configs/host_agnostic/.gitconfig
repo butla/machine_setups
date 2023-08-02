@@ -7,8 +7,6 @@
 #	gpgsign = true
 [push]
 	default = simple
-[core]
-	editor = vim
 [diff]
 	tool = meld
 	prompt = false
