@@ -21,24 +21,21 @@ def find_media_files(folder_to_search: Path):
 
 
 def new_media_file_name(media_file: Path) -> Path:
-    with media_file.open('rb') as file_stream:
+    with media_file.open("rb") as file_stream:
         exif_info = exif.Image(file_stream)
     pprint(exif_info.list_all())
     # on mp4 files
     pprint(ffmpeg.probe(media_file)["streams"])
 
 
-if __name__ == '__main__':
-    for photo in Path('/home/butla/Dropbox/Camera Uploads/').iterdir():
+if __name__ == "__main__":
+    for photo in Path("/home/butla/Dropbox/Camera Uploads/").iterdir():
         new_path = to_samsung_photo_name(photo)
-        print(f'Renaming {photo} to {new_path}')
+        print(f"Renaming {photo} to {new_path}")
         photo.rename(new_path)
 
 
-photo_paths = Path('~/note_10_camera').expanduser().glob('*.mp4')
+photo_paths = Path("~/note_10_camera").expanduser().glob("*.mp4")
 p(len(list(photo_paths)))
 
-media_file_to_hash = {
-
-}
-
+media_file_to_hash = {}

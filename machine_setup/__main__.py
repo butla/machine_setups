@@ -18,13 +18,13 @@ from machine_setup import os_configuration, shell
 
 # Colors taken from "colorama". I don't want to depend on it, though.
 # I'll be using a color, so I can easily see my log message by glancing at the output
-_BACKGROUND_GREEN = '\x1b[42m'
-_BACKGROUND_RESET = '\x1b[49m'
+_BACKGROUND_GREEN = "\x1b[42m"
+_BACKGROUND_RESET = "\x1b[49m"
 
 logging.basicConfig(
     level=logging.INFO,
-    format=f'{_BACKGROUND_GREEN}--- %(asctime)s{_BACKGROUND_RESET} | %(levelname)s | %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S',
+    format=f"{_BACKGROUND_GREEN}--- %(asctime)s{_BACKGROUND_RESET} | %(levelname)s | %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
 )
 
 log = logging.getLogger(__name__)
@@ -32,7 +32,7 @@ log = logging.getLogger(__name__)
 
 # TODO use stop_on_errors in run_setup_first_time!
 def main(stop_on_errors=False):
-    log.info('Starting upgrade system...')
+    log.info("Starting upgrade system...")
 
     upgrade_steps: List[Callable] = [
         sync_packages,
@@ -59,76 +59,82 @@ def main(stop_on_errors=False):
             steps_succeeded = False
 
             if stop_on_errors:
-                log.error('Stopping execution of further steps...')
+                log.error("Stopping execution of further steps...")
                 break
 
     if steps_succeeded:
-        log.info('All done.')
+        log.info("All done.")
     else:
         # TODO why is this not ending the process with a non-zero code?
-        sys.exit('ERROR! Some steps have failed!')
+        sys.exit("ERROR! Some steps have failed!")
 
 
 def sync_packages():
     # TODO list the packages getting installed, updated.
     # Pipe the command output somewhere else. Log file.
     # Say "updating packages, log location /var/log/bobr_machine_setup
-    log.info('Making sure pamac can install from AUR...')
+    log.info("Making sure pamac can install from AUR...")
     # uncommenting some lines
-    shell.replace_in_file('^.*EnableAUR', 'EnableAUR', '/etc/pamac.conf')
-    shell.replace_in_file('^.*CheckAURUpdates', 'CheckAURUpdates', '/etc/pamac.conf')
+    shell.replace_in_file("^.*EnableAUR", "EnableAUR", "/etc/pamac.conf")
+    shell.replace_in_file("^.*CheckAURUpdates", "CheckAURUpdates", "/etc/pamac.conf")
     # TODO set the line that disables database signatures in pacman.conf
     # first SigLevel, from [options] section. Can an ini reader get that?
     # Capture group after [options] before next [
     # Or just copy the whole config file.
 
-    log.info('Updating the package index and packages...')
-    shell.run_cmd('pamac upgrade --no-confirm')
-    if shell.check_command_exists('flatpak'):
-        log.info('Updating flatpak packages...')
-        shell.run_cmd('flatpak update --assumeyes')
+    log.info("Updating the package index and packages...")
+    shell.run_cmd("pamac upgrade --no-confirm")
+    if shell.check_command_exists("flatpak"):
+        log.info("Updating flatpak packages...")
+        shell.run_cmd("flatpak update --assumeyes")
 
-    log.info('Adding GPG keys for some packages...')
+    log.info("Adding GPG keys for some packages...")
     _add_package_keys()
 
-    log.info('Installing the necessary packages...')
-    packages_string = ' '.join(machine_setup.packages.get_packages_for_host())
-    shell.run_cmd(f'pamac install --no-confirm {packages_string}')
+    log.info("Installing the necessary packages...")
+    packages_string = " ".join(machine_setup.packages.get_packages_for_host())
+    shell.run_cmd(f"pamac install --no-confirm {packages_string}")
 
-    log.info('Removing unused packages...')
-    shell.run_cmd('sudo pamac remove --orphans --no-confirm', allow_fail=True)
+    log.info("Removing unused packages...")
+    shell.run_cmd("sudo pamac remove --orphans --no-confirm", allow_fail=True)
 
 
 def _add_package_keys():
     run_key_cmd = partial(subprocess.run, shell=True, check=True)
     keys_from_web = [
-        'https://download.spotify.com/debian/pubkey_7A3A762FAFD4A51F.gpg',
+        "https://download.spotify.com/debian/pubkey_7A3A762FAFD4A51F.gpg",
     ]
     for key_url in keys_from_web:
-        run_key_cmd(f'curl -sS {key_url} | gpg --import -')
+        run_key_cmd(f"curl -sS {key_url} | gpg --import -")
 
     # TODO this key should be only added for hosts that install Dropbox
     gpg_keys = [
         # dropbox
-        '1C61A2656FB57B7E4DE0F4C1FC918B335044912E',
+        "1C61A2656FB57B7E4DE0F4C1FC918B335044912E",
     ]
     for key in gpg_keys:
-        run_key_cmd(f'gpg --recv-keys {key}')
+        run_key_cmd(f"gpg --recv-keys {key}")
 
-    run_key_cmd('gpg --auto-key-locate nodefault,wkd --locate-keys torbrowser@torproject.org')
+    run_key_cmd(
+        "gpg --auto-key-locate nodefault,wkd --locate-keys torbrowser@torproject.org"
+    )
 
 
 def install_oh_my_zsh():
-    oh_my_zsh_path = Path('~/.oh-my-zsh').expanduser()
-    shell.clone_or_update_git_repo('https://github.com/ohmyzsh/ohmyzsh.git', oh_my_zsh_path)
+    oh_my_zsh_path = Path("~/.oh-my-zsh").expanduser()
+    shell.clone_or_update_git_repo(
+        "https://github.com/ohmyzsh/ohmyzsh.git", oh_my_zsh_path
+    )
 
 
 def describe_manual_steps():
-    log.info("Check out docs/initial_setup.md to check the steps you need to do manually "
-            "after running the initial setup.")
+    log.info(
+        "Check out docs/initial_setup.md to check the steps you need to do manually "
+        "after running the initial setup."
+    )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
 
 
