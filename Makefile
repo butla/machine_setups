@@ -3,6 +3,8 @@
 # so we're sure what shell we're using. Bash should be quite common, right?
 SHELL:=/bin/bash
 
+SOURCES:=machine_setup python_scripts_for_machine tests wip_scripts
+
 LOG_PATH=$(HOME)/.local/var/log
 
 setup_machine:
@@ -24,7 +26,9 @@ check_continously:
 	fd '\.py$$' machine_setup/ configs/ tests/ | entr -c make --keep-going check
 
 format:
-	isort .
+	@echo ===Formatting code===
+	isort $(SOURCES)
+	black $(SOURCES)
 
 setup_development:
 	poetry install
@@ -34,15 +38,19 @@ test:
 	poetry run pytest -v tests
 
 test_continously:
-	fd '\.py$$' machine_setup/ configs/ tests/ | entr -c make test
+	fd '\.py$$' $(SOURCES) | entr -c make test
 
 pylint:
-	@echo ===Pylint===
-	poetry run pylint machine_setup/ tests/
+	@echo ===Checking linter===
+	poetry run pylint $(SOURCES)
 
 isort_check:
-	@echo ===Isort===
-	poetry run isort -c .
+	@echo ===Checking imports order===
+	poetry run isort -c $(SOURCES)
+
+format_check:
+	@echo ===Checking formatting===
+	poetry run black -c $(SOURCES)
 
 # TODO formatting
 # TODO mypy
