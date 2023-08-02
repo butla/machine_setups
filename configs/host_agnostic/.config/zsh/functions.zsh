@@ -32,10 +32,10 @@ function virtualenv_for_folder_name()
     echo $virtualenv_name
 }
 
-# runs Vim with good Python completions
+# runs NeoVim with good Python completions
 function v()
 {
-    log "Running vim with Python stuff, and these arguments: $@"
+    log "Running neovim with Python stuff, and these arguments: $@"
 
     if [ -d .venv ]; then
         source .venv/bin/activate
@@ -50,7 +50,7 @@ function v()
     if [ -d src ]; then
         PYTHON_PATH=${PYTHON_PATH}:src
     fi
-    PYTHONPATH=${PYTHON_PATH} vim $@
+    PYTHONPATH=${PYTHON_PATH} nvim $@
     # leaving the virtualenv
     deactivate
 }
