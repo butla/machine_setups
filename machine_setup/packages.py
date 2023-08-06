@@ -167,7 +167,6 @@ AUR_GUI_PACKAGES = {
     "spotify",
     "tor-browser",
     "zoom",  # video conferencing
-    "losslesscut-bin",  # minimal and fast lossless video cutter
     # OTP with a Yubikey connected over USB, replaces faulty "yubioath-desktop"
     # https://bugs.archlinux.org/task/76325
     "yubico-authenticator-bin",
