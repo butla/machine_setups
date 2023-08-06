@@ -139,9 +139,13 @@ if __name__ == "__main__":
 
 
 # TODOs
-# - run this as sudo, without requiring confirmations. Solid logs needed.
-#   - impersonate the user where necessary
-#   - have a user for `pamac upgrade` with paswordless sudo?
+# - run this as sudo, without additional password inputs, or maybe just for pamac install and upgrade
+#   - install prompt may be skipped if all packages are installed
+#   - impersonate butla for pamac install and file/dir creation
+#   - (maybe) have a user for `pamac upgrade` with polkit setup so that pamac won't ask for a password
+#     - https://askubuntu.com/questions/98006/how-do-i-prevent-policykit-from-asking-for-a-password
+#     - https://unix.stackexchange.com/questions/546577/how-to-achieve-linux-privilege-escalation-by-polkitd-without-password-but-with-y
+#     - two users make pamac ask which user to authenticate with, which is a pain...
 # - add precommit: mypy, black, isort
 # - make package update faster: if the last "synchronizing package lists" in /var/log/pacman.log is no older than 8 hours
 # - make neovim plugin update not mess up the script's output
