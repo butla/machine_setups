@@ -83,7 +83,7 @@ def sync_packages():
     # Or just copy the whole config file.
 
     log.info("Updating the package index and packages...")
-    shell.run_cmd("pamac upgrade --no-confirm")
+    shell.run_cmd("pamac upgrade")
     if shell.check_command_exists("flatpak"):
         log.info("Updating flatpak packages...")
         shell.run_cmd("flatpak update --assumeyes")
