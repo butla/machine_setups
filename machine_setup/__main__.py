@@ -23,6 +23,8 @@ _BACKGROUND_RESET = "\x1b[49m"
 
 logging.basicConfig(
     level=logging.INFO,
+    # TODO red format for errors:
+    # https://stackoverflow.com/questions/1343227/can-pythons-logging-format-be-modified-depending-on-the-message-log-level
     format=f"{_BACKGROUND_GREEN}--- %(asctime)s{_BACKGROUND_RESET} | %(levelname)s | %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S",
 )
