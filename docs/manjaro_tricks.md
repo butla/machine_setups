@@ -22,6 +22,7 @@ i915 is Intel.
 
 ### Intel GPU
 There's screen tearing on the lemur now.
+Interestingly, Huawei on Gnome also had tearing on the vsync test.
 
 Everything in this section is a "maybe".
 Intel Graphics card, should have the modesetting driver enabled.
