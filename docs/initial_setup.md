@@ -15,6 +15,7 @@ Things to do
   - set appearance (it's not synced... https://github.com/brave/brave-browser/issues/13555)
   - pinned cards
   - enable Trello integration in the Toggl Extension
+  - don't warn about insecure certs from localhost: brave://flags/#allow-insecure-localhost
 - Signal: sync with phone
 - Dropbox: log in
 - PIA: set it up - run `pia_download`, etc.

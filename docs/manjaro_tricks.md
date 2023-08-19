@@ -16,8 +16,28 @@ Upgrade and rebuild python packages:
 ## Graphics card setup
 
 Info is [here](https://wiki.manjaro.org/index.php/Configure_Graphics_Cards) may be beneficial
-Intel Graphics card, should have the modesetting driver enabled
 
+Check the current running driver with `inxi -Gxx`.
+i915 is Intel.
+
+### Intel GPU
+There's screen tearing on the lemur now.
+
+Everything in this section is a "maybe".
+Intel Graphics card, should have the modesetting driver enabled.
+
+Or maybe just set this?
+Set this file `/etc/X11/xorg.conf.d/20-intel.conf` to
+```
+Section "Device"
+  Identifier "Intel Graphics"
+  Driver "intel"
+  Option "TearFree" "false"
+  Option "DRI"  "iris"
+EndSection
+```
+
+### Nvidia GPU
 Nvidia card should use the proprietary driver (video-nvidia): `sudo mhwd -i pci video-nvidia`
 But currently this makes the system freeze on Alien.
 
