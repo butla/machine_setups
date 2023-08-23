@@ -5,6 +5,7 @@ Gnome desktop notes
 
 Switch from Wayland to XServer: before logging in, check the cog icon in lower left corner, choose "Gnome on Xorg".
 Ranger photo preview doesn't work on Wayland.
+That can be fixed with https://github.com/jstkdng/ueberzugpp, but it gives a pixelated preview.
 
 Remove touchegg (I don't use X11 gestures, and it spams the journal with connection failures unless I enable
 touchegg.service):
