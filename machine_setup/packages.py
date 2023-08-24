@@ -106,6 +106,7 @@ PACMAN_NO_GUI_PACKAGES = {
     "rust",  # Rust programming language tools
     "go",  # Go programming language tools
     "npm",  # NodeJS package manager. Useful for some tools.
+    "nvm",  # NodeJS version management
 }
 
 PACMAN_GUI_PACKAGES = {
