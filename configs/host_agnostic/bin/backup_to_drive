@@ -11,7 +11,7 @@ export BORG_PASSPHRASE=$(cat ~/.credentials/borg_key)
 # I'd just run the whole script as root, but then I'd need to put it in a location that's on the root user's PATH.
 # And I don't want to go through that hassle just yet.
 echo -e "Pruning old backups\n=================="
-sudo -E borg prune --stats --progress --keep-last 9 "${BACKUP_LOCATION}"
+sudo -E borg prune --stats --progress --keep-last 3 "${BACKUP_LOCATION}"
 
 echo -e "Creating a new backup\n=================="
 sudo -E borg create --stats --progress \
