@@ -8,12 +8,9 @@ fi
 
 PATH_FOR_FOLDERS=~/Documents/księgowość
 
-INCOMES_SUBPATH=pl-witchsoft/przychody
+INCOMES_SUBPATH=przychody
 
-for subpath in prywatne/przychody prywatne/wydatki \
-    prywatne/wyciągi prywatne/różne \
-    $INCOMES_SUBPATH pl-witchsoft/wydatki \
-    pl-witchsoft/wyciągi pl-witchsoft/różne
+for subpath in $INCOMES_SUBPATH wydatki wyciągi różne
 do
     final_path=$PATH_FOR_FOLDERS/$FOLDER_NAME/$subpath
     echo Ensuring $final_path
