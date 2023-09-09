@@ -46,6 +46,7 @@ Plug 'mgedmin/coverage-highlight.vim'
 Plug 'relastle/vim-nayvy'
 " unix file operations on open files
 Plug 'tpope/vim-eunuch'
+Plug 'hashivim/vim-terraform'
 
 call plug#end()
 
