@@ -241,7 +241,7 @@ let g:ackprg = 'ag --vimgrep --hidden --ignore .git'
 " ALE configuration =====================
 
 " Set the linter depending on what's available in the current environment.
-for linter in ['pylint', 'flake8', 'pycodestyle']
+for linter in ['ruff', 'pylint', 'flake8', 'pycodestyle']
     if system("python3 -c 'import " . linter . "'") == ""
         let g:ale_linters = { 'python': [linter] }
         break
