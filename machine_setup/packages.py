@@ -171,6 +171,7 @@ AUR_GUI_PACKAGES = {
     # OTP with a Yubikey connected over USB, replaces faulty "yubioath-desktop"
     # https://bugs.archlinux.org/task/76325
     "yubico-authenticator-bin",
+    "drawio-desktop-bin", # diagramming tool
 }
 
 NO_GUI_PACKAGES = PACMAN_NO_GUI_PACKAGES | AUR_NO_GUI_PACKAGES
