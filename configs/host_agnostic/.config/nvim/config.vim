@@ -225,6 +225,9 @@ nnoremap <leader>f :execute "Ack " . expand("<cword>")<CR>
 " Should use that when YouCompleteMe fails to find references.
 nnoremap <leader>F :execute "vimgrep /" . expand("<cword>") . "/j **/*.py"<Bar>cw<CR>
 
+" map inserting a timestamp
+nnoremap <leader>T "=strftime("%Y-%m-%d %H:%M:%S")<CR>P
+
 " tweaking the preview display of open buffers for the FZF plugin
 let g:fzf_preview_window = ['up:50%', 'ctrl-/']
 
