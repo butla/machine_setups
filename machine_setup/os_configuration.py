@@ -14,6 +14,10 @@ log = logging.getLogger(__name__)
 
 def set_gsettings():
     """Sets settings with gsettings. These are used by Gnome/GTK apps."""
+    if not machine_info.check_gui_present():
+        log.info('Skipping GSettings setup - no GUI on the machine...')
+        return
+
     log.info("Setting up GTK app settings with GSettings...")
     shell.run_cmd("gsettings set org.x.pix.browser sort-type file::name")
 
