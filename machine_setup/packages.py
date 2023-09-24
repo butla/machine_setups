@@ -83,6 +83,7 @@ PACMAN_NO_GUI_PACKAGES = {
     "hd-idle",  # tool for spinning down hard disks after inactivity or immediately
     "smartmontools",  # has smartctl - utility for getting drive diagnostics
     "manjaro-check-repos",  # has mbn tool for comparing packages across different Manjaro branches
+    "toilet",  # printing large letters in terminal
     # =========================
     # CLI programs for GUIs
     # =========================
@@ -156,7 +157,6 @@ PACMAN_GUI_PACKAGES = {
 
 AUR_NO_GUI_PACKAGES = {
     "wrk",  # HTTP application benchmarking tool
-    "toilet",  # printing large letters in terminal
     "hollywood",  # "Fill your console with Hollywood melodrama technobabble"
     "qbittorrent-cli-bin",  # CLI for the non-GUI torrent client, TODO, make it work
     "battop",  # battery stats
