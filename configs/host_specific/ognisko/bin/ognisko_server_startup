@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# TODO put in machine_setups (ognisko_startup)
+echo Making the drives spin down after inactivity...
+sudo hd-idle -a sdb -i 300
+sudo hd-idle -a sda -i 300
+
+STORAGE_PATH=~/data
+echo Mounting encrypted storage to ${STORAGE_PATH}...
+sudo cryptsetup open /dev/sda crypt_data_1
+sudo cryptsetup open /dev/sdb crypt_data_2
+
+sudo mount -t btrfs /dev/mapper/crypt_data_1 ${STORAGE_PATH}
+
+echo Starting Syncthing...
+sudo systemctl start syncthing@butla
+
+echo All done
