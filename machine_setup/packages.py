@@ -166,7 +166,7 @@ AUR_NO_GUI_PACKAGES = {
 AUR_GUI_PACKAGES = {
     "slack-desktop",
     "spotify",
-    "tor-browser",
+    "tor-browser-bin",
     "zoom",  # video conferencing
     # OTP with a Yubikey connected over USB, replaces faulty "yubioath-desktop"
     # https://bugs.archlinux.org/task/76325
