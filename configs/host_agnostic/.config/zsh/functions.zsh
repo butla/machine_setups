@@ -65,12 +65,17 @@ function windows-1250-to-utf-8()
     mv $TEMP_FILE "$1"
 }
 
-function upgrade()
+function load_ssh_key()
 {
     if ! ssh-add -l > /dev/null; then
         echo "Opening the private key and adding it to ssh-agent..."
         ssh-add
     fi
+}
+
+function upgrade()
+{
+    load_ssh_key
 
     (
         cd ~/development/machine_setups;
@@ -79,6 +84,14 @@ function upgrade()
         echo "Running make setup_machine..."
         make setup_machine;
     )
+}
+
+function upgrade_ognisko()
+{
+    load_ssh_key
+    # TODO FIX! Crashes when on the remote we need to activate the SSH agent
+    # (when pulling machine_setups on the RPI's side).
+    ssh ognisko.local 'source ~/.zshrc; upgrade'
 }
 
 function record_voice()
