@@ -1,7 +1,8 @@
 # TODO split this file into multiple categories
 
 # log stuff in functions and scripts in a way that shows that the messages are from me and give me some info I want.
-function log() {
+# I was tempted to call this function simply "log", but it is a shell builtin and it's hard to get it to work in scripts.
+function log_info() {
     _BACKGROUND_GREEN="\x1b[42m"
     _BACKGROUND_RESET="\x1b[49m"
 
@@ -35,7 +36,7 @@ function virtualenv_for_folder_name()
 # runs NeoVim with good Python completions
 function v()
 {
-    log "Running neovim with Python stuff, and these arguments: $@"
+    log_info "Running neovim with Python stuff, and these arguments: $@"
 
     if [ -d .venv ]; then
         source .venv/bin/activate
@@ -225,25 +226,25 @@ function subspl()
 function configs_audit()
 {
     AUDIT_KEY=configs_audit
-    log "Gonna trace programs that write potential configs - directories like: ~/.config, ~/.local, /etc"
+    log_info "Gonna trace programs that write potential configs - directories like: ~/.config, ~/.local, /etc"
 
-    log "Starting auditd service for tracing..."
+    log_info "Starting auditd service for tracing..."
     sudo systemctl start auditd.service
 
-    log "Adding trace to certain directories..."
+    log_info "Adding trace to certain directories..."
     audit_paths=("$HOME/.config" "$HOME/.local" "/etc")
     for audit_path in "${audit_paths[@]}"; do
         sudo auditctl -w $audit_path -p wa -k $AUDIT_KEY
     done
 
-    log "You can now do the thing in some program, that you want to trace... Press \"enter\" here once you're done"
+    log_info "You can now do the thing in some program, that you want to trace... Press \"enter\" here once you're done"
     read
 
     # TODO this line alone produces something, but if ran in this script it doesn't
     # filter out (grep -v) things that spam .config the most
     sudo ausearch --start recent --format interpret -k $AUDIT_KEY | grep name | grep -v spotify | grep -v Slack | grep -v Brave | grep -E 'type=PROCTITLE|type=PATH'
 
-    log "Removing directories from trace..."
+    log_info "Removing directories from trace..."
     for audit_path in "${audit_paths[@]}"; do
         sudo auditctl -W $audit_path -p wa -k $AUDIT_KEY
     done
