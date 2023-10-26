@@ -108,6 +108,7 @@ PACMAN_NO_GUI_PACKAGES = {
     "go",  # Go programming language tools
     "npm",  # NodeJS package manager. Useful for some tools.
     "nvm",  # NodeJS version management
+    "texlive-binextra",  # for generating HTML from Markdown with Pandoc
 }
 
 PACMAN_GUI_PACKAGES = {
