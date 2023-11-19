@@ -5,6 +5,7 @@ Ensuring proper configuration is set up for various programs in the host system.
 import logging
 import os
 from pathlib import Path
+import socket
 import subprocess
 
 from machine_setup import machine_info, shell
@@ -15,7 +16,7 @@ log = logging.getLogger(__name__)
 def set_gsettings():
     """Sets settings with gsettings. These are used by Gnome/GTK apps."""
     if not machine_info.check_gui_present():
-        log.info('Skipping GSettings setup - no GUI on the machine...')
+        log.info("Skipping GSettings setup - no GUI on the machine...")
         return
 
     log.info("Setting up GTK app settings with GSettings...")
@@ -216,7 +217,10 @@ def enable_services():
     # needed so that yubico-authenticator can talk with the yubikey
     shell.run_cmd("sudo systemctl enable --now pcscd")
 
-    shell.run_cmd("sudo systemctl enable --now syncthing@butla")
+    # Ognisko will have syncthing started by a script that runs after boot.
+    # Starting syncthing when the storage isn't mounted yet causes problems.
+    if socket.gethostname() != "ognisko":
+        shell.run_cmd("sudo systemctl enable --now syncthing@butla")
 
     # so that the hosts get DNS entries like <hostname>.local in the local subnet
     shell.run_cmd("sudo systemctl enable --now avahi-daemon.service")

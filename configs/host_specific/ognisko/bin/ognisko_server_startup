@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# TODO put in machine_setups (ognisko_startup)
 echo Making the drives spin down after inactivity...
 sudo hd-idle -a sdb -i 300
 sudo hd-idle -a sda -i 300
