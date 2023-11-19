@@ -1,16 +1,24 @@
 [tool.poetry]
-name = "machine_setups"
+name = "machine_setup"
 version = "0.1.0"
 description = "Code that sets up my computers with the software and configuration I want."
 authors = ["Michal Bultrowicz <michal.bultrowicz@gmail.com>"]
 license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
 [tool.poetry.group.dev.dependencies]
+pylint = "^2.7.4"
+pytest = "^6.2.5"
+requests = "^2.27.0"
+python-dateutil = "^2.8.2"
+pytz = "^2021.3"
 pylint-pytest = "^1.1.2"
 pdbpp = "^0.10.3"
 isort = "^5.12.0"
 mypy = "^1.4.1"
 black = "^23.7.0"
-
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -37,14 +45,3 @@ disable = [
     # not such a performance issue in this project
     "logging-fstring-interpolation",
 ]
-
-[tool.poetry.dependencies]
-python = "^3.8"
-
-[tool.poetry.dev-dependencies]
-pylint = "^2.7.4"
-isort = "^5.8.0"
-pytest = "^6.2.5"
-requests = "^2.27.0"
-python-dateutil = "^2.8.2"
-pytz = "^2021.3"

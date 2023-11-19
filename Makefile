@@ -27,8 +27,8 @@ check_continously:
 
 format:
 	@echo ===Formatting code===
-	isort $(SOURCES)
-	black $(SOURCES)
+	poetry run isort $(SOURCES)
+	poetry run black $(SOURCES)
 
 setup_development:
 	poetry install
