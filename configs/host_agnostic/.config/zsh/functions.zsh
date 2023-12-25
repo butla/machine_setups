@@ -108,8 +108,11 @@ function say()
     clear
     echo "Say what you want to say."
     read the_thing_to_say
+    clear
     # I know, it's a tortoise, ugh :) Upstream problems
     cowsay -f turtle "${the_thing_to_say}" | lolcat --freq 0.2 --seed 900 --speed 300 --animate
+    # newline afterwards
+    echo
 }
 
 # TODO do this with a param of the first function
