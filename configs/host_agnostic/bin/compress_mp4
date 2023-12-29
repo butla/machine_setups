@@ -20,6 +20,11 @@ for original, compressed in original_to_compressed_paths:
     if compressed.exists():
         print('Skipping compression of', original, 'as a compressed file already exists.')
         continue
-    command_parts = ['ffmpeg', '-i', str(original), '-vcodec', 'libx265', '-crf', '28', str(compressed)]
+    command_parts = ['ffmpeg',
+                     '-i', str(original),
+                     # TODO fix this, it doesn't preserver Create Date
+                     '-movflags', 'use_metadata_tags',
+                     '-vcodec', 'libx265',
+                     '-crf', '28', str(compressed)]
     print('Compressing', original)
     subprocess.run(command_parts, check=True)
