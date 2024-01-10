@@ -9,7 +9,7 @@ BACKUP_LOCATION=${EXTERNAL_DRIVE_MOUNTPOINT}/backup
 export BORG_PASSPHRASE=$(cat ~/data/borg_key)
 
 log_info "Mounting the external drive..."
-sudo mount UUID="F6D8A1C6D8A18589" $EXTERNAL_DRIVE_MOUNTPOINT
+sudo mount UUID="32F68650006080B5" $EXTERNAL_DRIVE_MOUNTPOINT
 
 # Hopefully, pruning the backups won't last long enough so that the next sudo call will require manual input.
 # That's why it's called first.
