@@ -1,0 +1,17 @@
+{
+    "current_user": "michalbultrowicz",
+    "mountdir": "/run/user/1000/keybase/kbfs",
+    "mountdirdefault": "/run/user/1000/keybase/kbfs",
+    "pinentry": {
+        "path": "/usr/bin/pinentry-curses"
+    },
+    "users": {
+        "michalbultrowicz": {
+            "device": "7e4cfbcffb173654871c6fe159b67b18",
+            "id": "f933e80548f6e0b6efe7b21b16460419",
+            "name": "michalbultrowicz",
+            "passphrase_state": 0,
+            "salt": "467ab68fecb4c9d360601e1b3217a974"
+        }
+    }
+}

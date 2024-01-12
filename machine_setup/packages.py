@@ -162,6 +162,7 @@ AUR_NO_GUI_PACKAGES = {
     "qbittorrent-cli-bin",  # CLI for the non-GUI torrent client, TODO, make it work
     "battop",  # battery stats
     "dstask",  # task/note manager, git-based
+    "keybase-bin",  # for encrypted Git repositories. AUR is fresher than regular Manjaro repo version
 }
 
 AUR_GUI_PACKAGES = {
