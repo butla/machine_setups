@@ -14,7 +14,7 @@ import sys
 from typing import Callable, List
 
 import machine_setup
-from machine_setup import os_configuration, shell
+from machine_setup import os_configuration, pamac_override, shell
 
 # Colors taken from "colorama". I don't want to depend on it, though.
 # I'll be using a color, so I can easily see my log message by glancing at the output
@@ -84,21 +84,23 @@ def sync_packages():
     # Capture group after [options] before next [
     # Or just copy the whole config file.
 
-    log.info("Updating the package index and packages...")
-    shell.run_cmd("pamac upgrade")
-    if shell.check_command_exists("flatpak"):
-        log.info("Updating flatpak packages...")
-        shell.run_cmd("flatpak update --assumeyes")
+    with pamac_override.override_pamac_password():
+        log.info("Updating the package index and packages...")
+        shell.run_cmd("pamac upgrade")
 
-    log.info("Adding GPG keys for some packages...")
-    _add_package_keys()
+        if shell.check_command_exists("flatpak"):
+            log.info("Updating flatpak packages...")
+            shell.run_cmd("flatpak update --assumeyes")
 
-    log.info("Installing the necessary packages...")
-    packages_string = " ".join(machine_setup.packages.get_packages_for_host())
-    shell.run_cmd(f"pamac install --no-confirm {packages_string}")
+        log.info("Adding GPG keys for some packages...")
+        _add_package_keys()
+
+        log.info("Installing the necessary packages...")
+        packages_string = " ".join(machine_setup.packages.get_packages_for_host())
+        shell.run_cmd(f"pamac install --no-confirm {packages_string}")
 
     log.info("Removing unused packages...")
-    shell.run_cmd("sudo pamac remove --orphans --no-confirm", allow_fail=True)
+    shell.run_cmd("pamac remove --orphans --no-confirm", allow_fail=True, as_root=True)
 
 
 def _add_package_keys():
@@ -123,7 +125,7 @@ def _add_package_keys():
 
 
 def install_oh_my_zsh():
-    oh_my_zsh_path = Path("~/.oh-my-zsh").expanduser()
+    oh_my_zsh_path = shell.home_path() / ".oh-my-zsh"
     shell.clone_or_update_git_repo(
         "https://github.com/ohmyzsh/ohmyzsh.git", oh_my_zsh_path
     )
@@ -141,13 +143,6 @@ if __name__ == "__main__":
 
 
 # TODOs
-# - run this as sudo, without additional password inputs, or maybe just for pamac install and upgrade
-#   - install prompt may be skipped if all packages are installed
-#   - impersonate butla for pamac install and file/dir creation
-#   - (maybe) have a user for `pamac upgrade` with polkit setup so that pamac won't ask for a password
-#     - https://askubuntu.com/questions/98006/how-do-i-prevent-policykit-from-asking-for-a-password
-#     - https://unix.stackexchange.com/questions/546577/how-to-achieve-linux-privilege-escalation-by-polkitd-without-password-but-with-y
-#     - two users make pamac ask which user to authenticate with, which is a pain...
 # - add precommit: mypy, black, isort
 # - make package update faster: if the last "synchronizing package lists" in /var/log/pacman.log is no older than 8 hours
 # - make neovim plugin update not mess up the script's output
