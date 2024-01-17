@@ -73,6 +73,9 @@ PACMAN_NO_GUI_PACKAGES = {
     "gendesk",  # desktop file generator for apps, used while building some AUR packages
     "yt-dlp",  # download video and audio from YouTube
     "bat",  # cat with syntax highlighting
+    "zip",
+    "unzip",
+    "rsync",
     # Convert USB drives, so that you make bootable USBs by copying over an (Linux/Windows) ISO file.
     # woeusb from AUR can be an alternative.
     "ventoy",
@@ -154,6 +157,7 @@ PACMAN_GUI_PACKAGES = {
     "obs-studio",  # video recording
     "chromium",  # browser used by automations with Playwright
     "caffeine-ng",  # prevent system from sleeping
+    "dbeaver",  # universal DB client. Supports SQL Server
 }
 
 AUR_NO_GUI_PACKAGES = {
@@ -185,6 +189,7 @@ NOT_PRESENT_IN_MANJARO_ARM_PACKAGES = {
     "manjaro-check-repos",
     "battop",
     "libva-intel-driver",
+    "keybase-bin",
 }
 _arm_exclusions_not_present_in_list_of_all = (
     NOT_PRESENT_IN_MANJARO_ARM_PACKAGES - FULL_PACKAGES
