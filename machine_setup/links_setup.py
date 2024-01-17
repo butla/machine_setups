@@ -11,7 +11,7 @@ import platform
 import re
 from typing import Iterable, List
 
-from machine_setup import machine_info
+from machine_setup import machine_info, shell
 
 BACKUP_SUFFIX = ".bak"
 
@@ -20,28 +20,27 @@ log = logging.getLogger(__name__)
 
 def setup_all_links():
     log.info("Ensuring up-to-date configurations and scripts...")
-    home_path = Path("~").expanduser()
     set_up_links(
         source_dir=Path("configs/host_agnostic/"),
-        target_dir=home_path,
+        target_dir=shell.home_path(),
     )
     current_host = platform.node()
     set_up_links(
         source_dir=Path(f"configs/host_specific/{current_host}/"),
-        target_dir=home_path,
+        target_dir=shell.home_path(),
     )
 
     desktop_env = machine_info.get_desktop_environment()
     if desktop_env:
         set_up_links(
             source_dir=Path(f"configs/desktop_env_specific/{desktop_env}"),
-            target_dir=home_path,
+            target_dir=shell.home_path(),
         )
 
     # TODO make sure the files here are chmod 600
     set_up_links(
         source_dir=Path("configs/configs_private/home/"),
-        target_dir=home_path,
+        target_dir=shell.home_path(),
     )
 
 

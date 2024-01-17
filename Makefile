@@ -5,12 +5,12 @@ SHELL:=/bin/bash
 
 SOURCES:=machine_setup python_scripts_for_machine tests wip_scripts
 
-LOG_PATH=$(HOME)/.local/var/log
+LOG_PATH=/var/log
 
 setup_machine:
-	echo "Ensuring a path for logs: $(LOG_PATH)"
-	@mkdir -p $(LOG_PATH)
-	python3 -m machine_setup | tee --append $(LOG_PATH)/upgrade.log
+	@echo "Ensuring a path for logs: $(LOG_PATH)"
+	@sudo mkdir -p $(LOG_PATH)
+	sudo bash -c "python3 -m machine_setup | tee --append $(LOG_PATH)/butla_upgrade.log"
 
 # The below commands require setting up a virtualenv, activating it, and running `poetry install` in it.
 
