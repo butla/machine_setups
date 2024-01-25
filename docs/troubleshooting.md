@@ -1,6 +1,12 @@
 Troubleshooting tips
 ====================
 
+## Restart Gnome
+killall -HUP gnome-shell
+
+## New version of a package messed something up
+sudo downgrade <package>
+
 ## Dealing with pacman / pamac invalid GPG signatures
 
 Looks like this:
@@ -35,9 +41,6 @@ Open the database, then do really shutdown keepass (ctrl+q).
 ## Dropbox trey icon not showing on Gnome
 - enable app indicator extension
 - dropbox-cli stop && dropbox-cli start
-
-## Restart Gnome
-killall -HUP gnome-shell
 
 ## Nautilus crashing after start (Gnome file explorer)
 Copy something to clipboard. [More context.](https://gitlab.gnome.org/GNOME/nautilus/-/issues/2539)
