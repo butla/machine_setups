@@ -1,6 +1,11 @@
 Troubleshooting tips
 ====================
 
+## System error diagnostics
+sudo journalctl -xe -b 0 -p err
+sudo journalctl -xe -b 0 -p warning
+sudo dmesg
+
 ## Restart Gnome
 killall -HUP gnome-shell
 
