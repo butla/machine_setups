@@ -34,7 +34,7 @@ log = logging.getLogger(__name__)
 
 # TODO use stop_on_errors in run_setup_first_time!
 def main(stop_on_errors=False):
-    log.info("Starting upgrade system...")
+    log.info("Starting system upgrade...")
 
     upgrade_steps: List[Callable] = [
         sync_packages,
