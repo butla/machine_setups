@@ -1,32 +1,33 @@
 #!/bin/zsh
 set -e
 
-source ~/.config/zsh/functions.zsh
-
-EXTERNAL_DRIVE_MOUNTPOINT=~/external_drive
+USER_HOME=/home/butla
+EXTERNAL_DRIVE_MOUNTPOINT=$USER_HOME/external_drive
 BACKUP_LOCATION=${EXTERNAL_DRIVE_MOUNTPOINT}/backup
+export BORG_PASSPHRASE=$(cat $USER_HOME/data/borg_key)
 
-export BORG_PASSPHRASE=$(cat ~/data/borg_key)
+source $USER_HOME/.config/zsh/functions.zsh
+
+if [[ "$EUID" -ne 0 ]]; then
+  log_info "Script not running with sudo. Running it with sudo."
+  sudo zsh $0
+  exit 0
+fi
 
 log_info "Mounting the external drive..."
-sudo mount UUID="32F68650006080B5" $EXTERNAL_DRIVE_MOUNTPOINT
-
-# Hopefully, pruning the backups won't last long enough so that the next sudo call will require manual input.
-# That's why it's called first.
-# Backup can take longer than 15 minutes (the default sudo credentials cache time, I think)
-# I'd just run the whole script as root, but then I'd need to put it in a location that's on the root user's PATH.
-# And I don't want to go through that hassle just yet.
-log_info "Pruning old backups..."
-sudo -E borg prune --stats --progress --keep-last 3 "${BACKUP_LOCATION}"
+mount UUID="32F68650006080B5" $EXTERNAL_DRIVE_MOUNTPOINT
 
 log_info "Creating a new backup..."
-sudo -E borg create --stats --progress \
-    "${BACKUP_LOCATION}::$(date --iso-8601=seconds --utc)-ognisko-data" ~/data
+borg create --stats --progress \
+    "${BACKUP_LOCATION}::$(date --iso-8601=seconds --utc)-ognisko-data" $USER_HOME/data
+
+log_info "Pruning old backups..."
+borg prune --stats --progress --keep-last 3 "${BACKUP_LOCATION}"
 
 log_info "Waiting for the drive to sync..."
 sync
 
 log_info "Unmounting the external drive..."
-sudo umount $EXTERNAL_DRIVE_MOUNTPOINT
+umount $EXTERNAL_DRIVE_MOUNTPOINT
 
 log_info "All done. Remove the external drive."
