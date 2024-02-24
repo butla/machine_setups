@@ -133,3 +133,16 @@ WantedBy=default.target
 ```
 
 Enable it: `systemctl --user enable a-service.service`
+
+## Operating Borg backup
+
+
+```bash
+# Create the backup repo from an empty folder:
+mkdir ${BACKUP_REPO_DIRECTORY}
+borg init ${BACKUP_REPO_DIRECTORY} --encryption repokey
+# save the key from here to password manager (e.g. KeePassXC), or to encrypted Git repo (e.g. Keybase Git repo)
+borg key export ${BACKUP_REPO_DIRECTORY}
+borg create --stats --progress \
+    "${BACKUP_REPO_DIRECTORY}::$(date --iso-8601=seconds --utc)-${BACKUP_REPO_NAME}" ${DIR_TO_BACKUP}
+```

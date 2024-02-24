@@ -1,0 +1,35 @@
+#!/bin/zsh
+set -e
+
+BACKUP_REPO_DIRECTORY=/efi_backup
+BACKUP_REPO_NAME=efi-backup-$(hostname)
+DIR_TO_BACKUP=/efi
+BACKUPS_NUM_TO_KEEP=5
+USER_HOME=/home/butla
+
+export BORG_PASSPHRASE=$(cat $USER_HOME/.credentials/borg_key)
+source $USER_HOME/.config/zsh/functions.zsh
+
+if [[ "$EUID" -ne 0 ]]; then
+  log_info "Script not running with sudo. Running it with sudo."
+  sudo zsh $0
+  exit 0
+fi
+
+if [[ ! -d ${BACKUP_REPO_DIRECTORY} ]]; then
+    log_info "About to create a backup repo for ${DIR_TO_BACKUP}"
+    mkdir -p ${BACKUP_REPO_DIRECTORY}
+    log_info "Initializing the backup repository. A password will be needed."
+    borg init  ${BACKUP_REPO_DIRECTORY} --encryption repokey
+    log_info "Attention, backup this key! Save it to password manager (e.g. KeePassXC), or to encrypted Git repo (e.g. Keybase Git repo)"
+    borg key export ${BACKUP_REPO_DIRECTORY}
+fi
+
+log_info "Creating a new backup..."
+borg create --stats --progress \
+    "${BACKUP_REPO_DIRECTORY}::$(date --iso-8601=seconds --utc)-${BACKUP_REPO_NAME}" ${DIR_TO_BACKUP}
+
+log_info "Pruning old backups..."
+borg prune --stats --progress --keep-last ${BACKUPS_NUM_TO_KEEP} "${BACKUP_REPO_DIRECTORY}"
+
+log_info "EFI backup done."

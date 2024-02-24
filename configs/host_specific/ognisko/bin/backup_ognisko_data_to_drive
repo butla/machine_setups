@@ -4,8 +4,8 @@ set -e
 USER_HOME=/home/butla
 EXTERNAL_DRIVE_MOUNTPOINT=$USER_HOME/external_drive
 BACKUP_LOCATION=${EXTERNAL_DRIVE_MOUNTPOINT}/backup
-export BORG_PASSPHRASE=$(cat $USER_HOME/data/borg_key)
 
+export BORG_PASSPHRASE=$(cat $USER_HOME/data/borg_key)
 source $USER_HOME/.config/zsh/functions.zsh
 
 if [[ "$EUID" -ne 0 ]]; then
