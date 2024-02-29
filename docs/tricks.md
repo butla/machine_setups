@@ -146,3 +146,12 @@ borg key export ${BACKUP_REPO_DIRECTORY}
 borg create --stats --progress \
     "${BACKUP_REPO_DIRECTORY}::$(date --iso-8601=seconds --utc)-${BACKUP_REPO_NAME}" ${DIR_TO_BACKUP}
 ```
+
+## Check battery health
+
+```
+# first check available batteries
+upower -e
+# then check, for example
+upower -i /org/freedesktop/UPower/devices/battery_BAT0
+```
