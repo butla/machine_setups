@@ -80,6 +80,7 @@ plugins=(
   # and use it only when tutoring or presenting
   docker
   docker-compose
+  azure
 )
 
 source $ZSH/oh-my-zsh.sh

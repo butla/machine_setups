@@ -1,7 +1,6 @@
 [user]
-	email = michal.bultrowicz@gmail.com
+	email = michal.bultrowicz@scalosoft.com
 	name = Michal Bultrowicz
-	signingkey = 58B5D1039E1498C3
 [commit]
 #	TODO enable once gpg prompt is usable, that is it's not blocking my keyboard
 #	gpgsign = true

@@ -135,10 +135,10 @@ PACMAN_GUI_PACKAGES = {
     "vlc",  # an alternative video player
     "kolourpaint",  # Microsoft Paint clone
     "signal-desktop",  # private communicator
-    "discord",  # communicator / chat
+    # "discord",  # communicator / chat
     "qbittorrent",
     "qbittorrent-nox",  # non-GUI version of the torrent app
-    "virtualbox",
+    # "virtualbox",
     "libreoffice-still",
     "adapta-maia-theme",  # a theme for XFCE that I like
     "kvantum-manjaro",  # themes for QT apps
@@ -170,7 +170,7 @@ AUR_NO_GUI_PACKAGES = {
 }
 
 AUR_GUI_PACKAGES = {
-    "slack-desktop",
+    # "slack-desktop",
     "spotify",
     "tor-browser-bin",
     "zoom",  # video conferencing

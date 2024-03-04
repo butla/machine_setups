@@ -243,13 +243,7 @@ let g:ackprg = 'ag --vimgrep --hidden --ignore .git'
 
 " ALE configuration =====================
 
-" Set the linter depending on what's available in the current environment.
-for linter in ['ruff', 'pylint', 'flake8', 'pycodestyle']
-    if system("python3 -c 'import " . linter . "'") == ""
-        let g:ale_linters = { 'python': [linter] }
-        break
-    endif
-endfor
+let g:ale_linters = { 'python': ['ruff', 'mypy'] }
 
 " So far, the fixers are more annoying than helping, so I'll disable them for
 " the time being. I have isort set up in projects anyway.
@@ -257,6 +251,10 @@ endfor
 
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_fix_on_save = 1
+
+" Run ruff and mypy from poetry if we're in a poetry project
+let g:ale_python_ruff_auto_poetry = 1
+let g:ale_python_mypy_auto_poetry = 1
 
 " ======================================
 
