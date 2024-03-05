@@ -28,7 +28,7 @@ def set_gsettings():
     log.info("Setting up GTK app settings with GSettings...")
     run_gsettings("set org.x.pix.browser sort-type file::name")
 
-    if machine_info.get_desktop_environment() != "gnome":
+    if 'gnome' not in machine_info.get_desktop_environment():
         return
 
     log.info("Setting up Gnome settings with GSettings...")
