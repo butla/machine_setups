@@ -9,7 +9,7 @@ sudo apt-get update
 
 This is the command. Packages are documented below.
 
-sudo apt install neovim httpie curl wget htop entr fd-find fzf silversearcher-ag git nmap sipcalc ranger tmux tree hunspell hunspell-en-us hunspell-pl pandoc whois nethogs iotop sshfs wavemon twine yamllint strace python3-virtualenvwrapper python3-poetry pipx zsh fonts-powerline zsh-autosuggestions lolcat cowsay asciinema sl mediainfo glances netcat yt-dlp bat zip unzip rsync python3.11-full python-is-python3 syncthing dos2unix odt2txt smartmontools toilet xsel xclip alacritty arandr brave-browser meld keepassxc pix cheese okular xournalpp simple-scan mpv vlc kolourpaint krita audacity xsensors psensor dconf-editor freeplane chromium-browser caffeine yubioath-desktop pix
+sudo apt install neovim httpie curl wget htop entr fd-find fzf silversearcher-ag git nmap sipcalc ranger tmux tree hunspell hunspell-en-us hunspell-pl pandoc whois nethogs iotop sshfs wavemon twine yamllint strace python3-virtualenvwrapper python3-poetry pipx zsh fonts-powerline zsh-autosuggestions lolcat cowsay asciinema sl mediainfo glances netcat yt-dlp bat zip unzip rsync python3.11-full python-is-python3 syncthing dos2unix odt2txt smartmontools toilet xsel xclip alacritty arandr brave-browser meld keepassxc pix cheese okular xournalpp simple-scan mpv vlc kolourpaint krita audacity xsensors psensor dconf-editor freeplane chromium-browser caffeine yubioath-desktop pix dbus-x11
 
 ## Get these from snap
 Slack
@@ -30,6 +30,10 @@ awesome-terminal-fonts - fonts-hack-ttf should handle that
 
 Docker - https://docs.docker.com/engine/install/ubuntu/
 
+poetry - get from pipx
+
+dbus-x11 - needed for dbus-launch
+
 ## Manjaro to Ubuntu packages
 fd -> fd-find
 the_silver_searcher -> silversearcher-ag
@@ -39,14 +43,12 @@ gnu-netcat -> netcat
 hunspell-en_us -> hunspell-en-us
 zsh-completions -> zsh-autosuggestions (is this really that?)
 python-virtualenvwrapper -> python3-virtualenvwrapper
-python-poetry -> python3-poetry
 python-pipx -> pipx
 yubico-authenticator-bin -> yubioath-desktop
 caffeine-ng -> caffeine
 brave -> brave-browser
 chromium -> chromium-browser
 libnotify -> libnotify-bin
-
 
 ## Skipped packages
 borg

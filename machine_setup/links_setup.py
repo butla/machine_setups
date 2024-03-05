@@ -69,7 +69,8 @@ def set_up_links(source_dir: Path, target_dir: Path) -> None:
 
     for link_to_create in links_to_create:
         log.info("Creating the link at %s", link_to_create.location)
-        link_to_create.location.symlink_to(link_to_create.target)
+        # using run_cmd to not create the links as root
+        shell.run_cmd(f"ln -s {link_to_create.target} {link_to_create.location}")
 
 
 def _should_set_up_link(path) -> bool:
@@ -113,7 +114,7 @@ def _ensure_parent_dirs(paths: Iterable[Path]):
     for path in paths:
         if not path.parent.exists():
             log.info("Creating directory: %s", path.parent)
-            path.parent.mkdir(parents=True)
+            shell.ensure_directory(path.parent)
 
 
 def _backup_and_remove_existing_targets(paths: Iterable[Path]):

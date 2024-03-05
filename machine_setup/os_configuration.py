@@ -165,7 +165,7 @@ def setup_neovim():
     vim_color_scheme_file = shell.home_path() / ".vim/colors/darcula.vim"
     if not vim_color_scheme_file.exists():
         log.info("Pulling the colorsheme file for NeoVim...")
-        vim_color_scheme_file.parent.mkdir(parents=True, exist_ok=True)
+        shell.ensure_directory(vim_color_scheme_file.parent)
         color_scheme_url = "https://raw.githubusercontent.com/blueshirts/darcula/master/colors/darcula.vim"
         shell.run_cmd(f"wget -O {vim_color_scheme_file} {color_scheme_url}")
 
@@ -227,7 +227,7 @@ def setup_crontab():
     log.info("Ensuring periodic operations with cron and anacron.")
 
     users_anacron_spool_dir = shell.home_path() / ".local/var/spool/anacron"
-    users_anacron_spool_dir.mkdir(parents=True, exist_ok=True)
+    shell.ensure_directory(users_anacron_spool_dir)
 
     # TODO this doesn't work as expected. If the day is skipped, then the action doesn't happen.
     # It has to be set up with anacrontab with manipulation of the spool file, so that the action is run on first

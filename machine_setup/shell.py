@@ -85,8 +85,7 @@ def ensure_file_line(
     change_message = f"File {path} - ensured line {line_content}"
 
     if not path.exists():
-        # Using run_cmd to ensure these get created as the regular user and not root, which is running this script.
-        run_cmd(f"mkdir -p {path.parent}")
+        ensure_directory(path.parent)
         run_cmd(f"touch {path.parent}")
         path.write_text(line_content)
         log.info(change_message)
@@ -119,8 +118,13 @@ def ensure_file_contents(path: Union[str, Path], contents: str):
         return
 
     log.info(f"Ensuring file {path} is set up.")
-    path.parent.mkdir(parents=True, exist_ok=True)
+    ensure_directory(path.parent)
     path.write_text(contents)
+
+
+def ensure_directory(path: Path):
+    # Using run_cmd to ensure these get created as the regular user and not root, which is running this script.
+    run_cmd(f"mkdir -p {path}")
 
 
 def clone_or_update_git_repo(repo_url: str, clone_location: Path):
@@ -129,5 +133,5 @@ def clone_or_update_git_repo(repo_url: str, clone_location: Path):
         run_cmd("git pull", work_directory=clone_location)
     else:
         log.info("Pulling Git repo %s into %s", repo_url, clone_location)
-        clone_location.parent.mkdir(parents=True, exist_ok=True)
+        ensure_directory(clone_location.parent)
         run_cmd(f"git clone {repo_url} {clone_location}")

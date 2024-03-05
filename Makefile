@@ -25,6 +25,7 @@ check_continously:
 	# --keep-going instructs "make" to not stop on the first command that fails, so we get a result for all the checks
 	fd '\.py$$' machine_setup/ configs/ tests/ | entr -c make --keep-going check
 
+# TODO switch out black, isort, and pylint to ruff
 format:
 	@echo ===Formatting code===
 	poetry run isort $(SOURCES)
@@ -52,5 +53,4 @@ format_check:
 	@echo ===Checking formatting===
 	poetry run black -c $(SOURCES)
 
-# TODO formatting
 # TODO mypy
