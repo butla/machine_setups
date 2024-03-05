@@ -130,18 +130,20 @@ bindkey '^K' fzf-cd-widget
 # virtualenvwrapper setup
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/development
-source $(which virtualenvwrapper.sh)
+source /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh
 
 # fd configuration, mainly so that FZF works more to my liking
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FZF_DEFAULT_COMMAND='fdfind --type f --hidden --follow --exclude .git'
 
 source ~/.config/zsh/aliases.zsh
 source ~/.config/zsh/functions.zsh
 
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-source /usr/share/nvm/init-nvm.sh
+# not using nvm
+# source /usr/share/nvm/init-nvm.sh
 
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+# source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+source $HOME/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.config/zsh/p10k.zsh ]] || source ~/.config/zsh/p10k.zsh

@@ -37,7 +37,7 @@ def main(stop_on_errors=False):
     log.info("Starting system upgrade...")
 
     upgrade_steps: List[Callable] = [
-        sync_packages,
+        # sync_packages,
         install_oh_my_zsh,
         machine_setup.links_setup.setup_all_links,
         os_configuration.setup_tmux_plugins,
@@ -46,7 +46,7 @@ def main(stop_on_errors=False):
         os_configuration.enable_services,
         os_configuration.ensure_ntp,
         os_configuration.setup_crontab,
-        os_configuration.set_java_version,
+        # os_configuration.set_java_version,
         os_configuration.apply_app_specific_config_patches,
         os_configuration.setup_neovim,
         describe_manual_steps,

@@ -1,6 +1,7 @@
 alias r='ranger'
 alias t='tmux -2'
 alias vv='tmux_ide_panel'
+alias fd='fdfind'
 
 # quick adding of untracked or changed files
 alias ga='git add $(git ls-files --modified --others --exclude-standard | fzf) && git status'
