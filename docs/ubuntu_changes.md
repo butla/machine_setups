@@ -96,6 +96,9 @@ https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html#cl
 # Run `machine_setup` without some steps
 Disable `sync_packages` and `set_java_version`
 
-# Powerlevel10k setup
+# Tweak fzf history
+.local/share/nvim/plugged/fzf/shell/key-bindings.zsh -> remove "--scheme=history"
 
+# Powerlevel10k setup
 Run p10k configure once for a new system
+And then merge it with the version from the repo.

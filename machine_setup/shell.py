@@ -86,7 +86,7 @@ def ensure_file_line(
 
     if not path.exists():
         ensure_directory(path.parent)
-        run_cmd(f"touch {path.parent}")
+        run_cmd(f"touch {path}")
         path.write_text(line_content)
         log.info(change_message)
         return
