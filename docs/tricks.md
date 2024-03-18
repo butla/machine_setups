@@ -158,5 +158,8 @@ upower -i /org/freedesktop/UPower/devices/battery_BAT0
 ```
 
 ## Git - using custom SSH key and user for a repo
-`git config --local core.sshCommand "/usr/bin/ssh -o IdentitiesOnly=yes -i /home/butla/.ssh/id_rsa_priv"`
-`git config --local user.email "michal.bultrowicz@gmail.com"`
+```
+GIT_SSH_COMMAND='ssh -i ~/.ssh/id_rsa_priv -o IdentitiesOnly=yes' git clone git@github.com:butla/bultrowicz.com
+git config --local core.sshCommand "/usr/bin/ssh -o IdentitiesOnly=yes -i /home/butla/.ssh/id_rsa_priv"
+git config --local user.email "michal.bultrowicz@gmail.com"
+```

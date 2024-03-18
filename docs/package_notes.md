@@ -165,3 +165,8 @@ brush size: shift + motion
 
 Passing more rare connection options:
 `PGPASSWORD=<password> pgcli "sslmode=require host=<host> dbname=<db> user=<user> port=<number>"`
+
+## pyenv
+
+On Ubuntu
+sudo apt-get install build-essential zlib1g-dev libffi-dev libssl-dev libbz2-dev libreadline-dev libsqlite3-dev liblzma-dev tk-dev
