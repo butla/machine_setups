@@ -20,19 +20,20 @@ tmux split-window -hd -l 124 zsh -ic v
 # vertical split, open above us with ranger for file management.
 # It's called through interactive ZSH, so that environment variables like $EDITOR and $PAGER get loaded from .zshrc
 # I prefer a full-featured file manager in a tmux split than having something like nerdtree in Vim.
-tmux split-window -vdb -p 40 zsh -ic ranger
+tmux split-window -vdb -l "40%" zsh -ic ranger
 
-if [ -f docker-compose.yml ]; then
-    declare -a MAIN_CONTAINER_NAMES=('app' 'django')
-    service_names=$(yq '.services | to_entries[] | .key' docker-compose.yml)
+# TODO maybe start using something like this later
+# if [ -f docker-compose.yml ]; then
+#     declare -a MAIN_CONTAINER_NAMES=('app' 'django')
+#     service_names=$(yq '.services | to_entries[] | .key' docker-compose.yml)
 
-    for main_container_name in ${MAIN_CONTAINER_NAMES[@]}; do
-        if echo $service_names | grep $main_container_name > /dev/null; then
-            run_container_in_pane $main_container_name
-            break
-        fi
-    done
-fi
+#     for main_container_name in ${MAIN_CONTAINER_NAMES[@]}; do
+#         if echo $service_names | grep $main_container_name > /dev/null; then
+#             run_container_in_pane $main_container_name
+#             break
+#         fi
+#     done
+# fi
 
 # switch to the vim view. It'll be pane 3 if we have the Docker pane, pane 2 otherwise
-tmux select-pane -t 3 2> /dev/null || tmux select-pane -t 2
+tmux select-pane -t 2
