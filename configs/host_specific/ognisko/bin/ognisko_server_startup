@@ -1,13 +1,17 @@
 #!/bin/bash
+set -e
+
+DRIVE_1=/dev/disk/by-uuid/b44fd9cd-549c-426b-98c1-ba92ef864052
+DRIVE_2=/dev/disk/by-uuid/f04ff4f1-ff44-40fe-80b4-7cccca080049
 
 echo Making the drives spin down after inactivity...
-sudo hd-idle -a sdb -i 300
-sudo hd-idle -a sda -i 300
+sudo hd-idle -a ${DRIVE_1} -i 300
+sudo hd-idle -a ${DRIVE_2} -i 300
 
 STORAGE_PATH=~/data
 echo Mounting encrypted storage to ${STORAGE_PATH}...
-sudo cryptsetup open /dev/sda crypt_data_1
-sudo cryptsetup open /dev/sdb crypt_data_2
+sudo cryptsetup open ${DRIVE_1} crypt_data_1
+sudo cryptsetup open ${DRIVE_2} crypt_data_2
 
 sudo mount -t btrfs /dev/mapper/crypt_data_1 ${STORAGE_PATH}
 
