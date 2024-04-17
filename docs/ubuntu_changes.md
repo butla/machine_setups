@@ -12,11 +12,15 @@ This is the command. Packages are documented below.
 sudo apt install neovim httpie curl wget htop entr fd-find fzf silversearcher-ag git nmap sipcalc ranger tmux tree hunspell hunspell-en-us hunspell-pl pandoc whois nethogs iotop sshfs wavemon twine yamllint strace python3-virtualenvwrapper python3-poetry pipx zsh fonts-powerline zsh-autosuggestions lolcat cowsay asciinema sl mediainfo glances netcat yt-dlp bat zip unzip rsync python3.11-full python-is-python3 syncthing dos2unix odt2txt smartmontools toilet xsel xclip alacritty arandr brave-browser meld keepassxc pix cheese okular xournalpp simple-scan mpv vlc kolourpaint krita audacity xsensors psensor dconf-editor freeplane chromium-browser caffeine yubioath-desktop pix dbus-x11
 
 ## Get these from snap
-Slack
 signal
 spotify
-zoom
 drawio
+
+## Get these as .deb packages
+Screensharing doesn't work through Snap.
+
+Slack
+zoom
 
 ## Packages to get in alternative ways
 ueberzug installed from pipx (it's not there, there's a fork ueberzug-bak, but it won't work on wayland anyway. Maybe should switch to Kitty)
