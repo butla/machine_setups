@@ -32,6 +32,9 @@ or [this solution](https://forum.manjaro.org/t/root-tip-how-to-mitigate-and-prev
 Looks like the sig files in /var/lib/pacman/sync (and other similar folders) that get downloaded by pacman
 sometimes contain error HTTP responses from the mirror instead of signatures.
 
+## Pamac: some AUR build issues
+rm -rf /var/tmp/pamac-build-{user}/{app}
+
 ## Test anacrontab
 anacron -d -t ${HOME}/.local/etc/anacrontab -S /home/butla/.local/var/spool/anacron
 
