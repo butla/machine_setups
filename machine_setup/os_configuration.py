@@ -97,6 +97,7 @@ def set_gsettings():
         ("file explorer", "<Super>f", "nautilus"),
         ("sleep", "<Shift><Super>l", "systemctl suspend"),
         ("reboot", "<Shift><Super>r", "systemctl reboot"),
+        ("poweroff", "<Shift><Super>p", "systemctl poweroff"),
     ]
     keybinding_entry_paths = [
         f"/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom{index}/"
