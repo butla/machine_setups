@@ -163,3 +163,16 @@ GIT_SSH_COMMAND='ssh -i ~/.ssh/id_rsa_priv -o IdentitiesOnly=yes' git clone git@
 git config --local core.sshCommand "/usr/bin/ssh -o IdentitiesOnly=yes -i /home/butla/.ssh/id_rsa_priv"
 git config --local user.email "michal.bultrowicz@gmail.com"
 ```
+
+## Find media/photo files older alphabetically lower than (older) than a file
+```python
+from pathlib import Path
+import shutil
+
+src = Path('src_dir')
+dest = Path('dest_dir')
+
+older = sorted([p for p in src.iterdir() if (p.suffix.lower() in ('.mp4', '.jpg', '.xmp')) and p.name < '20230310'])
+for older_media_file in older:
+    shutil.move(older_media_file, dest)
+```
