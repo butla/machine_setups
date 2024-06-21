@@ -112,6 +112,8 @@ It's bugged right now, and it didn't have a release in a while.
 yt-dlp is a more up-to date fork, but the current Manjaro version has the same bug.
 It's up to date on pypi (installable with pipx), though.
 
+Looks ok on Manjaro now.
+
 ## slidev
 
 ### Change font size globally
