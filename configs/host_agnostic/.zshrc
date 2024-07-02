@@ -121,10 +121,9 @@ bindkey -v
 bindkey "^D" delete-char-or-list
 bindkey "^?" backward-delete-char
 
-# fzf for shell history
-source ~/.local/share/nvim/plugged/fzf/shell/key-bindings.zsh
-
-# bind cd with fzf to crtl+k in addition to esc+c (described as alt+c)
+# Sets fzf widget as shell history (ctrl+r). Also adds more widgets.
+source <(fzf --zsh)
+# ctrl+k to cd into a fuzzily found directory
 bindkey '^K' fzf-cd-widget
 
 # virtualenvwrapper setup
