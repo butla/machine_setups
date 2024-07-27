@@ -9,39 +9,114 @@ license = "MIT"
 python = "^3.11"
 
 [tool.poetry.group.dev.dependencies]
-pylint = "^2.7.4"
 pytest = "^6.2.5"
 requests = "^2.27.0"
 python-dateutil = "^2.8.2"
 pytz = "^2021.3"
-pylint-pytest = "^1.1.2"
 pdbpp = "^0.10.3"
-isort = "^5.12.0"
 mypy = "^1.4.1"
-black = "^23.7.0"
+ruff = "^0.5.5"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
-[tool.isort]
-# https://pycqa.github.io/isort/docs/configuration/options.html#force-sort-within-sections
-force_sort_within_sections = true
+# Config documentation: https://docs.astral.sh/ruff/settings/
+[tool.ruff]
+target-version = "py311"
+line-length = 115
+src = ["machine_setup", "tests"]
 
-[tool.pylint.master]
-load-plugins = "pylint_pytest"
-
-[tool.pylint.format]
-max-line-length = 120
-
-[tool.pylint.report]
-# to prevent the useless message about the code being rated at 10 when there aren't any pylint issues.
-score = false
-
-[tool.pylint.messages_control]
-disable = [
-    "missing-docstring",
-    "fixme",
-    # not such a performance issue in this project
-    "logging-fstring-interpolation",
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
 ]
+
+[tool.ruff.lint]
+preview = true
+# Docs for the rules: https://docs.astral.sh/ruff/rules/
+# This should be almost all rules with some exception. Listed in the order from docs.
+# Excluded checkers:
+# - CPY - copyright
+select = ["F", "E", "W",
+          "C90", "I", "N",
+          "D", "UP", "YTT",
+          "ANN", "ASYNC", "ASYNC1",
+          "S", "BLE", "FBT",
+          "B", "A", "COM",
+          "C4", "DTZ", "T10", "DJ",
+          "EM", "EXE", "ISC",
+          "ICN", "G", "INP",
+          "PIE", "T20", "PYI",
+          "PT", "Q", "RSE",
+          "RET", "SLF", "SLOT",
+          "SIM", "TID", "TCH",
+          "INT", "ARG", "PTH",
+          "TD", "FIX", "ERA",
+          "PD", "PGH", "PL",
+          "TRY", "FLY", "NPY",
+          "PERF", "FURB", "LOG",
+          "RUF",
+          ]
+ignore = [
+    "TD002", "TD003", "TD004", "TD007", # Ignore errors for specific todos in code
+    "S101", # Ignore asserts errors since cannot set for tests and would require for each project and tests specific pyproject configuration
+    "ANN101", # MyPy is checking that part
+    "ANN401", # If needed used deliberately
+    "PT001", # Use fixtures without brackets if they have no arguments
+    "B008", # FastAPI requires to a lot of usage that triggers
+    "COM812", # Ignoring, we don't want commas at the end if it is last element
+    "D104", # allow missing docstring in public package
+    "D100", # allow missing docstring in public module
+    "D103", # allow missing docstring in public function
+    "D203", # choosing no blank line before docstrings on classes
+    "D212", # choosing a line break at beginning of docstrings
+    "D417", # not all arguments need documentation
+    "FBT001", # boolean function arguments can be OK
+    "FBT002", # boolean function arguments defaults can be OK
+    "FIX002", # TODOs in code are acceptable
+    "G004", # f-strings in logs are OK, really
+    "PT023", # We want to be able to call pytest mark without parenthesis
+    "ISC001",  # ruff is suggesting that this can conflict with the formatter
+]
+
+# Only sorting imports now. Other fixes could be enabled.
+fixable = ["I"]
+# fixable = ["E", "F", "I", "W", "COM", "UP", "PT", "PL", "RUF", "ANN", "C"]
+unfixable = []
+
+# TODO set that to the standard logger object when there's one
+# https://docs.astral.sh/ruff/settings/#lint_logger-objects
+# logger-objects = []
+
+[tool.ruff.lint.mccabe]
+# Unlike Flake8, default to a complexity level of 10.
+max-complexity = 10
+
+[tool.ruff.lint.isort]
+force-sort-within-sections = true
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.bandit]
+skips = ["B101"]
