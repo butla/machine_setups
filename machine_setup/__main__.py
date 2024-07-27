@@ -143,7 +143,7 @@ if __name__ == "__main__":
 
 
 # TODOs
-# - add precommit: mypy, black, isort
+# - add precommit: mypy, ruff
 # - make package update faster: if the last "synchronizing package lists" in /var/log/pacman.log is no older than 8 hours
 # - make neovim plugin update not mess up the script's output
 # - Rename "configs" to "files_to_link"

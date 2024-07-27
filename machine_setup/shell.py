@@ -3,9 +3,7 @@ import logging
 from pathlib import Path
 import re
 import shlex
-import subprocess
-import sys
-from typing import Union
+import subprocess  # noqa: S404
 
 from machine_setup import constants
 
@@ -19,20 +17,24 @@ def home_path() -> Path:
 
 def run_cmd(
     command: str,
-    work_directory: str = ".",
+    work_directory: str | Path = ".",
     allow_fail: bool = False,
     as_root: bool = False,
 ) -> subprocess.CompletedProcess:
     """
+    Run a shell command.
+
     Args:
-        as_root: the script assumes running as root, so specifying this parameter to False will add sudo as the regular
-            user.
+    ----
+        as_root: the script assumes running as root, so specifying this parameter to False will add sudo as the
+            regular user.
+
     """
     parsed_command = shlex.split(command)
     if not as_root:
         parsed_command = shlex.split(f"sudo -u {constants.USER}") + parsed_command
 
-    result = subprocess.run(
+    result = subprocess.run(  # noqa: S603
         parsed_command,
         check=False,
         cwd=work_directory,
@@ -42,18 +44,16 @@ def run_cmd(
 
     command_failed = result.returncode != 0
     if not allow_fail and command_failed:
-        message = (
-            f"Command: '{parsed_command}' failed with status {result.returncode}.\n"
-        )
+        message = f"Command: '{parsed_command}' failed with status {result.returncode}.\n"
         log.error(message)
-        raise Exception(message)
+        raise RuntimeError(message)
 
     return result
 
 
-def check_command_exists(command: str) -> str:
+def check_command_exists(command: str) -> bool:
     return (
-        subprocess.run(
+        subprocess.run(  # noqa: S602
             f"command -v {command}",
             shell=True,
             stdout=subprocess.DEVNULL,
@@ -63,21 +63,21 @@ def check_command_exists(command: str) -> str:
     )
 
 
-def replace_in_file(match: str, replacement: str, file: str):
+def replace_in_file(match: str, replacement: str, file: str) -> None:
     run_cmd(f"sed -i -E 's|{match}|{replacement}|' {file}", as_root=True)
 
 
-def ensure_file_line(
-    path: Union[str, Path], line_matcher: str, line_content: str, as_root: bool = False
-):
-    """Ensures a given line exists in the file.
-    If the file doesn't exist it'll be created.
+def ensure_file_line(path: str | Path, line_matcher: str, line_content: str) -> None:
+    """
+    Ensure a given line exists in the file. If the file doesn't exist it'll be created.
 
     Args:
+    ----
+        path: file path
         line_matcher: regex used to match the line that'll be set.
             If it doesn't match anything, the line will be added at the end of the file.
-        as_root: the script assumes running as root, so specifying this parameter to False will add sudo as the regular
-            user.
+        line_content: line content to set
+
     """
     # TODO!!!!
     # Also replace usages
@@ -93,16 +93,14 @@ def ensure_file_line(
 
     file_contents = path.read_text()
 
-    any_lines_match = bool(re.findall(line_matcher, file_contents, flags=re.M))
+    any_lines_match = bool(re.findall(line_matcher, file_contents, flags=re.MULTILINE))
     if not any_lines_match:
         with path.open(mode="a") as file_handle:
             file_handle.write(line_content + "\n")
         log.info(change_message)
         return
 
-    contents_after_change = re.sub(
-        line_matcher, line_content, file_contents, flags=re.M
-    )
+    contents_after_change = re.sub(line_matcher, line_content, file_contents, flags=re.MULTILINE)
 
     if file_contents == contents_after_change:
         log.info(f"File {path} already has line: {line_content}")
@@ -111,7 +109,7 @@ def ensure_file_line(
         log.info(change_message)
 
 
-def ensure_file_contents(path: Union[str, Path], contents: str):
+def ensure_file_contents(path: str | Path, contents: str) -> None:
     path = Path(path)
 
     if path.exists() and path.read_text() == contents:
@@ -122,12 +120,12 @@ def ensure_file_contents(path: Union[str, Path], contents: str):
     path.write_text(contents)
 
 
-def ensure_directory(path: Path):
+def ensure_directory(path: Path) -> None:
     # Using run_cmd to ensure these get created as the regular user and not root, which is running this script.
     run_cmd(f"mkdir -p {path}")
 
 
-def clone_or_update_git_repo(repo_url: str, clone_location: Path):
+def clone_or_update_git_repo(repo_url: str, clone_location: Path) -> None:
     if clone_location.exists():
         log.info("Updating Git repo: %s", clone_location)
         run_cmd("git pull", work_directory=clone_location)
