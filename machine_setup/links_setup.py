@@ -49,9 +49,7 @@ def set_up_links(source_dir: Path, target_dir: Path) -> None:
     target_dir = target_dir.absolute()
 
     files_and_dirs_to_link = list(source_dir.glob("**/*"))
-    files_to_link = [
-        path for path in files_and_dirs_to_link if _should_set_up_link(path)
-    ]
+    files_to_link = [path for path in files_and_dirs_to_link if _should_set_up_link(path)]
     if not files_to_link:
         return
 
@@ -90,9 +88,7 @@ def _get_links_to_set_up(
     links_location: Path,
 ) -> List[_LinkToSetUp]:
     file_path_strings = [str(path) for path in files_to_link]
-    link_path_strings = [
-        re.sub(f"^{files_dir}", str(links_location), path) for path in file_path_strings
-    ]
+    link_path_strings = [re.sub(f"^{files_dir}", str(links_location), path) for path in file_path_strings]
     link_paths = [Path(path) for path in link_path_strings]
 
     initial_links = [

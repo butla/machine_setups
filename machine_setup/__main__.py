@@ -119,16 +119,12 @@ def _add_package_keys():
     for key in gpg_keys:
         run_key_cmd(f"gpg --recv-keys {key}")
 
-    run_key_cmd(
-        "gpg --auto-key-locate nodefault,wkd --locate-keys torbrowser@torproject.org"
-    )
+    run_key_cmd("gpg --auto-key-locate nodefault,wkd --locate-keys torbrowser@torproject.org")
 
 
 def install_oh_my_zsh():
     oh_my_zsh_path = shell.home_path() / ".oh-my-zsh"
-    shell.clone_or_update_git_repo(
-        "https://github.com/ohmyzsh/ohmyzsh.git", oh_my_zsh_path
-    )
+    shell.clone_or_update_git_repo("https://github.com/ohmyzsh/ohmyzsh.git", oh_my_zsh_path)
 
 
 def describe_manual_steps():

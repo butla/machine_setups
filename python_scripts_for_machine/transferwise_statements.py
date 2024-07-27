@@ -48,9 +48,7 @@ def main():
         print("Will request:\n", statements_url)
         # TODO this needs to get 403 with a challenge and then make the actual request now...
         subprocess.run(
-            shlex.split(
-                f'wget --header="Authorization: Bearer {token}" --content-disposition {statements_url}'
-            )
+            shlex.split(f'wget --header="Authorization: Bearer {token}" --content-disposition {statements_url}')
         )
     print("\nPulled all statements.")
 
@@ -63,9 +61,7 @@ def get_profile_id() -> int:
     resp.raise_for_status()
 
     profiles: List[dict] = resp.json()
-    business_profile = next(
-        profile for profile in profiles if profile["type"] == "business"
-    )
+    business_profile = next(profile for profile in profiles if profile["type"] == "business")
     return business_profile["id"]
 
 
@@ -87,9 +83,7 @@ def get_month_ends(date_in_month: datetime) -> Tuple[str, str]:
         return as_utc.isoformat().replace("+00:00", "Z")
 
     gb_timezone = pytz.timezone("Europe/London")
-    start_date = gb_timezone.localize(
-        datetime(year=date_in_month.year, month=date_in_month.month, day=1)
-    )
+    start_date = gb_timezone.localize(datetime(year=date_in_month.year, month=date_in_month.month, day=1))
 
     end_date = start_date + relativedelta(months=1)
     return to_utc_string(start_date), to_utc_string(end_date)

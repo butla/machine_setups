@@ -17,9 +17,7 @@ def test_works_on_nonexisting_file(file_path: Path):
     line_matcher = line_to_ensure
     expected_file_contents = line_to_ensure
 
-    shell.ensure_file_line(
-        path=file_path, line_matcher=line_matcher, line_content=line_to_ensure
-    )
+    shell.ensure_file_line(path=file_path, line_matcher=line_matcher, line_content=line_to_ensure)
 
     assert file_path.read_text() == expected_file_contents
 
@@ -28,9 +26,7 @@ def test_works_on_nonexistent_file_in_nonexistent_directories(tmp_path):
     path = tmp_path / "level_1" / "level_2" / "file_name"
     line_to_ensure = "flamingo"
 
-    shell.ensure_file_line(
-        path=path, line_matcher="whatever", line_content=line_to_ensure
-    )
+    shell.ensure_file_line(path=path, line_matcher="whatever", line_content=line_to_ensure)
 
     assert path.read_text() == line_to_ensure
 
@@ -45,9 +41,7 @@ zzzzzzzz
     line_to_ensure = "yyy = squirrel"
     line_matcher = r"yyy.*"
 
-    shell.ensure_file_line(
-        path=file_path, line_matcher=line_matcher, line_content=line_to_ensure
-    )
+    shell.ensure_file_line(path=file_path, line_matcher=line_matcher, line_content=line_to_ensure)
 
     expected_file_contents = """
 xxxxxxxx
@@ -66,9 +60,7 @@ zzzzzzzz
     line_to_ensure = "yyy = squirrel"
     line_matcher = r"yyy.*"
 
-    shell.ensure_file_line(
-        path=file_path, line_matcher=line_matcher, line_content=line_to_ensure
-    )
+    shell.ensure_file_line(path=file_path, line_matcher=line_matcher, line_content=line_to_ensure)
 
     expected_file_contents = """
 xxxxxxxx
@@ -86,9 +78,7 @@ xxxxxxxx
     line_to_ensure = "yyy = squirrel"
     line_matcher = r"xxx.*"
 
-    shell.ensure_file_line(
-        path=str(file_path), line_matcher=line_matcher, line_content=line_to_ensure
-    )
+    shell.ensure_file_line(path=str(file_path), line_matcher=line_matcher, line_content=line_to_ensure)
 
     expected_file_contents = """
 yyy = squirrel

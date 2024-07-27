@@ -191,12 +191,8 @@ NOT_PRESENT_IN_MANJARO_ARM_PACKAGES = {
     "libva-intel-driver",
     "keybase-bin",
 }
-_arm_exclusions_not_present_in_list_of_all = (
-    NOT_PRESENT_IN_MANJARO_ARM_PACKAGES - FULL_PACKAGES
-)
-_arm_excluded_packages_are_in_list_of_all = not bool(
-    _arm_exclusions_not_present_in_list_of_all
-)
+_arm_exclusions_not_present_in_list_of_all = NOT_PRESENT_IN_MANJARO_ARM_PACKAGES - FULL_PACKAGES
+_arm_excluded_packages_are_in_list_of_all = not bool(_arm_exclusions_not_present_in_list_of_all)
 if not _arm_excluded_packages_are_in_list_of_all:
     raise Exception(
         f"Some of the packages excluded on ARM aren't in the list of all packages. Remove outdated exclusions!: {_arm_exclusions_not_present_in_list_of_all}"

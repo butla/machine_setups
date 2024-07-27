@@ -16,9 +16,7 @@ log = logging.getLogger(__name__)
 
 def set_gsettings():
     gsettings_prefix = f"sudo -Hu {constants.USER} dbus-launch gsettings"
-    run_gsettings = lambda command: shell.run_cmd(
-        f"{gsettings_prefix} {command}", as_root=True
-    )
+    run_gsettings = lambda command: shell.run_cmd(f"{gsettings_prefix} {command}", as_root=True)
 
     """Sets settings with gsettings. These are used by Gnome/GTK apps."""
     if not machine_info.check_gui_present():
@@ -28,7 +26,7 @@ def set_gsettings():
     log.info("Setting up GTK app settings with GSettings...")
     run_gsettings("set org.x.pix.browser sort-type file::name")
 
-    if 'gnome' not in machine_info.get_desktop_environment():
+    if "gnome" not in machine_info.get_desktop_environment():
         return
 
     log.info("Setting up Gnome settings with GSettings...")
@@ -62,29 +60,17 @@ def set_gsettings():
     run_gsettings("set org.gnome.desktop.wm.keybindings close \"['<Alt>F4']\"")
     run_gsettings("set org.gnome.desktop.wm.keybindings show-desktop \"['<Super>d']\"")
     run_gsettings("set org.gnome.desktop.wm.keybindings begin-move \"['<Super>m']\"")
-    run_gsettings(
-        "set org.gnome.settings-daemon.plugins.media-keys magnifier-zoom-out \"['<Super>minus']\""
-    )
-    run_gsettings(
-        "set org.gnome.settings-daemon.plugins.media-keys magnifier-zoom-in \"['<Super>equal']\""
-    )
+    run_gsettings("set org.gnome.settings-daemon.plugins.media-keys magnifier-zoom-out \"['<Super>minus']\"")
+    run_gsettings("set org.gnome.settings-daemon.plugins.media-keys magnifier-zoom-in \"['<Super>equal']\"")
     # this makes sure alt-tab doesn't group stuff together
-    run_gsettings(
-        "set org.gnome.desktop.wm.keybindings switch-windows \"['<Alt>Tab']\""
-    )
-    run_gsettings(
-        "set org.gnome.desktop.wm.keybindings switch-windows-backward \"['<Shift><Alt>Tab']\""
-    )
+    run_gsettings("set org.gnome.desktop.wm.keybindings switch-windows \"['<Alt>Tab']\"")
+    run_gsettings("set org.gnome.desktop.wm.keybindings switch-windows-backward \"['<Shift><Alt>Tab']\"")
     run_gsettings('set org.gnome.desktop.wm.keybindings switch-applications "[]"')
-    run_gsettings(
-        'set org.gnome.desktop.wm.keybindings switch-applications-backward "[]"'
-    )
+    run_gsettings('set org.gnome.desktop.wm.keybindings switch-applications-backward "[]"')
 
     # clear bindings for switching workspaces, so that they don't conflict with the custom ones
     for index in range(1, 10):
-        run_gsettings(
-            f'set org.gnome.desktop.wm.keybindings switch-to-workspace-{index} "[]"'
-        )
+        run_gsettings(f'set org.gnome.desktop.wm.keybindings switch-to-workspace-{index} "[]"')
 
     # Custom keybindings, based on https://askubuntu.com/a/597414
     # Gnome restart is required for these to start working.
@@ -105,8 +91,7 @@ def set_gsettings():
     ]
     # create a number of entries that will be filled with values below
     run_gsettings(
-        "set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "
-        f'"{str(keybinding_entry_paths)}"'
+        "set org.gnome.settings-daemon.plugins.media-keys custom-keybindings " f'"{str(keybinding_entry_paths)}"'
     )
     for index, custom_keybinding in enumerate(custom_keybindings):
         set_command_base = (
@@ -115,9 +100,7 @@ def set_gsettings():
             '{field_name} "{value}"'
         )
         for field_name, value in zip(["name", "binding", "command"], custom_keybinding):
-            run_gsettings(
-                set_command_base.format(index=index, field_name=field_name, value=value)
-            )
+            run_gsettings(set_command_base.format(index=index, field_name=field_name, value=value))
 
 
 def _setup_disabling_accessibility_toolkit_on_login():
@@ -133,8 +116,7 @@ Terminal=true
 Type=Application
 """
     shell.ensure_file_contents(
-        shell.home_path()
-        / ".config/autostart/gnome-accessibility-toolkit-disabler.desktop",
+        shell.home_path() / ".config/autostart/gnome-accessibility-toolkit-disabler.desktop",
         desktop_file,
     )
 
@@ -147,9 +129,7 @@ def setup_tmux_plugins():
 
     for plugin in tmux_plugins:
         plugin_location = tmux_plugins_dir / plugin
-        shell.clone_or_update_git_repo(
-            f"https://github.com/tmux-plugins/{plugin}", plugin_location
-        )
+        shell.clone_or_update_git_repo(f"https://github.com/tmux-plugins/{plugin}", plugin_location)
 
 
 def setup_neovim():
@@ -188,10 +168,7 @@ def ensure_ntp():
 
 def set_zsh_as_shell():
     current_shell = (
-        subprocess.check_output(["grep", constants.USER, "/etc/passwd"])
-        .decode()
-        .strip()
-        .split(":")[-1]
+        subprocess.check_output(["grep", constants.USER, "/etc/passwd"]).decode().strip().split(":")[-1]
     )
     shell_to_set = "/usr/bin/zsh"
 
@@ -216,9 +193,7 @@ def enable_services():
     # Ognisko will have syncthing started by a script that runs after boot.
     # Starting syncthing when the storage isn't mounted yet causes problems.
     if socket.gethostname() != "ognisko":
-        shell.run_cmd(
-            f"systemctl enable --now syncthing@{constants.USER}", as_root=True
-        )
+        shell.run_cmd(f"systemctl enable --now syncthing@{constants.USER}", as_root=True)
 
     # so that the hosts get DNS entries like <hostname>.local in the local subnet
     shell.run_cmd("systemctl enable --now avahi-daemon.service", as_root=True)

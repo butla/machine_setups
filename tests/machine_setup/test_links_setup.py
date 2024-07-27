@@ -35,9 +35,7 @@ def test_setup_links_creates_the_correct_links(source_dir: Path, target_dir: Pat
     ]
 
     # create the source files
-    for path_str in (
-        source_file_that_should_have_links + source_files_that_should_not_have_links
-    ):
+    for path_str in source_file_that_should_have_links + source_files_that_should_not_have_links:
         path = Path(source_dir) / path_str
         path.parent.mkdir(parents=True, exist_ok=True)
         path.touch()
@@ -59,27 +57,19 @@ def test_setup_links_creates_the_correct_links(source_dir: Path, target_dir: Pat
         Path(target_dir) / "b_dir",
         Path(target_dir) / "b_dir/c_dir",
     }
-    target_dir_expected_files = {
-        Path(target_dir) / file for file in source_file_that_should_have_links
-    }
+    target_dir_expected_files = {Path(target_dir) / file for file in source_file_that_should_have_links}
     target_dir_contents = set(target_dir.glob("**/*"))
 
     # assert we have the expected folders and links created
     assert target_dir_contents == target_dir_expected_dirs | target_dir_expected_files
 
     # assert the created links have expected targets
-    expected_link_targets = {
-        str(Path(source_dir) / file) for file in source_file_that_should_have_links
-    }
-    created_links_targets = {
-        os.readlink(item) for item in target_dir_contents if item.is_symlink()
-    }
+    expected_link_targets = {str(Path(source_dir) / file) for file in source_file_that_should_have_links}
+    created_links_targets = {os.readlink(item) for item in target_dir_contents if item.is_symlink()}
     assert created_links_targets == expected_link_targets
 
 
-def test_setup_links_backs_up_and_replaces_existing_files(
-    source_dir: Path, target_dir: Path
-):
+def test_setup_links_backs_up_and_replaces_existing_files(source_dir: Path, target_dir: Path):
     source_file_content = "Just some file content"
     source_file = source_dir / "bla/whatever.py"
     source_file.parent.mkdir(parents=True)
@@ -95,15 +85,10 @@ def test_setup_links_backs_up_and_replaces_existing_files(
         target_dir=target_dir,
     )
 
-    assert (
-        old_system_file.with_name(f"whatever.py{BACKUP_SUFFIX}").read_text()
-        == old_system_file_content
-    )
+    assert old_system_file.with_name(f"whatever.py{BACKUP_SUFFIX}").read_text() == old_system_file_content
 
 
-def test_setup_links_backs_up_and_replaces_existing_links(
-    source_dir: Path, target_dir: Path, tmp_path: Path
-):
+def test_setup_links_backs_up_and_replaces_existing_links(source_dir: Path, target_dir: Path, tmp_path: Path):
     source_file_name = "bla"
     source_file = source_dir / source_file_name
     source_file.touch()

@@ -1,7 +1,6 @@
 from datetime import datetime
 
 import pytest
-
 from python_scripts_for_machine import transferwise_statements
 
 
@@ -14,8 +13,6 @@ from python_scripts_for_machine import transferwise_statements
     ],
 )
 def test_get_month_ends(year, month, expected_start, expected_end):
-    start, end = transferwise_statements.get_month_ends(
-        datetime(year=year, month=month, day=1)
-    )
+    start, end = transferwise_statements.get_month_ends(datetime(year=year, month=month, day=1))
     assert start == expected_start
     assert end == expected_end
