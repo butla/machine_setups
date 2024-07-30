@@ -25,7 +25,6 @@ build-backend = "poetry.core.masonry.api"
 [tool.ruff]
 target-version = "py311"
 line-length = 115
-src = ["machine_setup", "tests"]
 
 exclude = [
     ".bzr",
@@ -52,7 +51,8 @@ exclude = [
 ]
 
 [tool.ruff.lint]
-preview = true
+preview = false
+
 # Docs for the rules: https://docs.astral.sh/ruff/rules/
 # This should be almost all rules with some exception. Listed in the order from docs.
 # Excluded checkers:
