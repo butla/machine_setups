@@ -79,8 +79,6 @@ def ensure_file_line(path: str | Path, line_matcher: str, line_content: str) -> 
         line_content: line content to set
 
     """
-    # TODO!!!!
-    # Also replace usages
     path = Path(path)
     change_message = f"File {path} - ensured line {line_content}"
 

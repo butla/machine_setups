@@ -19,8 +19,8 @@ setup_development:
 
 # Static analysis can find errors in the code that can cause multiple tests to fail
 # (which would produce a lot of pytest output), so we run it first.
-# If we ran "test" first and got many test errors because of issues detectable by Pylint,
-# analyzing the cause might take longer than if we saw the Pylint output
+# If we ran "test" first and got many test errors because of issues detectable by the linter,
+# analyzing the cause might take longer than if we saw the linter output
 # (which we wouldn't get, since "make" normally stops processing on the first error).
 check: static_analysis test
 
