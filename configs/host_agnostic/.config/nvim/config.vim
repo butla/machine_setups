@@ -48,6 +48,11 @@ Plug 'mgedmin/coverage-highlight.vim'
 " unix file operations on open files
 Plug 'tpope/vim-eunuch'
 Plug 'hashivim/vim-terraform'
+" telescope: fuzzy finders
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-telescope/telescope.nvim'
 
 call plug#end()
 

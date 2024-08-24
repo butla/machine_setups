@@ -87,6 +87,11 @@ PACMAN_NO_GUI_PACKAGES = {
     "smartmontools",  # has smartctl - utility for getting drive diagnostics
     "manjaro-check-repos",  # has mbn tool for comparing packages across different Manjaro branches
     "toilet",  # printing large letters in terminal
+    "ripgrep"  # faster grep, ag alternative. Used by telescope.
+    "python-lsp-server",  # needed for Python completions in NeoVim
+    "python-rope",
+    "yapf",  # for python-lsp-server
+    "python-whatthepatch",  # for YAPF used with LSP server
     # =========================
     # CLI programs for GUIs
     # =========================
