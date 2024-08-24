@@ -10,8 +10,11 @@ endif
 
 call plug#begin(stdpath('data') . '/plugged')
 
-" TODO do I need to move this to lua for stuff to work? Or use a diffrent plugin manager??
 " ====== code completions / analysis ======
+" the new Lua stuff
+Plug 'neovim/nvim-lspconfig'
+
+" TODO do I need to move this to lua for stuff to work? Or use a diffrent plugin manager??
 " Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
 " async linting and syntax checking
 " Plug 'dense-analysis/ale'

@@ -1,3 +1,6 @@
 vim.cmd('source ~/.config/nvim/config.vim')
 
--- TODO add lsp config and tree sitter coloring, disable YCM and semshi
+-- TODO
+-- - install pyright with pamac and test this (:checkhealth lsp)
+-- - try jedi lsp and virtualenvs
+require'lspconfig'.pyright.setup{}
