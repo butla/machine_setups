@@ -11,10 +11,27 @@ endif
 call plug#begin(stdpath('data') . '/plugged')
 
 " TODO do I need to move this to lua for stuff to work? Or use a diffrent plugin manager??
-" code completions
+" ====== code completions / analysis ======
 " Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
 " async linting and syntax checking
-Plug 'dense-analysis/ale'
+" Plug 'dense-analysis/ale'
+" I use this for renaming stuff in Python
+" Plug 'davidhalter/jedi-vim'
+" automatic Python imports
+" Plug 'relastle/vim-nayvy'
+" Python semantic coloring
+" TODO :UpdateRemotePlugins doesn't seem to be called automatically.
+" Maybe the upgrade script needs to run PlugUpdate! (with the bang on the end)
+" https://github.com/junegunn/vim-plug/issues/1119#issuecomment-1066479981
+" Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
+" ====== code completions / analysis ======
+
+" telescope: fuzzy finders
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-telescope/telescope.nvim'
+
 " text searching
 Plug 'mileszs/ack.vim'
 " auto-close brackets, quotes, code structures, etc.
@@ -33,26 +50,12 @@ Plug 'alvan/vim-closetag'
 Plug 'tpope/vim-commentary'
 " Git integration
 Plug 'tpope/vim-fugitive'
-" Python semantic coloring
-" TODO :UpdateRemotePlugins doesn't seem to be called automatically.
-" Maybe the upgrade script needs to run PlugUpdate! (with the bang on the end)
-" https://github.com/junegunn/vim-plug/issues/1119#issuecomment-1066479981
-" Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
-" I use this for renaming stuff in Python
-" Plug 'davidhalter/jedi-vim'
 Plug 'fisadev/vim-isort'
 " highlighting Python test coverage
 Plug 'mgedmin/coverage-highlight.vim'
-" automatic Python imports
-" Plug 'relastle/vim-nayvy'
 " unix file operations on open files
 Plug 'tpope/vim-eunuch'
 Plug 'hashivim/vim-terraform'
-" telescope: fuzzy finders
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-telescope/telescope.nvim'
 
 call plug#end()
 
