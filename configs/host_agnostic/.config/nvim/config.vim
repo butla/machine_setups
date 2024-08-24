@@ -10,8 +10,9 @@ endif
 
 call plug#begin(stdpath('data') . '/plugged')
 
+" TODO do I need to move this to lua for stuff to work? Or use a diffrent plugin manager??
 " code completions
-Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
+" Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
 " async linting and syntax checking
 Plug 'dense-analysis/ale'
 " text searching
@@ -36,14 +37,14 @@ Plug 'tpope/vim-fugitive'
 " TODO :UpdateRemotePlugins doesn't seem to be called automatically.
 " Maybe the upgrade script needs to run PlugUpdate! (with the bang on the end)
 " https://github.com/junegunn/vim-plug/issues/1119#issuecomment-1066479981
-Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
+" Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
 " I use this for renaming stuff in Python
-Plug 'davidhalter/jedi-vim'
+" Plug 'davidhalter/jedi-vim'
 Plug 'fisadev/vim-isort'
 " highlighting Python test coverage
 Plug 'mgedmin/coverage-highlight.vim'
 " automatic Python imports
-Plug 'relastle/vim-nayvy'
+" Plug 'relastle/vim-nayvy'
 " unix file operations on open files
 Plug 'tpope/vim-eunuch'
 Plug 'hashivim/vim-terraform'
@@ -174,11 +175,11 @@ nmap <leader>[ [m
 nmap <leader>] ]m
 
 " code analysis and refactoring
-nnoremap <leader>d :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>c :YcmCompleter GetDoc<CR>
-nnoremap <leader>r :YcmCompleter GoToReferences<CR>
-" nnoremap <leader>R :Semshi rename<CR>
-let g:jedi#rename_command = "<leader>R"
+" nnoremap <leader>d :YcmCompleter GoToDefinition<CR>
+" nnoremap <leader>c :YcmCompleter GetDoc<CR>
+" nnoremap <leader>r :YcmCompleter GoToReferences<CR>
+" " nnoremap <leader>R :Semshi rename<CR>
+" let g:jedi#rename_command = "<leader>R"
 
 " jumping around the quickfix list
 nnoremap <leader>j :cn<CR>
