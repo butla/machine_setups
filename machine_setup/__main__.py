@@ -139,6 +139,7 @@ if __name__ == "__main__":
 
 
 # TODOs
+# - setting to automate: Tweaks / Appearance / Legacy applications: Adapta-Nokto-Maia (affects Meld)
 # - add precommit: mypy, ruff
 # - make package update faster: if the last "synchronizing package lists" in /var/log/pacman.log is no older than 8 hours
 # - make neovim plugin update not mess up the script's output
