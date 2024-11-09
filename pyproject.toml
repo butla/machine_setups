@@ -83,7 +83,7 @@ ignore = [
     "ANN101", # MyPy is checking that part
     "ANN401", # If needed used deliberately
     "PT001", # Use fixtures without brackets if they have no arguments
-    "B008", # FastAPI requires to a lot of usage that triggers
+    "B008", # FastAPI requires this for its dependency injection
     "COM812", # Ignoring, we don't want commas at the end if it is last element
     "D104", # allow missing docstring in public package
     "D100", # allow missing docstring in public module
@@ -101,7 +101,6 @@ ignore = [
 
 # Only sorting imports now. Other fixes could be enabled.
 fixable = ["I"]
-# fixable = ["E", "F", "I", "W", "COM", "UP", "PT", "PL", "RUF", "ANN", "C"]
 unfixable = []
 
 # TODO set that to the standard logger object when there's one
