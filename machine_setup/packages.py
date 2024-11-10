@@ -87,6 +87,7 @@ PACMAN_NO_GUI_PACKAGES = {
     "smartmontools",  # has smartctl - utility for getting drive diagnostics
     "manjaro-check-repos",  # has mbn tool for comparing packages across different Manjaro branches
     "toilet",  # printing large letters in terminal
+    "pre-commit",  # running pre-commit hooks for development
     # =========================
     # CLI programs for GUIs
     # =========================
