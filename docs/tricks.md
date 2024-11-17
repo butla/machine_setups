@@ -75,8 +75,8 @@ echo '+100M,' | sudo sfdisk --move-data /dev/nvme0n1 -N 3
 echo ", +" | ./sfdisk -N 1 /dev/sdc
 
 ## Convert a set of images into a PDF
-`convert <image paths> output.pdf`
-`convert` is part of imagemagick
+`convert <image paths> output.pdf` or `magick convert <image paths> output.pdf`
+`convert` / `magick` is part of imagemagick
 
 ## Check open ports / sockets
 `ss`
