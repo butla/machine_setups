@@ -1,5 +1,5 @@
-import = ["~/.config/alacritty/machine-specific.toml"]
-live_config_reload = true
+general.import = ["~/.config/alacritty/machine-specific.toml"]
+general.live_config_reload = true
 
 [bell]
 animation = "EaseOutExpo"
@@ -584,7 +584,7 @@ multiplier = 3
 save_to_clipboard = false
 semantic_escape_chars = ",│`|:\"' ()[]{}<>"
 
-[shell]
+[terminal.shell]
 args = ["--login"]
 program = "/bin/bash"
 
