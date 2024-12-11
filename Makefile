@@ -31,7 +31,9 @@ check_continously:
 format:
 	@echo ===Formatting code===
 	poetry run ruff format $(SRC_DIRECTORIES)
-	poetry run ruff check $(SRC_DIRECTORIES) --fix
+	# Import sorting like isort.
+	poetry run ruff check $(SRC_DIRECTORIES) --select I --fix
+
 
 test:
 	@echo ===Tests===
