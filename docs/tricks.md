@@ -176,3 +176,11 @@ older = sorted([p for p in src.iterdir() if (p.suffix.lower() in ('.mp4', '.jpg'
 for older_media_file in older:
     shutil.move(older_media_file, dest)
 ```
+
+## Setting battery charge thresholds
+Change `/sys/class/power_supply/BAT0/charge_control_start_threshold`
+and `/sys/class/power_supply/BAT0/charge_control_end_threshold`.
+
+https://linuxconfig.org/how-to-set-battery-charge-thresholds-on-linux
+
+My original values: start - 90, end - 100
