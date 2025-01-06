@@ -159,6 +159,7 @@ PACMAN_GUI_PACKAGES = {
     "chromium",  # browser used by automations with Playwright
     "caffeine-ng",  # prevent system from sleeping
     "dbeaver",  # universal DB client. Supports SQL Server
+    "drawio-desktop",  # diagramming tool
 }
 
 AUR_NO_GUI_PACKAGES = {
@@ -178,7 +179,6 @@ AUR_GUI_PACKAGES = {
     # OTP with a Yubikey connected over USB, replaces faulty "yubioath-desktop"
     # https://bugs.archlinux.org/task/76325
     "yubico-authenticator-bin",
-    "drawio-desktop-bin",  # diagramming tool
 }
 
 PACMAN_WORK_PACKAGES: set[str] = set()
