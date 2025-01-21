@@ -1,0 +1,14 @@
+[Unit]
+Description=Run Backup on Drive Mount
+After=local-fs.target
+Requires=backup-on-mount.path
+
+[Service]
+Type=oneshot
+ExecStart=/home/butla/bin/backup_ognisko_data_to_drive
+# TODO these don't seem to be visible anywhere
+ExecStartPre=/bin/bash -c 'echo "Backup starting for the mounted drive..." | wall'
+ExecStartPost=/bin/bash -c 'echo "Backup ended for the mounted drive." | wall'
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,8 @@
+[Unit]
+Description=Watch for Mount of Drive with Specific UUID
+
+[Path]
+PathExists=/dev/disk/by-uuid/32F68650006080B5
+
+[Install]
+WantedBy=multi-user.target
