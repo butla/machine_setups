@@ -113,6 +113,7 @@ PACMAN_NO_GUI_PACKAGES = {
     "npm",  # NodeJS package manager. Useful for some tools.
     "nvm",  # NodeJS version management
     "texlive-binextra",  # for generating HTML from Markdown with Pandoc
+    "aws-cli",  # AWS and Digital Ocean CLI
 }
 
 PACMAN_GUI_PACKAGES = {
