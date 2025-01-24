@@ -49,6 +49,13 @@ Plug 'relastle/vim-nayvy'
 Plug 'tpope/vim-eunuch'
 Plug 'hashivim/vim-terraform'
 
+" Nerdtree - file explorer. With plugins
+Plug 'preservim/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'ryanoasis/vim-devicons'
+Plug 'PhilRunninger/nerdtree-buffer-ops'
+Plug 'PhilRunninger/nerdtree-visual-selection'
+
 call plug#end()
 
 " Cheat sheet with commands I don't use often:
@@ -210,8 +217,7 @@ map <leader>W <Plug>(easymotion-W)
 map <leader>b <Plug>(easymotion-b)
 map <leader>B <Plug>(easymotion-B)
 
-" put in the current timestamp with ctrl+t
-" TODO make it work! (works only in instert mode right now!)
+" put in the current timestamp at the cursor
 noremap <leader>t :put=strftime("%c")<CR>
 
 " Useful when you want to paste one thing over a couple of things without Vim
@@ -228,6 +234,12 @@ nnoremap <leader>F :execute "vimgrep /" . expand("<cword>") . "/j **/*.py"<Bar>c
 
 " map inserting a timestamp
 nnoremap <leader>T "=strftime("%Y-%m-%d %H:%M:%S")<CR>P
+
+" Open nerdtree
+nnoremap <leader>n :NERDTreeToggle<CR>
+
+" nerdtree size
+let g:NERDTreeWinSize=70
 
 " tweaking the preview display of open buffers for the FZF plugin
 let g:fzf_preview_window = ['up:50%', 'ctrl-/']
