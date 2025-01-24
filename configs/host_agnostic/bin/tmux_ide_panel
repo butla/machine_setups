@@ -11,29 +11,9 @@ function run_container_in_pane()
     # It should use send-keys to run the tests.
 }
 
-# Split panes horizontally and don't switch selection to the new pane to continue the script.
-# Set the pane width to the max line length I want, plus 4 more characters for my vim line indicator
-# (assuming the file is below 1000 lines, which is the case for most files I edit).
+# Split panes vertically, open Vim and switch to that pane.
 # Runs my ZSH function that runs vim with some setup magics in the pane created in the split.
-tmux split-window -hd -l 124 zsh -ic v
+tmux split-window -vdb -l "60%" zsh -ic v
 
-# vertical split, open above us with ranger for file management.
-# It's called through interactive ZSH, so that environment variables like $EDITOR and $PAGER get loaded from .zshrc
-# I prefer a full-featured file manager in a tmux split than having something like nerdtree in Vim.
-tmux split-window -vdb -l "40%" zsh -ic ranger
-
-# TODO maybe start using something like this later
-# if [ -f docker-compose.yml ]; then
-#     declare -a MAIN_CONTAINER_NAMES=('app' 'django')
-#     service_names=$(yq '.services | to_entries[] | .key' docker-compose.yml)
-
-#     for main_container_name in ${MAIN_CONTAINER_NAMES[@]}; do
-#         if echo $service_names | grep $main_container_name > /dev/null; then
-#             run_container_in_pane $main_container_name
-#             break
-#         fi
-#     done
-# fi
-
-# switch to the vim view. It'll be pane 3 if we have the Docker pane, pane 2 otherwise
-tmux select-pane -t 2
+# Switch to the vim view.
+tmux select-pane -t 0
