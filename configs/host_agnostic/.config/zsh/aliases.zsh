@@ -28,7 +28,7 @@ alias glb='git log $(git merge-base HEAD origin/master)..HEAD'
 alias gclean='git reset --hard && git clean -f && echo ----------- && git status'
 
 alias d='docker'
-alias dk='docker-compose'
+alias dk='docker compose'
 
 alias ds='dstask'
 
