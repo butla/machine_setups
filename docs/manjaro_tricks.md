@@ -4,7 +4,7 @@ Manjaro tricks
 ## New Python version
 
 Upgrade and rebuild python packages:
-- Pipx - remove ~/.local/pipx
+- Pipx - remove ~/.local/share/pipx/venvs
 - remove virtualenvs from ~/.virtualenvs (neovim one will get recreated when setup is run)
 - rm -rf ~/.local/share/nvim/plugged
 - run `make setup_machine`
