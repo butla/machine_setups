@@ -134,9 +134,6 @@ source $(which virtualenvwrapper.sh)
 # fd configuration, mainly so that FZF works more to my liking
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 
-export PULUMI_CONFIG_PASSPHRASE_FILE=/home/butla/.credentials/pulumi_config_passphrase
-export DIGITALOCEAN_TOKEN=$(cat /home/butla/.credentials/digital_ocean_token)
-
 source ~/.config/zsh/aliases.zsh
 source ~/.config/zsh/functions.zsh
 
