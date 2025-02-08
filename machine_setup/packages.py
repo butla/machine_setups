@@ -114,6 +114,7 @@ PACMAN_NO_GUI_PACKAGES = {
     "nvm",  # NodeJS version management
     "texlive-binextra",  # for generating HTML from Markdown with Pandoc
     "aws-cli",  # AWS and Digital Ocean CLI
+    "ollama",  # running LLM AI models locally
 }
 
 PACMAN_GUI_PACKAGES = {
