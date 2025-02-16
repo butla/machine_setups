@@ -122,7 +122,13 @@ bindkey "^D" delete-char-or-list
 bindkey "^?" backward-delete-char
 
 # Sets fzf widget as shell history (ctrl+r). Also adds more widgets.
-source <(fzf --zsh)
+# If the new code is available, load the shell completions directly from the command.
+if fzf --zsh > /dev/null 2>&1; then
+    source <(fzf --zsh)
+else
+    source /usr/share/fzf/key-bindings.zsh
+fi
+
 # ctrl+k to cd into a fuzzily found directory
 bindkey '^K' fzf-cd-widget
 
