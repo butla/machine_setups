@@ -185,10 +185,11 @@ AUR_GUI_PACKAGES = {
 
 PACMAN_WORK_PACKAGES: set[str] = set()
 
-AUR_WORK_PACKAGES = {
-    # Package stopped working
-    # "rambox-pro-bin"  # Client for multiple Microsoft Suite accounts.
-}
+AUR_WORK_PACKAGES = set()
+# {
+#     # Package stopped working
+#     # "rambox-pro-bin"  # Client for multiple Microsoft Suite accounts.
+# }
 
 WORK_PACKAGES = PACMAN_WORK_PACKAGES | AUR_WORK_PACKAGES
 
