@@ -1,0 +1,14 @@
+[Unit]
+Description=Set battery charge thresholds
+# Wait for power managers to start, so we overwrite the setting.
+After=power-profiles-daemon.service
+After=upower.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c "echo 80 > /sys/class/power_supply/BAT0/charge_control_end_threshold && echo 70 > /sys/class/power_supply/BAT0/charge_control_start_threshold"
+# Don't restart if it fails
+Restart=no
+
+[Install]
+WantedBy=multi-user.target
