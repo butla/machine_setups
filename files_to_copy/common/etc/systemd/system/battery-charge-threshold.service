@@ -1,8 +1,7 @@
 [Unit]
 Description=Set battery charge thresholds
-# Wait for power managers to start, so we overwrite the setting.
-After=power-profiles-daemon.service
-After=upower.service
+# Wait for power managers and the UI to start,so we overwrite the setting.
+After=power-profiles-daemon.service upower.service multi-user.target
 
 [Service]
 Type=oneshot
