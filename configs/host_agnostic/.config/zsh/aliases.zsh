@@ -23,6 +23,8 @@ alias gr='git rebase -i'
 alias grb='git rebase -i $(git merge-base HEAD origin/master)'
 # show the changes made on the current branch
 alias gdfb='git difftool --dir-diff $(git merge-base HEAD origin/master)'
+alias gdfbd='git difftool --dir-diff $(git merge-base HEAD origin/develop)'
+alias gdfbm='git difftool --dir-diff $(git merge-base HEAD origin/main)'
 # show the log of the current branch
 alias glb='git log $(git merge-base HEAD origin/master)..HEAD'
 alias gclean='git reset --hard && git clean -f && echo ----------- && git status'
