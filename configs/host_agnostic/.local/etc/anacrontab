@@ -1,4 +1,4 @@
 # See `man anacrontab`.
 # fields: "period in days", "delay in minutes", "job identifier", "command"
 # Example:
-#@monthly 0 accounting-dirs-setup ${HOME}/bin/new_accounting_month
+monthly 0 accounting-dirs-setup ${HOME}/bin/new_accounting_month
