@@ -171,6 +171,7 @@ AUR_NO_GUI_PACKAGES = {
     "battop",  # battery stats
     "dstask",  # task/note manager, git-based
     "keybase-bin",  # for encrypted Git repositories. AUR is fresher than regular Manjaro repo version
+    "mactelnet",  # connec to to MikroTik routers with with their MAC
 }
 
 AUR_GUI_PACKAGES = {
