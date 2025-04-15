@@ -143,6 +143,11 @@ export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 source ~/.config/zsh/aliases.zsh
 source ~/.config/zsh/functions.zsh
 
+WORK_CONFIG=~/.config/zsh/work_config.zsh
+if [ -f "$WORK_CONFIG" ]; then
+    source $WORK_CONFIG
+fi
+
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 source /usr/share/nvm/init-nvm.sh
