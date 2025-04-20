@@ -14,26 +14,14 @@ import sys
 from typing import Callable, List
 
 import machine_setup
-from machine_setup import os_configuration, pamac_override, shell
-
-# Colors taken from "colorama". I don't want to depend on it, though.
-# I'll be using a color, so I can easily see my log message by glancing at the output
-_BACKGROUND_GREEN = "\x1b[42m"
-_BACKGROUND_RESET = "\x1b[49m"
-
-logging.basicConfig(
-    level=logging.INFO,
-    # TODO red format for errors:
-    # https://stackoverflow.com/questions/1343227/can-pythons-logging-format-be-modified-depending-on-the-message-log-level
-    format=f"{_BACKGROUND_GREEN}--- %(asctime)s{_BACKGROUND_RESET} | %(levelname)s | %(message)s",
-    datefmt="%Y-%m-%d %H:%M:%S",
-)
+from machine_setup import logs, os_configuration, pamac_override, shell
 
 log = logging.getLogger(__name__)
 
 
 # TODO use stop_on_errors in run_setup_first_time!
 def main(stop_on_errors=False):
+    logs.setup()
     log.info("Starting system upgrade...")
 
     upgrade_steps: List[Callable] = [
