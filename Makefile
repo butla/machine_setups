@@ -44,6 +44,9 @@ test_continously:
 
 static_analysis: _type_check _format_check _lint
 
+shell:
+	poetry run ptpython
+
 _format_check:
 	@echo ===Checking formatting===
 	poetry run ruff format --check $(SRC_DIRECTORIES)
