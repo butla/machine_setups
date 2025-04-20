@@ -186,7 +186,7 @@ AUR_GUI_PACKAGES = {
 
 PACMAN_WORK_PACKAGES: set[str] = set()
 
-AUR_WORK_PACKAGES = set()
+AUR_WORK_PACKAGES: set[str] = set()
 # {
 #     # Package stopped working
 #     # "rambox-pro-bin"  # Client for multiple Microsoft Suite accounts.

@@ -1,6 +1,5 @@
-#!/usr/bin/env python3
 """
-This script installs software and applies configuration that I want in any of my Manjaro computers (machines).
+Installs software and applies configuration that I want in any of my Manjaro computers (machines).
 
 "Computer" sounds weird here, even though it would be an accurate name :)
 So I prefer to use "machine".
@@ -8,10 +7,9 @@ So I prefer to use "machine".
 
 from functools import partial
 import logging
-from pathlib import Path
 import subprocess
 import sys
-from typing import Callable, List
+from typing import Callable
 
 import machine_setup
 from machine_setup import logs, os_configuration, pamac_override, shell
@@ -20,11 +18,11 @@ log = logging.getLogger(__name__)
 
 
 # TODO use stop_on_errors in run_setup_first_time!
-def main(stop_on_errors=False):
+def main(stop_on_errors: bool = False) -> None:
     logs.setup()
     log.info("Starting system upgrade...")
 
-    upgrade_steps: List[Callable] = [
+    upgrade_steps: list[Callable] = [
         sync_packages,
         install_oh_my_zsh,
         machine_setup.links_setup.setup_all_links,
