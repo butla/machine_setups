@@ -256,3 +256,8 @@ function configs_audit()
     # log "Stopping auditd service after tracing..."
     # sudo systemctl stop auditd.service
 }
+
+function nmap_local()
+{
+    sudo nmap -sn 192.168.50.0/24 | awk '/Nmap scan report/{if (NR!=1) print ""; print} !/Nmap scan report/'
+}
