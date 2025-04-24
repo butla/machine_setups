@@ -234,8 +234,8 @@ nnoremap <leader>F :execute "vimgrep /" . expand("<cword>") . "/j **/*.py"<Bar>c
 " map inserting a timestamp
 nnoremap <leader>T "=strftime("%Y-%m-%d %H:%M:%S")<CR>P
 
-" Open nerdtree
-nnoremap <leader>n :NERDTreeToggle<CR>
+" Open nerdtree on the location of current file
+nnoremap <leader>n :NERDTreeFind<CR>
 
 " nerdtree size
 let g:NERDTreeWinSize=70
