@@ -1,4 +1,6 @@
 #!/bin/bash
+# Running example (no sudo): ./mount_filesystem_for_chroot.sh b-tv
+# This requires `yq` - pull it with `wget https://github.com/mikefarah/yq/releases/download/v4.45.4/yq_linux_amd64`.
 set -e
 
 function log() {
@@ -22,9 +24,9 @@ HOSTS_CONFIG_FILE=$PROJECT_ROOT_PATH/machine_setup/hosts_config.yml
 EFI_PARTITION=$(get_host_value efi_partition)
 BOOT_PARTITION=$(get_host_value boot_partition)
 CRYPT_PARTITION=$(get_host_value crypt_partition)
-CRYPT_NAME=crypt_mounted
-LVM_VG=$(get_host_value lvm.vg)
-LV=$(get_host_value lvm.lv)
+CRYPT_NAME=$(get_host_value crypt_name)
+LVM_VG=$(get_host_value lvm_vg)
+LV=$(get_host_value lv)
 
 log "Opening the LUKS container..."
 sudo cryptsetup luksOpen /dev/disk/by-uuid/$CRYPT_PARTITION $CRYPT_NAME

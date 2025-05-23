@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Can be used to mount lemur nowadays?
 # TODO unify with "mount_filesystem_for_chroot"
 
 set -e

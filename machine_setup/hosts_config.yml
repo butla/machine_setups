@@ -1,4 +1,8 @@
 ---
+# Hmm... wonder if exposing my drive UUIDs (and other drive info) is a security risk...
+# If you, Dear Reader, can explain how exactly is it a risk, I'd love to know.
+# If somebody could log into my device (which means I'm a bit fucked anyway) and see `blkid`, they could
+# identify, that they are, indeed, on my machine.
 alien:
   efi_partition: "1A2A-E598"
   crypt_partition: "1ee9550c-b336-4db6-8f47-94834809ec15"
@@ -9,10 +13,17 @@ lemur:
   efi_partition: "587E-B484"
   crypt_partition: "5e1bd4b3-0260-42bf-9afb-aec5f29a31a9"
   crypt_name: crypt_priv_systems
-  boot_partition:
+  lvm_vg: priv_systems
+  lv: manjaro
   bootloader: systemd-boot
 
 b-tv:
+  efi_partition: "7E5B-9C2C"
+  boot_partition: "4f3c8672-650d-4a8b-9697-1817ec53bb78"
+  crypt_partition: "050a93bf-d0d3-4d01-83c7-b65d060d2cc5"
+  crypt_name: crypt
+  lvm_vg: vg0
+  lv: manjaro
   bootloader: grub
 
 bp:

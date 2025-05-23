@@ -1,3 +1,4 @@
+# Run this with sudo after mounting with, e.g.: ./mount_filesystem_for_chroot.sh b-tv 
 set -e
 
 # TODO parameterize this, move common code into a function in another (sourced) file in this directory.
@@ -11,10 +12,10 @@ CRYPT_PARTITION_NAME=crypt
 SET_TAB_FILES=true
 
 # === lemur ===
-EFI_PARTITION=/dev/nvme0n1p1
+#EFI_PARTITION=/dev/nvme0n1p1
 # get this from `sudo blkid`
-CRYPT_PARTITION_ID=5e1bd4b3-0260-42bf-9afb-aec5f29a31a9
-CRYPT_PARTITION_NAME=crypt_priv_systems
+#CRYPT_PARTITION_ID=5e1bd4b3-0260-42bf-9afb-aec5f29a31a9
+#CRYPT_PARTITION_NAME=crypt_priv_systems
 SET_TAB_FILES=false
 
 function log() {
