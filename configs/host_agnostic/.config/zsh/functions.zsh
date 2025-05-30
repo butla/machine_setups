@@ -38,7 +38,10 @@ function v()
 {
     log_info "Running neovim with Python stuff, and these arguments: $@"
 
-    if [ -d .venv ]; then
+    # Don't try to load anything if a venv is already activated
+    if [[ -n $VIRTUAL_ENV ]]; then
+        : # no-op
+    elif [ -d .venv ]; then
         source .venv/bin/activate
     elif [[ $(virtualenv_for_folder_name) != "" ]]; then
         workon $(virtualenv_for_folder_name)
