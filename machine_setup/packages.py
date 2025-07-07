@@ -88,6 +88,7 @@ PACMAN_NO_GUI_PACKAGES = {
     "manjaro-check-repos",  # has mbn tool for comparing packages across different Manjaro branches
     "toilet",  # printing large letters in terminal
     "pre-commit",  # running pre-commit hooks for development
+    "yubikey-manager",  # CLI Yubikey usage. Backup in case yubico-authenticator-bin doesn't work.
     # =========================
     # CLI programs for GUIs
     # =========================
