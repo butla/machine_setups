@@ -216,9 +216,6 @@ map <leader>W <Plug>(easymotion-W)
 map <leader>b <Plug>(easymotion-b)
 map <leader>B <Plug>(easymotion-B)
 
-" put in the current timestamp at the cursor
-noremap <leader>t :put=strftime("%c")<CR>
-
 " Useful when you want to paste one thing over a couple of things without Vim
 " replacing the default register after the initial replace.
 vnoremap <leader>p "0p
@@ -230,6 +227,9 @@ nnoremap <leader>f :execute "Ack " . expand("<cword>")<CR>
 " open the quickfix list (cw).
 " Should use that when YouCompleteMe fails to find references.
 nnoremap <leader>F :execute "vimgrep /" . expand("<cword>") . "/j **/*.py"<Bar>cw<CR>
+
+" Run Ale fixers, like ruff --format
+nnoremap <leader>t :ALEFix<CR>
 
 " map inserting a timestamp
 nnoremap <leader>T "=strftime("%Y-%m-%d %H:%M:%S")<CR>P
@@ -264,9 +264,10 @@ let g:ackprg = 'ag --vimgrep --hidden --ignore .git'
 " endfor
 let g:ale_linters = { 'python': ['ruff', 'mypy'] }
 
-" So far, the fixers are more annoying than helping, so I'll disable them for
-" the time being. I have isort set up in projects anyway.
-" let g:ale_fixers = { 'python': ['nayvy#ale_fixer', 'isort'] }
+let g:ale_fixers = { 'python': ['ruff_format'] }
+
+let g:ale_python_ruff_format_executable = 'ruff'
+let g:ale_python_ruff_format_options = 'format --stdin-filename %s'
 
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_fix_on_save = 1
