@@ -266,11 +266,8 @@ let g:ale_linters = { 'python': ['ruff', 'mypy'] }
 
 let g:ale_fixers = { 'python': ['ruff_format'] }
 
-let g:ale_python_ruff_format_executable = 'ruff'
-let g:ale_python_ruff_format_options = 'format --stdin-filename %s'
-
 let g:ale_lint_on_text_changed = 'never'
-let g:ale_fix_on_save = 1
+let g:ale_fix_on_save = 0
 
 " ======================================
 
