@@ -108,3 +108,5 @@ alias conf_diff='(cd ~/development/machine_setups; git fetch && git status && gi
 # commits and pushes the changes in my machine config
 alias conf_push='(cd ~/development/machine_setups; git commit -a && git push)'
 alias conf_edit='(cd ~/development/machine_setups; vim machine_setup/__main__.py; conf_push)'
+
+alias date-plus-45-days='python -c "from datetime import datetime,timedelta; print(datetime.now() + timedelta(days=45))"'
