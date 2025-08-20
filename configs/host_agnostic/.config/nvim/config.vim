@@ -289,11 +289,12 @@ au VimEnter * RainbowParentheses
 " This is needed if you're using virtualenvs (:help python-virtualenv)
 let g:python3_host_prog = '~/.virtualenvs/neovim/bin/python'
 
+" TODO Fix. NerdTree breaks after opening up a couple of buffers.
 " Jump to a different window if I get automatically moved to NerdTree.
 " This will make the cursor go to the code window instead of NerdTree after
 " closing the quick-fix view.
-augroup NerdTreeFocusFix
-  autocmd!
-  " If focus moves into a nerdtree window automatically, bounce back
-  autocmd BufEnter * if winnr("$") > 1 && &filetype ==# 'nerdtree' && bufname('#') !~# 'NERD_tree' | wincmd p | endif
-augroup END
+" augroup NerdTreeFocusFix
+"   autocmd!
+"   " If focus moves into a nerdtree window automatically, bounce back
+"   autocmd BufEnter * if winnr("$") > 1 && &filetype ==# 'nerdtree' && bufname('#') !~# 'NERD_tree' | wincmd p | endif
+" augroup END
