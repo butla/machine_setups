@@ -49,13 +49,34 @@ Plug 'relastle/vim-nayvy'
 Plug 'tpope/vim-eunuch'
 Plug 'hashivim/vim-terraform'
 
-" Nerdtree - file explorer. With plugins
-Plug 'preservim/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'ryanoasis/vim-devicons'
-Plug 'PhilRunninger/nerdtree-visual-selection'
+" Neotree - file explorer, with plugins.
+Plug 'nvim-neo-tree/neo-tree.nvim', {'branch': 'v3.x'}
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-tree/nvim-web-devicons'
+Plug 'MunifTanjim/nui.nvim'
 
 call plug#end()
+
+" neo-tree config
+" TODO move to the lua file
+lua << EOF
+require("neo-tree").setup({
+  close_if_last_window = true,
+  popup_border_style = "rounded",
+  enable_git_status = true,
+  enable_diagnostics = true,
+  filesystem = {
+    window = {
+      position = "left",
+      width = 70,
+    },
+    filtered_items = {
+      hide_dotfiles = false,
+      hide_gitignored = false,
+    },
+  },
+})
+EOF
 
 " Cheat sheet with commands I don't use often:
 " gq+MOVE or gqq for single line - format line, insert line breaks
@@ -234,11 +255,8 @@ nnoremap <leader>t :ALEFix<CR>
 " map inserting a timestamp
 nnoremap <leader>T "=strftime("%Y-%m-%d %H:%M:%S")<CR>P
 
-" Open nerdtree on the location of current file
-nnoremap <leader>n :NERDTreeFind<CR>
-
-" nerdtree size
-let g:NERDTreeWinSize=70
+" Open neotree on the location of current file
+nnoremap <leader>n :Neotree reveal<CR>
 
 " tweaking the preview display of open buffers for the FZF plugin
 let g:fzf_preview_window = ['up:50%', 'ctrl-/']
