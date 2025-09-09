@@ -205,8 +205,16 @@ nmap <leader>] ]m
 nnoremap <leader>d :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>c :YcmCompleter GetDoc<CR>
 nnoremap <leader>r :YcmCompleter GoToReferences<CR>
-" nnoremap <leader>R :Semshi rename<CR>
-let g:jedi#rename_command = "<leader>R"
+
+function! s:RefactorRename()
+  let current_word = expand('<cword>')
+  let new_name = input('New name: ', current_word)
+  if !empty(new_name)
+    execute 'YcmCompleter RefactorRename ' . new_name
+  endif
+endfunction
+
+nnoremap <leader>R :call <SID>RefactorRename()<CR>
 
 " jumping around the quickfix list
 nnoremap <leader>j :cn<CR>
@@ -299,6 +307,8 @@ let g:jedi#goto_definitions_command = ""
 let g:jedi#documentation_command = ""
 let g:jedi#usages_command = ""
 let g:jedi#completions_command = ""
+let g:jedi#rename_command = ""
+let g:jedi#rename_command_keep_name = ""
 
 " Rainbow parentheses config
 let g:rainbow#pairs = [['(', ')'], ['[', ']']]
