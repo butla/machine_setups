@@ -171,8 +171,6 @@ AUR_NO_GUI_PACKAGES = {
     "qbittorrent-cli-bin",  # CLI for the non-GUI torrent client, TODO, make it work
     "battop",  # battery stats
     "dstask",  # task/note manager, git-based
-    # DISABLING keybase because I don't use it too much and it holds a mount that freezes `ls /`
-    # "keybase-bin",  # for encrypted Git repositories. AUR is fresher than regular Manjaro repo version
     "mactelnet",  # connec to to MikroTik routers with with their MAC
 }
 
@@ -205,7 +203,6 @@ NOT_PRESENT_IN_MANJARO_ARM_PACKAGES = {
     "manjaro-check-repos",
     "battop",
     "libva-intel-driver",
-    "keybase-bin",
 }
 _arm_exclusions_not_present_in_list_of_all = NOT_PRESENT_IN_MANJARO_ARM_PACKAGES - FULL_PACKAGES
 _arm_excluded_packages_are_in_list_of_all = not bool(_arm_exclusions_not_present_in_list_of_all)
