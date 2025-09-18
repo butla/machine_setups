@@ -227,6 +227,9 @@ nnoremap <leader>k :cp<CR>
 nnoremap <leader>J :lnext<CR>
 nnoremap <leader>K :lprev<CR>
 
+" open the errors / warnings list
+nnoremap <leader>e :lopen<CR>
+
 " keybindings for fuzzy file finding and search
 nnoremap <leader>. :FZF<CR>
 nnoremap <leader>, :Buffers<CR>
