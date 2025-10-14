@@ -110,3 +110,6 @@ alias conf_push='(cd ~/development/machine_setups; git commit -a && git push)'
 alias conf_edit='(cd ~/development/machine_setups; vim machine_setup/__main__.py; conf_push)'
 
 alias date-plus-45-days='python -c "from datetime import datetime,timedelta; print(datetime.now() + timedelta(days=45))"'
+
+# This will allow to paste in the markdown snippet and convert it to html
+alias markdown_to_html='pandoc -f markdown -t html -s -o markdown_snippet.html && xdg-open markdown_snippet.html'
