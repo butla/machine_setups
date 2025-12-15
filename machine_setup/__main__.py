@@ -86,7 +86,7 @@ def sync_packages():
         shell.run_cmd(f"pamac install --no-confirm {packages_string}")
 
     log.info("Removing unused packages...")
-    shell.run_cmd("pamac remove --orphans --no-confirm", allow_fail=True, as_root=True)
+    shell.run_cmd("pamac remove --orphans --unneeded --no-confirm", allow_fail=True, as_root=True)
 
 
 def _add_package_keys():
