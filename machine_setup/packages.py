@@ -109,6 +109,7 @@ PACMAN_NO_GUI_PACKAGES = {
     "terraform",  # infrastructure management
     "docker",
     "docker-compose",
+    "docker-buildx",
     "rust",  # Rust programming language tools
     "go",  # Go programming language tools
     "npm",  # NodeJS package manager. Useful for some tools.
