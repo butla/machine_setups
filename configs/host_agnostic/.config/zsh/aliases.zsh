@@ -19,8 +19,9 @@ alias gp='git push'
 alias gpl='git pull'
 alias gf='git fetch && echo ----------- && git status'
 alias gr='git rebase -i'
-# rebase the commits on the current branch
+# rebase the commits from the current branch onto the main branch
 alias grb='git rebase -i $(git merge-base HEAD origin/master)'
+alias grbm='git rebase -i $(git merge-base HEAD origin/main)'
 # show the changes made on the current branch
 alias gdfb='git difftool --dir-diff $(git merge-base HEAD origin/master)'
 alias gdfbd='git difftool --dir-diff $(git merge-base HEAD origin/develop)'
