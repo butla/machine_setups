@@ -41,11 +41,7 @@ PACMAN_NO_GUI_PACKAGES = {
     "yamllint",
     "yq",  # utility for getting stuff from YAMLs
     "strace",  # monitoring process's syscalls
-    "python-pudb",  # TUI python debugger
-    "python-ipdb",  # python debugger with completions and color
     "python-virtualenvwrapper",  # Python virtualenv manager
-    "python-tox",  # test runner for multiple Python versions
-    "python-pylint",  # python linters
     "flake8",
     "python-poetry",  # python dependency manager
     "python-pipx",  # managing Python apps in isolated virtualenvs
