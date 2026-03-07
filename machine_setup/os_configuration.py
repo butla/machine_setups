@@ -155,11 +155,6 @@ def setup_neovim():
     # TODO this looks to be messing something up in the output
     shell.run_cmd("nvim +PlugUpgrade +PlugClean +PlugUpdate +UpdateRemotePlugins +qall")
 
-    regular_vim_binary = Path("/usr/bin/vim")
-    if not regular_vim_binary.exists():
-        log.info("Setting up link to NeoVim at %s", regular_vim_binary)
-        shell.run_cmd(f"ln -s /usr/bin/nvim {regular_vim_binary}", as_root=True)
-
 
 def ensure_ntp():
     log.info("Ensuring time is synced with NTP.")
