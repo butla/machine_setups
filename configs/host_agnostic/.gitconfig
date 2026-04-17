@@ -24,3 +24,5 @@
 	date = iso
 [protocol "keybase"]
 	allow = always
+[rebase]
+	instructionFormat = "%ae # %s"
