@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Can be used to mount lemur nowadays?
+# This can be used to mount lemur nowadays.
 # TODO unify with "mount_filesystem_for_chroot"
 
 set -e
@@ -12,7 +12,6 @@ function log() {
 # TODO parameterize this, move common code into a function in another (sourced) file in this directory,
 # use values from hosts_configs.yml to fill the values
 EFI_PARTITION=/dev/nvme0n1p1
-BOOT_PARTITION=/dev/nvme0n1p7
 # this will be encrypted
 ROOT_PARTITION=/dev/nvme0n1p2
 CRYPT_NAME=crypt_priv_systems
@@ -31,8 +30,7 @@ sudo mount /dev/mapper/${LVM_VG}-${LV} /mnt/home -t btrfs -o 'subvol=/@home'
 sudo mount /dev/mapper/${LVM_VG}-${LV} /mnt/var/cache -t btrfs -o 'subvol=/@cache'
 sudo mount /dev/mapper/${LVM_VG}-${LV} /mnt/var/log -t btrfs -o 'subvol=/@log'
 
-sudo mount $BOOT_PARTITION /mnt/boot -t btrfs
-sudo mount $EFI_PARTITION /mnt/boot/efi
+sudo mount $EFI_PARTITION /mnt/efi
 
 log "Mounting psuedo file systems..."
 
