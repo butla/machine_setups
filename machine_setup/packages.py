@@ -144,7 +144,6 @@ PACMAN_GUI_PACKAGES = {
     "libreoffice-still",
     "adapta-maia-theme",  # a theme for XFCE that I like
     "kvantum-manjaro",  # themes for QT apps
-    "asunder",  # audio CD ripper
     "krita",  # drawing program with tablet support
     "audacity",  # sound editor
     "system-config-printer",  # Manjaro or XFCE printer setup GUI
