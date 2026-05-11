@@ -20,7 +20,7 @@ Based on [this article](https://forum.manjaro.org/t/how-to-convert-to-systemd-bo
 - sudo pacman -Rn grub-btrfs grub-theme-manjaro grub
 - reinstall the current kernels, so that their systemd-boot entries get generated, e.g. sudo pacman -S linux515 linux419
 - make sure /etc/kernel/cmdline is fine, e.g.
-  `root=/dev/mapper/crypt_priv_systems rw rootflags=subvol=@ cryptdevice=UUID=<uuid>:crypt_priv_systems apparmor=1 security=apparmor udev.log_priority=3`
+  `root=/dev/mapper/priv_systems-manjaro rw rootflags=subvol=@ rd.luks.name=5e1bd4b3-0260-42bf-9afb-aec5f29a31a9=crypt_priv_systems rd.lvm.vg=priv_systems apparmor=1 security=apparmor udev.log_priority=3`
 - remove /efi/EFI/Manjaro
 - copy files_to_copy/common/efi/loader/loader.conf to /efi/loader/loader.conf
 
