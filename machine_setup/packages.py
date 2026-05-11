@@ -133,7 +133,8 @@ PACMAN_GUI_PACKAGES = {
     "xournalpp",  # PDF editor
     "simple-scan",  # simple scanner operation
     "mpv",  # a nice video player with fast jumping and subtitle adjustment
-    "vlc",  # an alternative video player
+    "vlc",  # an alternative video player, that's more widely used
+    "vlc-plugins-extra",  # VLC plugins. I want universal plug n' play for DLNA access
     "kolourpaint",  # Microsoft Paint clone
     "signal-desktop",  # private communicator
     "discord",  # communicator / chat
