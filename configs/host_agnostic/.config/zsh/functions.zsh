@@ -264,3 +264,10 @@ function nmap_local()
 {
     sudo nmap -sn 192.168.50.0/24 | awk '/Nmap scan report/{if (NR!=1) print ""; print} !/Nmap scan report/'
 }
+
+function avi_to_mp4()
+{
+    local input="$1"
+    local output="${input:r}.mp4"
+    ffmpeg -i "$input" -c:v libx264 -c:a aac "$output"
+}
