@@ -119,7 +119,7 @@ PACMAN_GUI_PACKAGES = {
     # =========================
     # GUI programs
     # =========================
-    "alacritty",  # my preferred terminal emulator
+    "kitty",  # my preferred terminal emulator
     "arandr",  # displays' manager
     "brave-browser",  # my preferred browser
     "meld",  # visual diff tool

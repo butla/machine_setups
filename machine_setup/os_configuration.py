@@ -79,7 +79,7 @@ def set_gsettings():
         ("clementine", "<Super>2", "clementine"),
         ("keepassxc", "<Super>3", "keepassxc"),
         ("calculator", "<Super>4", "gnome-calculator"),
-        ("terminal with tmux", "<Super>t", "alacritty --command tmux"),
+        ("terminal with tmux", "<Super>t", "kitty tmux"),
         ("file explorer", "<Super>f", "nautilus"),
         ("sleep", "<Shift><Super>l", "systemctl suspend"),
         ("reboot", "<Shift><Super>r", "systemctl reboot"),

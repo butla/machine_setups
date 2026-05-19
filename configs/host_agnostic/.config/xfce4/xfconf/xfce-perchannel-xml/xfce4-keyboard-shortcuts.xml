@@ -50,7 +50,7 @@
       <property name="&lt;Primary&gt;&lt;Alt&gt;t" type="string" value="xfce4-terminal --drop-down"/>
       <property name="Print" type="string" value="xfce4-screenshooter -fd 1"/>
       <property name="&lt;Super&gt;4" type="string" value="galculator"/>
-      <property name="&lt;Super&gt;t" type="string" value="alacritty --command tmux -2">
+      <property name="&lt;Super&gt;t" type="string" value="kitty tmux -2">
         <property name="startup-notify" type="bool" value="true"/>
       </property>
       <property name="&lt;Super&gt;1" type="string" value="brave"/>
