@@ -165,7 +165,12 @@ colorscheme darcula
 syntax enable
 
 " disable background color settings, so it can be transparent
-highlight Normal guibg=NONE ctermbg=NONE
+" highlight Normal guibg=NONE ctermbg=NONE
+
+" Restore orange markdown headers — treesitter uses @markup.heading instead of markdownH1 etc.,
+" but darcula links @markup.heading to Title (white/bold) rather than the orange markdownH1 color.
+" TODO change it in the theme file
+highlight @markup.heading guifg=#c57825 ctermfg=222 gui=bold cterm=bold
 
 " Coloring syntax on long lines was slow in Vim, though it seems to be better in NeoVim.
 " This limits the number of columns to be colored.
