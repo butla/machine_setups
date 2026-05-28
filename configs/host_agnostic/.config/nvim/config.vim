@@ -10,8 +10,15 @@ endif
 
 call plug#begin(stdpath('data') . '/plugged')
 
-" code completions
+" TODO remove it when not needed
 Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
+" LSP client + language servers
+Plug 'neovim/nvim-lspconfig'
+" completions engine + LSP source (vim.snippet built-in handles snippet expansion on nvim 0.10+)
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+" treesitter-based syntax highlighting
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " async linting and syntax checking
 Plug 'dense-analysis/ale'
 " text searching
@@ -24,7 +31,8 @@ Plug 'easymotion/vim-easymotion'
 " fuzzy file search
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'flazz/vim-colorschemes'
+" neovim-native darcula with treesitter highlight group support
+Plug 'doums/darcula'
 Plug 'junegunn/rainbow_parentheses.vim'
 " close HTML tags
 Plug 'alvan/vim-closetag'
@@ -32,13 +40,8 @@ Plug 'alvan/vim-closetag'
 Plug 'tpope/vim-commentary'
 " Git integration
 Plug 'tpope/vim-fugitive'
-" Python semantic coloring - currently disabled, because it's too error prone.
-" :UpdateRemotePlugins doesn't seem to be called automatically.
-" Maybe the upgrade script needs to run PlugUpdate! (with the bang on the end)
-" https://github.com/junegunn/vim-plug/issues/1119#issuecomment-1066479981
-" Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
-
 " I use this for renaming stuff in Python
+" TODO remove when not needed anymore.
 Plug 'davidhalter/jedi-vim'
 Plug 'fisadev/vim-isort'
 " highlighting Python test coverage
@@ -56,30 +59,6 @@ Plug 'nvim-tree/nvim-web-devicons'
 Plug 'MunifTanjim/nui.nvim'
 
 call plug#end()
-
-" neo-tree config
-" TODO move to the lua file
-lua << EOF
-require("neo-tree").setup({
-  close_if_last_window = false,
-  popup_border_style = "rounded",
-  enable_git_status = true,
-  enable_diagnostics = true,
-  filesystem = {
-    window = {
-      position = "left",
-      width = 70,
-    },
-    filtered_items = {
-      hide_dotfiles = false,
-      hide_gitignored = true,
-      hide_by_name = {
-        ".git",
-      }
-    },
-  },
-})
-EOF
 
 " Cheat sheet with commands I don't use often:
 " gq+MOVE or gqq for single line - format line, insert line breaks
@@ -167,9 +146,7 @@ syntax enable
 " disable background color settings, so it can be transparent
 " highlight Normal guibg=NONE ctermbg=NONE
 
-" Restore orange markdown headers — treesitter uses @markup.heading instead of markdownH1 etc.,
-" but darcula links @markup.heading to Title (white/bold) rather than the orange markdownH1 color.
-" TODO change it in the theme file
+" Orange markdown headers matching the darcula style (doums/darcula may define these differently)
 highlight @markup.heading guifg=#c57825 ctermfg=222 gui=bold cterm=bold
 
 " Coloring syntax on long lines was slow in Vim, though it seems to be better in NeoVim.
@@ -209,20 +186,11 @@ nmap cp :let @+ = expand("%")<CR>
 nmap <leader>[ [m
 nmap <leader>] ]m
 
-" code analysis and refactoring
-nnoremap <leader>d :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>c :YcmCompleter GetDoc<CR>
-nnoremap <leader>r :YcmCompleter GoToReferences<CR>
-
-function! s:RefactorRename()
-  let current_word = expand('<cword>')
-  let new_name = input('New name: ', current_word)
-  if !empty(new_name)
-    execute 'YcmCompleter RefactorRename ' . new_name
-  endif
-endfunction
-
-nnoremap <leader>R :call <SID>RefactorRename()<CR>
+" code analysis and refactoring (LSP)
+nnoremap <leader>d <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <leader>c <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <leader>r <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <leader>R <cmd>lua vim.lsp.buf.rename()<CR>
 
 " jumping around the quickfix list
 nnoremap <leader>j :cn<CR>
@@ -264,8 +232,7 @@ vnoremap <leader>p "0p
 nnoremap <leader>f :execute "Ack " . expand("<cword>")<CR>
 
 " Search for occurrences of a word in python files, don't jump to first found immediately (j), but
-" open the quickfix list (cw).
-" Should use that when YouCompleteMe fails to find references.
+" open the quickfix list (cw). Fallback when LSP references don't find everything.
 nnoremap <leader>F :execute "vimgrep /" . expand("<cword>") . "/j **/*.py"<Bar>cw<CR>
 
 " Run Ale fixers, like ruff --format
@@ -279,12 +246,6 @@ nnoremap <leader>n :Neotree reveal<CR>
 
 " tweaking the preview display of open buffers for the FZF plugin
 let g:fzf_preview_window = ['up:50%', 'ctrl-/']
-
-" making YouCompleteMe work nicely with virtualenv
-let g:ycm_python_binary_path = 'python'
-
-" automatically close the doc preview window after completion
-let g:ycm_autoclose_preview_window_after_completion = 1
 
 " ack.vim should use silver searcher under the hood
 " It will search in hidden files, but will ignore git stuff
@@ -307,19 +268,6 @@ let g:ale_lint_on_text_changed = 'never'
 let g:ale_fix_on_save = 0
 
 " ======================================
-
-" disable jedi-vim completions and unused commands - something else will be taking care of that
-let g:jedi#completions_enabled = 0
-" only bind the needed jedi-vim commands
-let g:jedi#goto_command = ""
-let g:jedi#goto_assignments_command = ""
-let g:jedi#goto_stubs_command = ""
-let g:jedi#goto_definitions_command = ""
-let g:jedi#documentation_command = ""
-let g:jedi#usages_command = ""
-let g:jedi#completions_command = ""
-let g:jedi#rename_command = ""
-let g:jedi#rename_command_keep_name = ""
 
 " Rainbow parentheses config
 let g:rainbow#pairs = [['(', ')'], ['[', ']']]
