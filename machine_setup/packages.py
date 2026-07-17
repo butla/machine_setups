@@ -35,6 +35,7 @@ PACMAN_NO_GUI_PACKAGES = {
     "nethogs",  # "top"-like thing for showing network transfers
     "iotop",  # "top"-like thing for showing disk IO
     "sshfs",  # mounting remote filesystems with SSH
+    "exfat-utils",  # FUSE exFAT driver; mounts exfat without the kernel module (e.g. after a kernel upgrade)
     "borg",  # backup solution
     "wavemon",  # WiFi monitor
     "twine",  # PyPI package release helper
