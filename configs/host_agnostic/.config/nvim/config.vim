@@ -237,7 +237,10 @@ nnoremap <leader>e :lopen<CR>
 
 " keybindings for fuzzy file finding and search
 nnoremap <leader>. :FZF<CR>
-nnoremap <leader>, :Buffers<CR>
+" like :Buffers, but with change:first so typing a query jumps to the best match;
+" since fzf.vim e5b53de (2026-05) the cursor starts at position 2 (alternate buffer)
+" and stays at that position when the list is refiltered, landing on the wrong file
+nnoremap <leader>, :call fzf#vim#buffers('', fzf#vim#with_preview({'placeholder': '{1}', 'options': ['--bind', 'change:first']}), 0)<CR>
 nnoremap <leader>/ :Ag<CR>
 nnoremap ? :Ack ""<Left>
 " find a file in the Virtualenv
