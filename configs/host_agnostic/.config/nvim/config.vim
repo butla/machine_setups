@@ -289,6 +289,11 @@ let g:ycm_python_binary_path = 'python'
 " automatically close the doc preview window after completion
 let g:ycm_autoclose_preview_window_after_completion = 1
 
+" Explicit settings of the completion popups with fuzzy identifiers.
+" Nvim was lagging on typing without this.
+let g:ycm_auto_trigger = 1
+let g:ycm_min_num_of_chars_for_completion = 2
+
 " ack.vim should use silver searcher under the hood
 " It will search in hidden files, but will ignore git stuff
 let g:ackprg = 'ag --vimgrep --hidden --ignore .git'
