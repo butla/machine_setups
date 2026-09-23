@@ -86,6 +86,7 @@ PACMAN_NO_GUI_PACKAGES = {
     "toilet",  # printing large letters in terminal
     "pre-commit",  # running pre-commit hooks for development
     "yubikey-manager",  # CLI Yubikey usage. Backup in case yubico-authenticator-bin doesn't work.
+    "yubikey-personalization",  # needed for OTP slots to work on yubikey
     # =========================
     # CLI programs for GUIs
     # =========================
