@@ -15,10 +15,9 @@ sudo cryptsetup open ${DRIVE_2} crypt_data_2
 
 sudo mount -t btrfs /dev/mapper/crypt_data_1 ${STORAGE_PATH}
 
-echo Starting Syncthing...
+echo Starting services that need the encrypted data...
 sudo systemctl start syncthing@butla
-
-echo Starting minidlna...
 sudo systemctl start minidlna.service
+systemctl --user start qbittorrent-nox.service
 
 echo All done
