@@ -18,4 +18,7 @@ sudo mount -t btrfs /dev/mapper/crypt_data_1 ${STORAGE_PATH}
 echo Starting Syncthing...
 sudo systemctl start syncthing@butla
 
+echo Starting minidlna...
+sudo systemctl start minidlna.service
+
 echo All done
