@@ -4,6 +4,7 @@ set -e
 USER_HOME=/home/butla
 EXTERNAL_DRIVE_MOUNTPOINT=$USER_HOME/external_drive
 BACKUP_LOCATION=${EXTERNAL_DRIVE_MOUNTPOINT}/backup
+MIN_FREE_SPACE_GB=100
 
 export BORG_PASSPHRASE=$(cat $USER_HOME/data/borg_key)
 source $USER_HOME/.config/zsh/functions.zsh
@@ -23,6 +24,12 @@ borg create --stats --progress \
 
 log_info "Pruning old backups..."
 borg prune --stats --progress --keep-last 3 "${BACKUP_LOCATION}"
+
+FREE_SPACE_GB=$(df --block-size=1G --output=avail $EXTERNAL_DRIVE_MOUNTPOINT | tail -n 1 | tr -d ' ')
+if (( FREE_SPACE_GB < MIN_FREE_SPACE_GB )); then
+  log_info "Only ${FREE_SPACE_GB}G free on the drive. Compacting the repository..."
+  borg compact --progress "${BACKUP_LOCATION}"
+fi
 
 log_info "Waiting for the drive to sync..."
 sync
