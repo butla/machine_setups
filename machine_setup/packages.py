@@ -46,6 +46,7 @@ PACMAN_NO_GUI_PACKAGES = {
     "flake8",
     "python-poetry",  # python dependency manager
     "python-pipx",  # managing Python apps in isolated virtualenvs
+    "uv",  # Python package and tool manager. Runs mcp-atlassian for Claude Code.
     "python-eyed3",  # mp3 metadata viewer
     "lm_sensors",  # provides "sensors" for reading temperature readings
     "bluez-utils",  # provides "bluetoothctl"
@@ -115,6 +116,17 @@ PACMAN_NO_GUI_PACKAGES = {
     "texlive-binextra",  # for generating HTML from Markdown with Pandoc
     "aws-cli",  # AWS and Digital Ocean CLI
     "ollama",  # running LLM AI models locally
+}
+
+# Python CLI tools installed in isolated virtualenvs
+PIPX_PACKAGES = {
+    "ptpython",  # nice Python interactive shell
+    "ruff",  # Python linter and formatter
+}
+
+# NodeJS CLI tools installed globally. Pinned, because they're run by AI agents.
+NPM_PACKAGES = {
+    "@playwright/mcp@0.0.83",  # browser automation MCP server for Claude Code. Uses "chromium".
 }
 
 PACMAN_GUI_PACKAGES = {

@@ -24,6 +24,8 @@ def main(stop_on_errors: bool = False) -> None:
 
     upgrade_steps: list[Callable] = [
         sync_packages,
+        sync_pipx_packages,
+        sync_npm_packages,
         install_oh_my_zsh,
         machine_setup.links_setup.setup_all_links,
         os_configuration.setup_tmux_plugins,
@@ -89,6 +91,22 @@ def sync_packages():
     shell.run_cmd("pamac remove --orphans --unneeded --no-confirm", allow_fail=True, as_root=True)
 
 
+def sync_pipx_packages() -> None:
+    log.info("Installing pipx packages...")
+    for package in machine_setup.packages.PIPX_PACKAGES:
+        # does nothing for packages that are already installed
+        shell.run_cmd(f"pipx install {package}")
+
+    log.info("Updating pipx packages...")
+    shell.run_cmd("pipx upgrade-all")
+
+
+def sync_npm_packages() -> None:
+    log.info("Installing npm packages...")
+    packages_string = " ".join(machine_setup.packages.NPM_PACKAGES)
+    shell.run_cmd(f"npm install --global {packages_string}", as_root=True)
+
+
 def _add_package_keys():
     run_key_cmd = partial(subprocess.run, shell=True, check=True)
     keys_from_web = [
@@ -143,9 +161,9 @@ if __name__ == "__main__":
 # - add the method of getting keys with the packages. Ones with keys should be a dict.
 #   There needs to be an intermediate step that wraps the simple string or dict into a Package representation,
 #   that's hashable on the name.
-# - setup python tools with pipx packages (also update them?):
+# - more python tools with pipx packages:
 #   - ocrmypdf
-#   - ptpython (nice python interactive shell), with sympy and others (through pipx inject)
+#   - ptpython: inject sympy and others (through pipx inject)
 #   - pgcli (nice Postgres CLI client)
 #   - litecli (nice SQLite CLI client)
 #   - isort
