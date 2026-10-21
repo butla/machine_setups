@@ -224,6 +224,20 @@ endfunction
 
 nnoremap <leader>R :call <SID>RefactorRename()<CR>
 
+" Open the version of the current file from origin/main in a vertical split, for comparison.
+" The split is a scratch buffer with the same syntax highlighting as the current file.
+function! s:OpenFileFromMain()
+  let file_type = &filetype
+  vnew
+  setlocal buftype=nofile
+  0read !git show origin/main:#
+  " remove the empty line that was in the new buffer before the read
+  $delete _
+  let &l:filetype = file_type
+endfunction
+
+nnoremap <leader>C :call <SID>OpenFileFromMain()<CR>
+
 " jumping around the quickfix list
 nnoremap <leader>j :cn<CR>
 nnoremap <leader>k :cp<CR>
