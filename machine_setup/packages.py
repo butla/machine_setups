@@ -183,6 +183,7 @@ AUR_NO_GUI_PACKAGES = {
     "battop",  # battery stats
     "dstask",  # task/note manager, git-based
     "mactelnet",  # connec to to MikroTik routers with with their MAC
+    "smem",  # shows process memory usage
 }
 
 AUR_GUI_PACKAGES = {
