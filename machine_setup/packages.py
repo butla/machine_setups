@@ -145,6 +145,7 @@ PACMAN_GUI_PACKAGES = {
     "cheese",  # taking photos and videos with the camera/webcam
     "okular",  # my preferred PDF viewer
     "xournalpp",  # PDF editor
+    "ghostwriter",  # Markdown editor with a live preview
     "simple-scan",  # simple scanner operation
     "mpv",  # a nice video player with fast jumping and subtitle adjustment
     "vlc",  # an alternative video player, that's more widely used
