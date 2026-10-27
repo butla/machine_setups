@@ -127,6 +127,7 @@ PIPX_PACKAGES = {
 # NodeJS CLI tools installed globally. Pinned, because they're run by AI agents.
 NPM_PACKAGES = {
     "@playwright/mcp@0.0.83",  # browser automation MCP server for Claude Code. Uses "chromium".
+    "@mermaid-js/mermaid-cli@11.17.0",  # "mmdc": renders Mermaid diagrams to SVG/PNG/PDF
 }
 
 PACMAN_GUI_PACKAGES = {
@@ -145,7 +146,7 @@ PACMAN_GUI_PACKAGES = {
     "cheese",  # taking photos and videos with the camera/webcam
     "okular",  # my preferred PDF viewer
     "xournalpp",  # PDF editor
-    "ghostwriter",  # Markdown editor with a live preview
+    "obsidian",  # Markdown editor with a live preview that renders Mermaid diagrams
     "simple-scan",  # simple scanner operation
     "mpv",  # a nice video player with fast jumping and subtitle adjustment
     "vlc",  # an alternative video player, that's more widely used
