@@ -90,6 +90,10 @@ export EDITOR='nvim'
 # Without this Git on ZSH was trying to put everything through a pager.
 export PAGER="less -F -X"
 
+# Puppeteer (used by "mmdc" from @mermaid-js/mermaid-cli) uses the system Chromium.
+# npm blocks the puppeteer postinstall script that would download its own browser.
+export PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
+
 ## Options section (listed under `man zshoptions`)
 setopt always_to_end
 setopt auto_cd

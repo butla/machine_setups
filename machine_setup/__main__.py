@@ -6,6 +6,7 @@ So I prefer to use "machine".
 """
 
 from functools import partial
+import json
 import logging
 import subprocess
 import sys
@@ -102,9 +103,27 @@ def sync_pipx_packages() -> None:
 
 
 def sync_npm_packages() -> None:
-    log.info("Installing npm packages...")
-    packages_string = " ".join(machine_setup.packages.NPM_PACKAGES)
-    shell.run_cmd(f"npm install --global {packages_string}", as_root=True)
+    # "npm install --global" reinstalls packages that are already there, which takes a minute.
+    missing_packages = sorted(machine_setup.packages.NPM_PACKAGES - _get_global_npm_packages())
+    if not missing_packages:
+        log.info("npm packages are up to date.")
+        return
+
+    log.info("Installing npm packages: %s", ", ".join(missing_packages))
+    # npm shows no progress when its output isn't a terminal (e.g. piped to tee), so we log each HTTP request.
+    shell.run_cmd(f"npm install --global --loglevel=http {' '.join(missing_packages)}", as_root=True)
+
+
+def _get_global_npm_packages() -> set[str]:
+    """Return the global npm packages as "name@version", the format of NPM_PACKAGES."""
+    result = subprocess.run(
+        ["npm", "ls", "--global", "--depth=0", "--json"],  # noqa: S607
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    dependencies = json.loads(result.stdout).get("dependencies", {})
+    return {f"{name}@{info['version']}" for name, info in dependencies.items()}
 
 
 def _add_package_keys():
