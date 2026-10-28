@@ -4,10 +4,11 @@
 [user]
 	email = michal.bultrowicz@gmail.com
 	name = Michal Bultrowicz
-	signingkey = 58B5D1039E1498C3
+	signingkey = 505998161EA0D351
 [commit]
-#	TODO enable once gpg prompt is usable, that is it's not blocking my keyboard
-#	gpgsign = true
+	gpgsign = true
+[tag]
+	gpgSign = true
 [push]
 	default = simple
 [diff]
@@ -30,3 +31,7 @@
 	allow = always
 [rebase]
 	instructionFormat = "%ae # %s"
+
+# Work identity and GPG key for BT projects. Keep this last, so it overrides [user].
+[includeIf "gitdir:~/development/bt/"]
+	path = ~/.gitconfig_bt
