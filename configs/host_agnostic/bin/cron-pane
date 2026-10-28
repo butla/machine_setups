@@ -1,0 +1,54 @@
+#!/usr/bin/env zsh
+# AI-generated with brief review.
+#
+# Runs a command from cron or anacron. The output goes to the systemd journal, with the job name as the identifier.
+# Read it with: journalctl -t <job name>
+#
+# Each job has one pane in the "cron-outputs" window of tmux session 0.
+# The pane follows the journal of the job for the current day, so reruns on the same day add to the same pane.
+# On a new day the pane starts again. When the window or the session is missing, the job creates it.
+# At the end, it sends a desktop notification.
+#
+# Usage: cron-pane <job name> <working directory> <command> [arguments...]
+set -euo pipefail
+
+job=$1 workdir=$2
+shift 2
+
+source ~/.config/zsh/work_config.zsh
+export PATH=$HOME/.local/bin:$HOME/bin:/usr/local/bin:/usr/bin:/bin
+export DBUS_SESSION_BUS_ADDRESS=${DBUS_SESSION_BUS_ADDRESS:-unix:path=/run/user/$UID/bus}
+export PYTHONUNBUFFERED=1
+
+session=0
+window=cron-outputs
+today=$(date +%F)
+follow="journalctl --follow --no-tail --identifier=${(q)job} --since=$today --output=short"
+
+tmux has-session -t "=$session" 2>/dev/null || tmux new-session -d -s $session
+pane=$(tmux list-panes -s -t "=$session" -F '#{pane_id} #{@cron_job}' | awk -v job=$job '$2 == job {print $1; exit}')
+if [[ -z $pane ]]; then
+    window_id=$(tmux list-windows -t "=$session" -F '#{window_id} #{window_name}' | awk -v w=$window '$2 == w {print $1; exit}')
+    if [[ -n $window_id ]]; then
+        pane=$(tmux split-window -d -t $window_id -P -F '#{pane_id}' $follow)
+        tmux select-layout -t $window_id tiled
+    else
+        pane=$(tmux new-window -d -t "=$session:" -n $window -P -F '#{pane_id}' $follow)
+        tmux set-option -w -t $pane automatic-rename off
+    fi
+    tmux set-option -p -t $pane @cron_job $job
+elif [[ $(tmux display-message -p -t $pane '#{@cron_day}') != $today ]]; then
+    tmux respawn-pane -k -t $pane $follow
+    tmux clear-history -t $pane
+fi
+tmux set-option -p -t $pane @cron_day $today
+
+{
+    print "===== start ====="
+    cd $workdir
+    "$@" || print "FAILED: exit code $?"
+    print "===== end ====="
+} 2>&1 | systemd-cat --identifier=$job
+
+notify-send -a "Claude Code" -h string:sound-file:/usr/share/sounds/ocean/stereo/outcome-success.oga \
+    "$window: \"$job done\""

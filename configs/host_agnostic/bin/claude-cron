@@ -1,0 +1,26 @@
+#!/usr/bin/env zsh
+# AI-generated with brief review.
+#
+# Runs a headless Claude Code prompt in the current directory and prints the result.
+# The output ends with the command that resumes the session.
+# When Claude needs the user's input, a new window in tmux session 0 opens the session, with a shell after it.
+#
+# Usage: claude-cron <prompt> [claude arguments...]
+# From cron: cron-pane <job name> <working directory> claude-cron <prompt> [claude arguments...]
+set -euo pipefail
+
+input_mark="NEEDS USER INPUT"
+output=$(claude -p "$@" --output-format json --append-system-prompt \
+    "This is a headless cron run. Do not rename the tmux window. Do not send a desktop notification.
+If you need the user's input or decision, end the reply with this line: $input_mark")
+result=$(jq -r .result <<<$output)
+session_id=$(jq -r .session_id <<<$output)
+
+print -r -- $result
+print "\nResume: cd $PWD && claude --resume $session_id"
+if [[ $result == *$input_mark* ]]; then
+    tmux new-window -d -t '=0:' -n claude-input -c $PWD "claude --resume $session_id; exec zsh"
+    print "Opened the session in tmux window \"claude-input\"."
+    notify-send -a "Claude Code" -h string:sound-file:/usr/share/sounds/ocean/stereo/dialog-question.oga \
+        "claude-input: \"needs your input\""
+fi

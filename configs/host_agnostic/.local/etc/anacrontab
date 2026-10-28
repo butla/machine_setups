@@ -2,3 +2,11 @@
 # fields: "period in days", "delay in minutes", "job identifier", "command"
 # Example:
 @monthly 0 accounting-dirs-setup /home/butla/bin/new_accounting_month
+
+# Every day: approve other people's ready MRs from todo.md and add them to the merge train.
+# Waits until 09:30 when anacron starts it earlier. Output: tmux session 0, window "cron-outputs".
+1 0 claude-mr-merge-ready while [ "$(date +%H%M)" -lt 0930 ]; do sleep 60; done; /home/butla/bin/cron-pane mr-merge-ready /home/butla/Documents/notki/bt_2024_work_notes claude-cron /mr-merge-ready --strict-mcp-config --allowedTools Read "Bash(python3 -I /home/butla/.claude/skills/mr-merge-ready/mr_merge_ready.py:*)"
+
+# Every day: move the previous work day's items from the DONE section of todo.md to done.md.
+# Waits until 09:00 when anacron starts it earlier. Output: tmux session 0, window "cron-outputs".
+1 0 todo-done-move while [ "$(date +%H%M)" -lt 0900 ]; do sleep 60; done; /home/butla/bin/cron-pane todo-done-move /home/butla/Documents/notki/bt_2024_work_notes /home/butla/bin/todo_done_move.py todo.md done.md
