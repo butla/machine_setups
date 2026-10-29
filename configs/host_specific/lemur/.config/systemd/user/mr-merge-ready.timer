@@ -1,8 +1,8 @@
 [Unit]
-Description=Approve the ready MRs every day at 09:30
+Description=Approve the ready MRs every 15 minutes
 
 [Timer]
-OnCalendar=*-*-* 09:30
+OnCalendar=*:0/15
 # Runs at the next boot or wake when the machine was off or asleep at the scheduled time.
 Persistent=true
 
