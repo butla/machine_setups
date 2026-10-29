@@ -5,6 +5,7 @@ Ensuring proper configuration is set up for various programs in the host system.
 import functools
 import logging
 import os
+import platform
 from pathlib import Path
 import socket
 import subprocess
@@ -194,29 +195,22 @@ def enable_services():
     shell.run_cmd("systemctl enable --now avahi-daemon.service", as_root=True)
 
 
-def setup_crontab():
-    log.info("Ensuring periodic operations with cron and anacron.")
+def setup_user_timers() -> None:
+    """
+    Enable the systemd user timers (periodic jobs) from the configs.
 
-    users_anacron_spool_dir = shell.home_path() / ".local/var/spool/anacron"
-    shell.ensure_directory(users_anacron_spool_dir)
-
-    # TODO this doesn't work as expected. If the day is skipped, then the action doesn't happen.
-    # It has to be set up with anacrontab with manipulation of the spool file, so that the action is run on first
-    # day of the month. Or maybe there's some other way to do it.
-    crontab_contents = f"""
-# We'll run anacron through cron. Check out https://serverfault.com/a/172994/499078
-@hourly anacron -t ${{HOME}}/.local/etc/anacrontab -S {users_anacron_spool_dir}
-
-# first day of the month
-* * 1 * * ${{HOME}}/bin/new_accounting_month
-"""
-    # TODO this should use machines_setup.shell.run_cmd
-    subprocess.run(
-        ["sudo", "-u", constants.USER, "crontab", "-"],
-        input=crontab_contents,
-        text=True,
-        check=True,
-    )
+    links_setup links their unit files into ~/.config/systemd/user.
+    `Persistent=true` in a timer runs a job at the next boot or wake if the machine was off or asleep at the time.
+    """
+    log.info("Ensuring the periodic jobs with systemd user timers.")
+    timer_dirs = [
+        Path("configs/host_agnostic/.config/systemd/user"),
+        Path(f"configs/host_specific/{platform.node()}/.config/systemd/user"),
+    ]
+    timers = sorted(timer.name for timer_dir in timer_dirs for timer in timer_dir.glob("*.timer"))
+    user_systemctl = f"systemctl --user --machine={constants.USER}@"
+    shell.run_cmd(f"{user_systemctl} daemon-reload", as_root=True)
+    shell.run_cmd(f"{user_systemctl} enable --now {' '.join(timers)}", as_root=True)
 
 
 def set_java_version():

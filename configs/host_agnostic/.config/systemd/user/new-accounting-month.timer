@@ -1,0 +1,10 @@
+[Unit]
+Description=Create the accounting folders on the first day of each month
+
+[Timer]
+OnCalendar=monthly
+# Runs at the next boot or wake when the machine was off or asleep at the scheduled time.
+Persistent=true
+
+[Install]
+WantedBy=timers.target

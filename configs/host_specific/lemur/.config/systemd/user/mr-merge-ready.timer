@@ -1,0 +1,10 @@
+[Unit]
+Description=Approve the ready MRs every day at 09:30
+
+[Timer]
+OnCalendar=*-*-* 09:30
+# Runs at the next boot or wake when the machine was off or asleep at the scheduled time.
+Persistent=true
+
+[Install]
+WantedBy=timers.target

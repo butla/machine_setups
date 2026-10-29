@@ -6,7 +6,7 @@
 # When Claude needs the user's input, a new window in tmux session 0 opens the session, with a shell after it.
 #
 # Usage: claude-cron <prompt> [claude arguments...]
-# From cron: cron-pane <job name> <working directory> claude-cron <prompt> [claude arguments...]
+# From a systemd timer: cron-pane <job name> <working directory> claude-cron <prompt> [claude arguments...]
 set -euo pipefail
 
 input_mark="NEEDS USER INPUT"

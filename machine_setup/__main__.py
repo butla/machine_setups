@@ -34,7 +34,7 @@ def main(stop_on_errors: bool = False) -> None:
         os_configuration.set_gsettings,
         os_configuration.enable_services,
         os_configuration.ensure_ntp,
-        os_configuration.setup_crontab,
+        os_configuration.setup_user_timers,
         os_configuration.set_java_version,
         os_configuration.apply_app_specific_config_patches,
         os_configuration.setup_neovim,

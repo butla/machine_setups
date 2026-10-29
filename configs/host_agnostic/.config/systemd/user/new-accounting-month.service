@@ -1,0 +1,6 @@
+[Unit]
+Description=Create the accounting folders for the new month
+
+[Service]
+Type=oneshot
+ExecStart=%h/bin/new_accounting_month

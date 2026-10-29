@@ -35,8 +35,10 @@ sometimes contain error HTTP responses from the mirror instead of signatures.
 ## Pamac: some AUR build issues
 rm -rf /var/tmp/pamac-build-{user}/{app}
 
-## Test anacrontab
-anacron -d -t ${HOME}/.local/etc/anacrontab -S /home/butla/.local/var/spool/anacron
+## Periodic jobs (systemd user timers)
+List the timers, with the next and last run: `systemctl --user list-timers`.
+Run a job now: `systemctl --user start <job>.service`.
+Read the output of a job that uses cron-pane: `journalctl -t <job>`.
 
 ## Syncthing showing folders up-to-date but out-of-sync with devices
 sudo systemctl stop syncthing@butla

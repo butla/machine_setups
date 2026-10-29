@@ -1,0 +1,6 @@
+[Unit]
+Description=Approve the ready MRs from todo.md and add them to the merge train
+
+[Service]
+Type=oneshot
+ExecStart=%h/bin/cron-pane mr-merge-ready %h/Documents/notki/bt_2024_work_notes claude-cron /mr-merge-ready --strict-mcp-config --allowedTools Read "Bash(python3 -I %h/.claude/skills/mr-merge-ready/mr_merge_ready.py:*)"

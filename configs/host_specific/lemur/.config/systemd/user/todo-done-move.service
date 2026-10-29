@@ -1,0 +1,6 @@
+[Unit]
+Description=Move the previous work day's DONE items from todo.md to done.md
+
+[Service]
+Type=oneshot
+ExecStart=%h/bin/cron-pane todo-done-move %h/Documents/notki/bt_2024_work_notes %h/bin/todo_done_move.py todo.md done.md

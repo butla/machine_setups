@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 # AI-generated with brief review.
 #
-# Runs a command from cron or anacron. The output goes to the systemd journal, with the job name as the identifier.
+# Runs a command from a systemd timer. The output goes to the systemd journal, with the job name as the identifier.
 # Read it with: journalctl -t <job name>
 #
 # Each job has one pane in the "cron-outputs" window of tmux session 0.

@@ -1,0 +1,10 @@
+[Unit]
+Description=Move the DONE items to done.md every day at 09:00
+
+[Timer]
+OnCalendar=*-*-* 09:00
+# Runs at the next boot or wake when the machine was off or asleep at the scheduled time.
+Persistent=true
+
+[Install]
+WantedBy=timers.target
