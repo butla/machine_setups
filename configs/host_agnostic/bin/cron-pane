@@ -50,5 +50,5 @@ tmux set-option -p -t $pane @cron_day $today
     print "===== end ====="
 } 2>&1 | systemd-cat --identifier=$job
 
-notify-send -a "Claude Code" -h string:sound-file:/usr/share/sounds/ocean/stereo/outcome-success.oga \
+notify-send -a "Claude Code" --transient -h string:sound-file:/usr/share/sounds/ocean/stereo/outcome-success.oga \
     "$window: \"$job done\""
