@@ -7,7 +7,8 @@
 # Each job has one pane in the "cron-outputs" window of tmux session 0.
 # The pane follows the journal of the job for the current day, so reruns on the same day add to the same pane.
 # On a new day the pane starts again. When the window or the session is missing, the job creates it.
-# At the end, it sends a desktop notification.
+# At the end, it sends a desktop notification. If the output has a "Changes:" line, the notification body
+# shows the text on that line and the indented lines below it.
 #
 # Usage: cron-pane <job name> <working directory> <command> [arguments...]
 set -euo pipefail
@@ -43,12 +44,18 @@ elif [[ $(tmux display-message -p -t $pane '#{@cron_day}') != $today ]]; then
 fi
 tmux set-option -p -t $pane @cron_day $today
 
+output=$(mktemp)
+trap 'rm -f $output' EXIT
+
 {
     print "===== start ====="
     cd $workdir
     "$@" || print "FAILED: exit code $?"
     print "===== end ====="
-} 2>&1 | systemd-cat --identifier=$job
+} 2>&1 | tee $output | systemd-cat --identifier=$job
 
+changes=$(awk '/^Changes:/ {found = 1; sub(/^Changes: */, ""); if ($0 != "") print; next}
+    found && /^[[:space:]]+[^[:space:]]/ {sub(/^[[:space:]]+/, ""); print; next}
+    found {exit}' $output)
 notify-send -a "Claude Code" --transient -h string:sound-file:/usr/share/sounds/ocean/stereo/outcome-success.oga \
-    "$window: \"$job done\""
+    "$window: \"$job done\"" "$changes"
