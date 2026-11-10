@@ -143,7 +143,7 @@ PACMAN_GUI_PACKAGES = {
     "gimp",  # image editor
     "digikam",  # a photo manager
     "inkscape",  # vector graphics creator
-    "cheese",  # taking photos and videos with the camera/webcam
+    "snapshot",  # taking photos and videos with the camera/webcam
     "okular",  # my preferred PDF viewer
     "xournalpp",  # PDF editor
     "obsidian",  # Markdown editor with a live preview that renders Mermaid diagrams
