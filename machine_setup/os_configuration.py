@@ -92,7 +92,7 @@ def set_gsettings():
     ]
     # create a number of entries that will be filled with values below
     run_gsettings(
-        "set org.gnome.settings-daemon.plugins.media-keys custom-keybindings " f'"{str(keybinding_entry_paths)}"'
+        f'set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "{str(keybinding_entry_paths)}"'
     )
     for index, custom_keybinding in enumerate(custom_keybindings):
         set_command_base = (
