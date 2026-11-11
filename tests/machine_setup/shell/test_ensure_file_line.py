@@ -1,8 +1,11 @@
-from pathlib import Path
+from typing import TYPE_CHECKING
 
 import pytest
 
 from machine_setup import shell
+
+if TYPE_CHECKING:
+    from pathlib import Path
 
 
 @pytest.fixture
@@ -12,7 +15,7 @@ def file_path(tmp_path: Path) -> Path:
     return path
 
 
-def test_works_on_nonexisting_file(file_path: Path):
+def test_works_on_nonexisting_file(file_path: Path) -> None:
     line_to_ensure = "blabla"
     line_matcher = line_to_ensure
     expected_file_contents = line_to_ensure
@@ -22,7 +25,7 @@ def test_works_on_nonexisting_file(file_path: Path):
     assert file_path.read_text() == expected_file_contents
 
 
-def test_works_on_nonexistent_file_in_nonexistent_directories(tmp_path):
+def test_works_on_nonexistent_file_in_nonexistent_directories(tmp_path: Path) -> None:
     path = tmp_path / "level_1" / "level_2" / "file_name"
     line_to_ensure = "flamingo"
 
@@ -31,7 +34,7 @@ def test_works_on_nonexistent_file_in_nonexistent_directories(tmp_path):
     assert path.read_text() == line_to_ensure
 
 
-def test_works_on_existing_file_when_matcher_matches(file_path: Path):
+def test_works_on_existing_file_when_matcher_matches(file_path: Path) -> None:
     file_contents = """
 xxxxxxxx
 yyy = banana
@@ -51,7 +54,7 @@ zzzzzzzz
     assert file_path.read_text() == expected_file_contents
 
 
-def test_works_on_existing_file_when_matcher_doesnt_match(file_path):
+def test_works_on_existing_file_when_matcher_doesnt_match(file_path: Path) -> None:
     file_contents = """
 xxxxxxxx
 zzzzzzzz
@@ -70,7 +73,7 @@ yyy = squirrel
     assert file_path.read_text() == expected_file_contents
 
 
-def test_works_when_path_is_str(file_path):
+def test_works_when_path_is_str(file_path: Path) -> None:
     file_contents = """
 xxxxxxxx
 """
