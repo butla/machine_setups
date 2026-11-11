@@ -8,7 +8,6 @@ import itertools
 from pathlib import Path
 import shlex
 import subprocess
-from typing import List, Tuple
 
 from dateutil.relativedelta import relativedelta
 import pytz
@@ -60,7 +59,7 @@ def get_profile_id() -> int:
     )
     resp.raise_for_status()
 
-    profiles: List[dict] = resp.json()
+    profiles: list[dict] = resp.json()
     business_profile = next(profile for profile in profiles if profile["type"] == "business")
     return business_profile["id"]
 
@@ -72,12 +71,12 @@ def get_account_id(profile_id: int) -> int:
     )
     resp.raise_for_status()
 
-    accounts: List[dict] = resp.json()
+    accounts: list[dict] = resp.json()
     business_account = accounts[0]
     return business_account["id"]
 
 
-def get_month_ends(date_in_month: datetime) -> Tuple[str, str]:
+def get_month_ends(date_in_month: datetime) -> tuple[str, str]:
     def to_utc_string(date: datetime) -> str:
         as_utc = date.astimezone(pytz.utc)
         return as_utc.isoformat().replace("+00:00", "Z")

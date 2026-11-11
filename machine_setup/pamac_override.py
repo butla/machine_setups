@@ -1,6 +1,5 @@
 import contextlib
 import os
-from pathlib import Path
 
 from machine_setup import constants, shell
 

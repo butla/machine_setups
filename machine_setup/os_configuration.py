@@ -2,11 +2,9 @@
 Ensuring proper configuration is set up for various programs in the host system.
 """
 
-import functools
 import logging
-import os
-import platform
 from pathlib import Path
+import platform
 import socket
 import subprocess
 
@@ -92,7 +90,7 @@ def set_gsettings():
     ]
     # create a number of entries that will be filled with values below
     run_gsettings(
-        f'set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "{str(keybinding_entry_paths)}"'
+        f'set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "{keybinding_entry_paths!s}"'
     )
     for index, custom_keybinding in enumerate(custom_keybindings):
         set_command_base = (

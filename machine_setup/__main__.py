@@ -5,12 +5,12 @@ Installs software and applies configuration that I want in any of my Manjaro com
 So I prefer to use "machine".
 """
 
+from collections.abc import Callable
 from functools import partial
 import json
 import logging
 import subprocess
 import sys
-from typing import Callable
 
 import machine_setup
 from machine_setup import logs, os_configuration, pamac_override, shell

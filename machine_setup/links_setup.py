@@ -3,13 +3,13 @@ Setting up links from this repository, to the broader filesystems.
 Mainly used to ensure that any manual config changes will be caught by Git.
 """
 
+from collections.abc import Iterable
 from dataclasses import dataclass
 import logging
 import os
 from pathlib import Path
 import platform
 import re
-from typing import Iterable, List
 
 from machine_setup import machine_info, shell
 
@@ -83,10 +83,10 @@ class _LinkToSetUp:
 
 
 def _get_links_to_set_up(
-    files_to_link: List[Path],
+    files_to_link: list[Path],
     files_dir: Path,
     links_location: Path,
-) -> List[_LinkToSetUp]:
+) -> list[_LinkToSetUp]:
     file_path_strings = [str(path) for path in files_to_link]
     link_path_strings = [re.sub(f"^{files_dir}", str(links_location), path) for path in file_path_strings]
     link_paths = [Path(path) for path in link_path_strings]

@@ -3,7 +3,7 @@ import logging
 from pathlib import Path
 import re
 import shlex
-import subprocess  # noqa: S404
+import subprocess
 
 from machine_setup import constants
 
