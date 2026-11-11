@@ -13,9 +13,9 @@ setup_machine:
 	sudo bash -c "python3 -m machine_setup | tee --append $(LOG_PATH)/butla_upgrade.log"
 
 setup_development:
-	poetry install
+	uv sync
 
-# The below commands require setting up a virtualenv, activating it, and running `poetry install` in it.
+# The below commands require setting up a virtualenv, activating it, and running `uv sync` in it.
 
 # Static analysis can find errors in the code that can cause multiple tests to fail
 # (which would produce a lot of pytest output), so we run it first.
@@ -30,14 +30,14 @@ check_continously:
 
 format:
 	@echo ===Formatting code===
-	poetry run ruff format $(SRC_DIRECTORIES)
+	uv run ruff format $(SRC_DIRECTORIES)
 	# Import sorting like isort.
-	poetry run ruff check $(SRC_DIRECTORIES) --select I --fix
+	uv run ruff check $(SRC_DIRECTORIES) --select I --fix
 
 
 test:
 	@echo ===Tests===
-	poetry run pytest -v tests
+	uv run pytest -v tests
 
 test_continously:
 	fd '\.py$$' $(SRC_DIRECTORIES) | entr -c make test
@@ -45,16 +45,16 @@ test_continously:
 static_analysis: _type_check _format_check _lint
 
 shell:
-	poetry run ptpython
+	uv run ptpython
 
 _format_check:
 	@echo ===Checking formatting===
-	poetry run ruff format --check $(SRC_DIRECTORIES)
+	uv run ruff format --check $(SRC_DIRECTORIES)
 
 _lint:
 	@echo ===Checking linters===
-	poetry run ruff check $(SRC_DIRECTORIES)
+	uv run ruff check $(SRC_DIRECTORIES)
 
 _type_check:
 	@echo ===Checking types===
-	poetry run mypy $(SRC_DIRECTORIES)
+	uv run mypy $(SRC_DIRECTORIES)
