@@ -1,12 +1,12 @@
 import functools
 import logging
-from typing import Final
+from typing import Final, override
 
 
 # Caching, so that this doesn't get executed again when called, by accident.
 @functools.cache
 def setup() -> None:
-    """Sets up the log configuration for the program."""
+    """Set up the log configuration for the program."""
     all_logs_handler = logging.StreamHandler()
     colored_formatter = ColoredFormatter(datefmt="%Y-%m-%d %H:%M:%S")
     all_logs_handler.setFormatter(colored_formatter)
@@ -18,6 +18,9 @@ def setup() -> None:
 
 
 class ColoredFormatter(logging.Formatter):
+    """Give each log level a background color."""
+
+    @override
     def format(self, record: logging.LogRecord) -> str:
         internal_formatter = self._get_level_formatter(record.levelno)
         return internal_formatter.format(record)

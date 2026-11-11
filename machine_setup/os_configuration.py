@@ -1,23 +1,22 @@
-"""
-Ensuring proper configuration is set up for various programs in the host system.
-"""
+"""Ensuring proper configuration is set up for various programs in the host system."""
 
 import logging
 from pathlib import Path
 import platform
+import pwd
 import socket
-import subprocess
 
 from machine_setup import constants, machine_info, shell
 
 log = logging.getLogger(__name__)
 
 
-def set_gsettings():
-    gsettings_prefix = f"sudo -Hu {constants.USER} dbus-launch gsettings"
-    run_gsettings = lambda command: shell.run_cmd(f"{gsettings_prefix} {command}", as_root=True)
+def set_gsettings() -> None:
+    """Set settings with gsettings. These are used by Gnome/GTK apps."""
 
-    """Sets settings with gsettings. These are used by Gnome/GTK apps."""
+    def run_gsettings(command: str) -> None:
+        shell.run_cmd(f"sudo -Hu {constants.USER} dbus-launch gsettings {command}", as_root=True)
+
     if not machine_info.check_gui_present():
         log.info("Skipping GSettings setup - no GUI on the machine...")
         return
@@ -41,12 +40,12 @@ def set_gsettings():
     # so I'll disable this part for now.
     #
     # desktop zoom
-    # shell.run_cmd('gsettings set org.gnome.desktop.a11y.applications screen-magnifier-enabled true')
-    # shell.run_cmd('gsettings set org.gnome.desktop.a11y.magnifier mag-factor 1.0')
+    # shell.run_cmd('gsettings set org.gnome.desktop.a11y.applications screen-magnifier-enabled true')  # noqa: ERA001
+    # shell.run_cmd('gsettings set org.gnome.desktop.a11y.magnifier mag-factor 1.0')  # noqa: ERA001
     # # Forcing this to be false, because it makes the entire desktop choppy or freeze sometimes,
     # # especially when using QT apps and trey icons from AppIndicator plugin.
-    # shell.run_cmd('gsettings set org.gnome.desktop.interface toolkit-accessibility false')
-    # _setup_disabling_accessibility_toolkit_on_login()
+    # shell.run_cmd('gsettings set org.gnome.desktop.interface toolkit-accessibility false')  # noqa: ERA001
+    # _setup_disabling_accessibility_toolkit_on_login()  # noqa: ERA001
 
     # automatically remove old trash and temp files
     run_gsettings("set org.gnome.desktop.privacy old-files-age 30")
@@ -98,14 +97,15 @@ def set_gsettings():
             ":/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom{index}/ "
             '{field_name} "{value}"'
         )
-        for field_name, value in zip(["name", "binding", "command"], custom_keybinding):
+        for field_name, value in zip(["name", "binding", "command"], custom_keybinding, strict=True):
             run_gsettings(set_command_base.format(index=index, field_name=field_name, value=value))
 
 
-def _setup_disabling_accessibility_toolkit_on_login():
+def _setup_disabling_accessibility_toolkit_on_login() -> None:
     """
-    Disabling accessibility toolkit is needed because Gnome will enable it on login if magnifier is enabled,
-    and that leads to GUI issues.
+    Disable the accessibility toolkit on login.
+
+    Gnome enables it on login if the magnifier is enabled, and that leads to GUI issues.
     """
     desktop_file = """[Desktop Entry]
 Version=1.0
@@ -120,7 +120,7 @@ Type=Application
     )
 
 
-def setup_tmux_plugins():
+def setup_tmux_plugins() -> None:
     log.info("Setting up Tmux pluggins...")
 
     tmux_plugins = ["tpm", "tmux-yank"]
@@ -131,7 +131,7 @@ def setup_tmux_plugins():
         shell.clone_or_update_git_repo(f"https://github.com/tmux-plugins/{plugin}", plugin_location)
 
 
-def setup_neovim():
+def setup_neovim() -> None:
     neovim_virtualenv_path = shell.home_path() / ".virtualenvs/neovim"
     # TODO self healing for when Python is upgraded
     if not neovim_virtualenv_path.exists():
@@ -150,20 +150,19 @@ def setup_neovim():
         shell.run_cmd(f"wget -O {vim_color_scheme_file} {color_scheme_url}")
 
     log.info("Synchronizing NeoVim plugins with vim-plug...")
-    # UpdateRemotePlugins shouldn't be necessary, because vim-plug is supposed to run it for semshi, but it doesn't.
+    # UpdateRemotePlugins shouldn't be necessary, because vim-plug is supposed to run it for semshi,
+    # but it doesn't.
     # TODO this looks to be messing something up in the output
     shell.run_cmd("nvim +PlugUpgrade +PlugClean +PlugUpdate +UpdateRemotePlugins +qall")
 
 
-def ensure_ntp():
+def ensure_ntp() -> None:
     log.info("Ensuring time is synced with NTP.")
     shell.run_cmd("timedatectl set-ntp true", as_root=True)
 
 
-def set_zsh_as_shell():
-    current_shell = (
-        subprocess.check_output(["grep", constants.USER, "/etc/passwd"]).decode().strip().split(":")[-1]
-    )
+def set_zsh_as_shell() -> None:
+    current_shell = pwd.getpwnam(constants.USER).pw_shell
     shell_to_set = "/usr/bin/zsh"
 
     if current_shell != shell_to_set:
@@ -172,7 +171,7 @@ def set_zsh_as_shell():
         shell.run_cmd(f"chsh -s {shell_to_set} {constants.USER}")
 
 
-def enable_services():
+def enable_services() -> None:
     log.info("Making sure certain services are enabled, running, and usable...")
 
     # No working docker on ARM? Something errors out if I try to enable Docker...
@@ -211,9 +210,10 @@ def setup_user_timers() -> None:
     shell.run_cmd(f"{user_systemctl} enable --now {' '.join(timers)}", as_root=True)
 
 
-def set_java_version():
+def set_java_version() -> None:
     """
-    Has to be done for freeplane:
+    Set the Java version that Freeplane needs.
+
     https://forum.manjaro.org/t/freeplane-refuse-to-start-after-update/116595/2
     """
     java_version = "java-17-openjdk"
@@ -221,7 +221,7 @@ def set_java_version():
     shell.run_cmd(f"archlinux-java set {java_version}", as_root=True)
 
 
-def apply_app_specific_config_patches():
+def apply_app_specific_config_patches() -> None:
     freeplane_config = shell.home_path() / ".config/freeplane/1.10.x/auto.properties"
     shell.ensure_file_line(
         path=freeplane_config,

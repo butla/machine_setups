@@ -1,24 +1,27 @@
 """
 Setting up links from this repository, to the broader filesystems.
+
 Mainly used to ensure that any manual config changes will be caught by Git.
 """
 
-from collections.abc import Iterable
 from dataclasses import dataclass
 import logging
-import os
 from pathlib import Path
 import platform
 import re
+from typing import TYPE_CHECKING
 
 from machine_setup import machine_info, shell
+
+if TYPE_CHECKING:
+    from collections.abc import Iterable
 
 BACKUP_SUFFIX = ".bak"
 
 log = logging.getLogger(__name__)
 
 
-def setup_all_links():
+def setup_all_links() -> None:
     log.info("Ensuring up-to-date configurations and scripts...")
     set_up_links(
         source_dir=Path("configs/host_agnostic/"),
@@ -71,7 +74,7 @@ def set_up_links(source_dir: Path, target_dir: Path) -> None:
         shell.run_cmd(f"ln -s {link_to_create.target} {link_to_create.location}")
 
 
-def _should_set_up_link(path) -> bool:
+def _should_set_up_link(path: Path) -> bool:
     """Given a path in a source directory, says whether a link for it should be created in the target directory."""
     return path.is_file() and path.suffix != ".pyc" and "tests/" not in str(path)
 
@@ -93,27 +96,26 @@ def _get_links_to_set_up(
 
     initial_links = [
         _LinkToSetUp(target=link_target, location=link_path)
-        for link_target, link_path in zip(files_to_link, link_paths)
+        for link_target, link_path in zip(files_to_link, link_paths, strict=True)
     ]
     return [link for link in initial_links if not _is_link_set_up(link)]
 
 
-def _is_link_set_up(link: _LinkToSetUp):
+def _is_link_set_up(link: _LinkToSetUp) -> bool:
     """Prevents us doing anything if the link is already set up correctly."""
-    if link.location.exists() and link.location.is_symlink():
-        if link.location.resolve() == link.target.absolute():
-            return True
-    return False
+    return (
+        link.location.exists() and link.location.is_symlink() and link.location.resolve() == link.target.absolute()
+    )
 
 
-def _ensure_parent_dirs(paths: Iterable[Path]):
+def _ensure_parent_dirs(paths: Iterable[Path]) -> None:
     for path in paths:
         if not path.parent.exists():
             log.info("Creating directory: %s", path.parent)
             shell.ensure_directory(path.parent)
 
 
-def _backup_and_remove_existing_targets(paths: Iterable[Path]):
+def _backup_and_remove_existing_targets(paths: Iterable[Path]) -> None:
     for path in paths:
         if path.exists():
             log.info("Backing up %s", path)
@@ -121,8 +123,8 @@ def _backup_and_remove_existing_targets(paths: Iterable[Path]):
             path.replace(backup_path)
 
 
-def _remove_broken_links(paths: Iterable[Path]):
+def _remove_broken_links(paths: Iterable[Path]) -> None:
     for path in paths:
-        if path.is_symlink() and not os.path.exists(os.readlink(path)):
+        if path.is_symlink() and not path.readlink().exists():
             log.info("Will replace a broken link at %s", path)
             path.unlink()

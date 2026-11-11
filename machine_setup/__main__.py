@@ -5,15 +5,18 @@ Installs software and applies configuration that I want in any of my Manjaro com
 So I prefer to use "machine".
 """
 
-from collections.abc import Callable
 from functools import partial
 import json
 import logging
 import subprocess
 import sys
+from typing import TYPE_CHECKING
 
 import machine_setup
 from machine_setup import logs, os_configuration, pamac_override, shell
+
+if TYPE_CHECKING:
+    from collections.abc import Callable
 
 log = logging.getLogger(__name__)
 
@@ -50,7 +53,8 @@ def main(stop_on_errors: bool = False) -> None:
             steps_succeeded = False
 
             if stop_on_errors:
-                log.error("Stopping execution of further steps...")
+                # The traceback is already logged above.
+                log.error("Stopping execution of further steps...")  # noqa: TRY400
                 break
 
     if steps_succeeded:
@@ -60,7 +64,7 @@ def main(stop_on_errors: bool = False) -> None:
         sys.exit("ERROR! Some steps have failed!")
 
 
-def sync_packages():
+def sync_packages() -> None:
     # TODO list the packages getting installed, updated.
     # Pipe the command output somewhere else. Log file.
     # Say "updating packages, log location /var/log/bobr_machine_setup
@@ -127,8 +131,9 @@ def _get_global_npm_packages() -> set[str]:
     return {f"{name}@{info['version']}" for name, info in dependencies.items()}
 
 
-def _add_package_keys():
-    run_key_cmd = partial(subprocess.run, shell=True, check=True)
+def _add_package_keys() -> None:
+    # The commands use pipes, so they need a shell.
+    run_key_cmd = partial(subprocess.run, shell=True, check=True)  # noqa: S604
     keys_from_web = [
         "https://download.spotify.com/debian/pubkey_7A3A762FAFD4A51F.gpg",
     ]
@@ -146,12 +151,12 @@ def _add_package_keys():
     run_key_cmd("gpg --auto-key-locate nodefault,wkd --locate-keys torbrowser@torproject.org")
 
 
-def install_oh_my_zsh():
+def install_oh_my_zsh() -> None:
     oh_my_zsh_path = shell.home_path() / ".oh-my-zsh"
     shell.clone_or_update_git_repo("https://github.com/ohmyzsh/ohmyzsh.git", oh_my_zsh_path)
 
 
-def describe_manual_steps():
+def describe_manual_steps() -> None:
     log.info(
         "Check out docs/initial_setup.md to check the steps you need to do manually "
         "after running the initial setup."
@@ -165,7 +170,8 @@ if __name__ == "__main__":
 # TODOs
 # - setting to automate: Tweaks / Appearance / Legacy applications: Adapta-Nokto-Maia (affects Meld)
 # - add precommit: mypy, ruff
-# - make package update faster: if the last "synchronizing package lists" in /var/log/pacman.log is no older than 8 hours
+# - make package update faster: skip it if the last "synchronizing package lists" in /var/log/pacman.log
+#   is no older than 8 hours
 # - make neovim plugin update not mess up the script's output
 # - Rename "configs" to "files_to_link"
 #   - dedicated dir: files_to_link|files_to_copy/{gnome, xfce, common}.
@@ -201,4 +207,5 @@ if __name__ == "__main__":
 #   Or better - bemenu, with meta+m (for media) (maybe upper case, lower is move)
 #   check "grafika" and whatever photo folders are available
 # - On failed steps ask whether to restart or skip them. Or maybe cancel the whole run.
-# - font configs in alacritty that switch when a monitor is attached? Have configs for alien, lemur, iiyama (monitor)
+# - font configs in alacritty that switch when a monitor is attached?
+#   Have configs for alien, lemur, iiyama (monitor)

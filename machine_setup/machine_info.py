@@ -1,6 +1,4 @@
-"""
-Functions to get info about the machine/computer we're running on.
-"""
+"""Functions to get info about the machine/computer we're running on."""
 
 import os
 import platform
@@ -10,7 +8,7 @@ import socket
 def check_gui_present() -> bool:
     # TODO Have a better implementation for this.
     # Now it just excludes the only non-GUI machine in my setup.
-    return socket.gethostname() not in ["ognisko"]
+    return socket.gethostname() != "ognisko"
 
 
 def check_is_arm_cpu() -> bool:
@@ -19,6 +17,6 @@ def check_is_arm_cpu() -> bool:
     return platform.machine() == "aarch64"
 
 
-def get_desktop_environment() -> str | None:
+def get_desktop_environment() -> str:
     # TODO do detection with some tool (inxi?) instead of an env var that doesn't work over SSH
     return os.environ.get("XDG_CURRENT_DESKTOP", "").lower()
