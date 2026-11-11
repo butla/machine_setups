@@ -1,6 +1,6 @@
 """AI-generated with brief review."""
 
-import datetime
+import datetime as dt
 from pathlib import Path
 import subprocess
 
@@ -10,9 +10,9 @@ SCRIPT = Path(__file__).parents[2] / "configs/host_agnostic/bin/todo_done_move.p
 
 def _previous_work_day() -> str:
     # The script uses the local date too.
-    day = datetime.date.today() - datetime.timedelta(days=1)  # noqa: DTZ011
+    day = dt.date.today() - dt.timedelta(days=1)  # noqa: DTZ011
     while day.weekday() >= SATURDAY:
-        day -= datetime.timedelta(days=1)
+        day -= dt.timedelta(days=1)
     return day.isoformat()
 
 

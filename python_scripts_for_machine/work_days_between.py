@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-from datetime import datetime, timedelta
+from datetime import date, timedelta
 
 
-def count_work_days(start, stop):
+def count_work_days(start: date, stop: date) -> int:
     count = 0
     current_day = start
     while current_day <= stop:
@@ -40,6 +40,8 @@ additional_days = [
     "2018-12-16",
 ]
 
-d1 = datetime(year=2018, month=11, day=15)
-d2 = datetime(year=2019, month=11, day=10)
-print(count_work_days(d1, d2) - len(leave_days) + len(additional_days))
+d1 = date(year=2018, month=11, day=15)
+d2 = date(year=2019, month=11, day=10)
+print(  # noqa: T201
+    count_work_days(d1, d2) - len(leave_days) + len(additional_days)
+)

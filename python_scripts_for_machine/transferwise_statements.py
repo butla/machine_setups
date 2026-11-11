@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 
-# TODO
-# - put in dropbox
-# - cron
-from datetime import datetime
+# TODO put in dropbox, run from cron
+from datetime import UTC, date, datetime
 import itertools
 from pathlib import Path
 import shlex
@@ -13,21 +11,18 @@ from dateutil.relativedelta import relativedelta
 import pytz
 import requests
 
-token = None
 
-
-def main():
-    global token
+def main() -> None:
     token = Path("~/.credentials/transferwise_token").expanduser().read_text().strip()
     # TODO always take previous month, unless I pass "-c"
-    # statements_month = int(sys.argv[1])
+    # statements_month = int(sys.argv[1])  # noqa: ERA001
 
-    last_month = datetime.now() - relativedelta(months=1)
+    last_month = datetime.now(UTC) - relativedelta(months=1)
     statements_month = last_month
 
     start_time, end_time = get_month_ends(statements_month)
-    profile_id = get_profile_id()
-    account_id = get_account_id(profile_id)
+    profile_id = get_profile_id(token)
+    account_id = get_account_id(token, profile_id)
 
     statements_url_template = (
         "https://api.transferwise.com/v3/profiles/{profile_id}/borderless-accounts/"
@@ -44,18 +39,20 @@ def main():
             start_time=start_time,
             end_time=end_time,
         )
-        print("Will request:\n", statements_url)
+        print("Will request:\n", statements_url)  # noqa: T201
         # TODO this needs to get 403 with a challenge and then make the actual request now...
-        subprocess.run(
-            shlex.split(f'wget --header="Authorization: Bearer {token}" --content-disposition {statements_url}')
+        subprocess.run(  # noqa: S603
+            shlex.split(f'wget --header="Authorization: Bearer {token}" --content-disposition {statements_url}'),
+            check=False,
         )
-    print("\nPulled all statements.")
+    print("\nPulled all statements.")  # noqa: T201
 
 
-def get_profile_id() -> int:
+def get_profile_id(token: str) -> int:
     resp = requests.get(
         "https://api.transferwise.com/v1/profiles",
         headers={"Authorization": f"Bearer {token}"},
+        timeout=30,
     )
     resp.raise_for_status()
 
@@ -64,10 +61,11 @@ def get_profile_id() -> int:
     return business_profile["id"]
 
 
-def get_account_id(profile_id: int) -> int:
+def get_account_id(token: str, profile_id: int) -> int:
     resp = requests.get(
         f"https://api.transferwise.com/v1/borderless-accounts?profileId={profile_id}",
         headers={"Authorization": f"Bearer {token}"},
+        timeout=30,
     )
     resp.raise_for_status()
 
@@ -76,13 +74,15 @@ def get_account_id(profile_id: int) -> int:
     return business_account["id"]
 
 
-def get_month_ends(date_in_month: datetime) -> tuple[str, str]:
+def get_month_ends(date_in_month: date) -> tuple[str, str]:
     def to_utc_string(date: datetime) -> str:
         as_utc = date.astimezone(pytz.utc)
         return as_utc.isoformat().replace("+00:00", "Z")
 
     gb_timezone = pytz.timezone("Europe/London")
-    start_date = gb_timezone.localize(datetime(year=date_in_month.year, month=date_in_month.month, day=1))
+    # pytz needs a naive datetime to localize.
+    month_start = datetime(year=date_in_month.year, month=date_in_month.month, day=1)  # noqa: DTZ001
+    start_date = gb_timezone.localize(month_start)
 
     end_date = start_date + relativedelta(months=1)
     return to_utc_string(start_date), to_utc_string(end_date)
