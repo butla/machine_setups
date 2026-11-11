@@ -98,8 +98,9 @@ def sync_pipx_packages() -> None:
         # does nothing for packages that are already installed
         shell.run_cmd(f"pipx install {package}")
 
-    log.info("Updating pipx packages...")
-    shell.run_cmd("pipx upgrade-all")
+    # Reinstalling also upgrades the packages, and repairs the venvs after a Python upgrade.
+    log.info("Reinstalling pipx packages...")
+    shell.run_cmd("pipx reinstall-all")
 
 
 def sync_npm_packages() -> None:
