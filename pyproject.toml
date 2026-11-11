@@ -79,7 +79,6 @@ select = ["F", "E", "W",
 ignore = [
     "TD002", "TD003", "TD004", "TD007", # Ignore errors for specific todos in code
     "S101", # Ignore asserts errors since cannot set for tests and would require for each project and tests specific pyproject configuration
-    "ANN101", # MyPy is checking that part
     "ANN401", # If needed used deliberately
     "PT001", # Use fixtures without brackets if they have no arguments
     "B008", # FastAPI requires this for its dependency injection
