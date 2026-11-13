@@ -19,5 +19,6 @@ echo Starting services that need the encrypted data...
 sudo systemctl start syncthing@butla
 sudo systemctl start minidlna.service
 systemctl --user start qbittorrent-nox.service
+systemctl --user start claude-resume-sessions.service
 
 echo All done

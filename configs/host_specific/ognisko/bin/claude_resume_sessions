@@ -1,0 +1,35 @@
+#!/bin/bash
+# Resumes the interactive Claude Code sessions that a crash or a reboot interrupted.
+# ~/.claude/hooks/session-marker.sh keeps a marker for each open session in ~/.claude/open-sessions/.
+# Each marker of a session that does not run gets a window in tmux session 0 that runs `claude --resume`.
+# The resumed session writes its marker again.
+set -euo pipefail
+shopt -s nullglob
+
+tmux_session=0
+
+running_ids=""
+for registry in ~/.claude/sessions/*.json; do
+    pid=$(jq -r .pid "$registry")
+    if kill -0 "$pid" 2>/dev/null; then
+        running_ids+="$(jq -r .sessionId "$registry")"$'\n'
+    fi
+done
+
+tmux has-session -t "=$tmux_session" 2>/dev/null || tmux new-session -d -s "$tmux_session"
+
+for marker in ~/.claude/open-sessions/*.json; do
+    session_id=$(jq -r .session_id "$marker")
+    if grep -qxF "$session_id" <<<"$running_ids"; then
+        continue
+    fi
+    cwd=$(jq -r .cwd "$marker")
+    # The marker has "<tmux session>:<window>", or "" for a session that ran outside tmux.
+    window_name=$(jq -r '.tmux_window | sub("^[^:]*:"; "")' "$marker")
+
+    echo "Resuming $session_id in $cwd"
+    window=$(tmux new-window -d -P -F '#{window_id}' -t "=$tmux_session:" -c "$cwd" ${window_name:+-n "$window_name"})
+    # A shell runs the command, so its rc files set PATH, and it stays open if claude exits.
+    tmux send-keys -t "$window" "claude --resume $session_id" Enter
+    rm "$marker"
+done

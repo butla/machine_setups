@@ -1,0 +1,10 @@
+[Unit]
+Description=Resume the Claude Code sessions that a crash or a reboot interrupted
+
+# No [Install] section: the sessions and their config are on the encrypted storage,
+# so ognisko_server_startup starts this unit after it mounts the storage.
+[Service]
+Type=oneshot
+ExecStart=%h/bin/claude_resume_sessions
+# Keeps the tmux server alive after the script ends, if the script started it.
+KillMode=process

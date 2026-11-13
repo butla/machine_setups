@@ -20,6 +20,7 @@ PACMAN_NO_GUI_PACKAGES = {
     "entr",  # rerunning commands on file changes
     "fd",  # file finder
     "fzf",  # fuzzy search
+    "jq",  # JSON processor
     "the_silver_searcher",  # text search in code files
     "git",
     "nmap",  # network scanner
