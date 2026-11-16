@@ -4,9 +4,10 @@
 Check or reload files in the neovim instances that run in tmux session 0.
 
 `check` exits with code 1 if a neovim instance has unsaved changes in one of the files
-(or does not reply). `edit` reloads the files with `:edit` in the instances where they have no unsaved changes.
+(or does not reply). `wait` checks every minute until there are no unsaved changes.
+`edit` reloads the files with `:edit` in the instances where they have no unsaved changes.
 
-Usage: nvim_tmux_buffer.py {check,edit} <file>...
+Usage: nvim_tmux_buffer.py {check,wait,edit} <file>...
 """
 
 import argparse
@@ -14,8 +15,10 @@ import json
 import os
 import subprocess
 import sys
+import time
 
 TMUX_SESSION = "0"
+RETRY_SECONDS = 60
 # Runs in neovim: for the buffer of the file `_A[1]`, `_A[2] == "edit"` reloads it. Returns the buffer state.
 BUFFER_LUA = """(function()
 for _, b in ipairs(vim.api.nvim_list_bufs()) do
@@ -76,12 +79,17 @@ def reload(paths: list[str]) -> int:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("command", choices=["check", "edit"])
+    parser.add_argument("command", choices=["check", "wait", "edit"])
     parser.add_argument("paths", nargs="+")
     args = parser.parse_args()
     paths = [os.path.abspath(p) for p in args.paths]
     if args.command == "edit":
         print(f"Reloaded {reload(paths)} neovim buffers.")
+    elif args.command == "wait":
+        if not all_clean(paths):
+            print(f"Unsaved changes in neovim. Checking again every {RETRY_SECONDS} seconds.", flush=True)
+        while not all_clean(paths):
+            time.sleep(RETRY_SECONDS)
     elif not all_clean(paths):
         sys.exit("A neovim instance in tmux has unsaved changes in the files (or did not reply).")
 

@@ -9,7 +9,7 @@ done.md gets the items under a `## <date>` heading for the previous work day (Mo
 at the top of the file, or at the end of the section if the heading is already there.
 
 The script changes the files only when no neovim instance in tmux session 0 has unsaved changes in them.
-It checks again every minute until there are none. Then it reloads the files in neovim.
+Otherwise it exits with an error. After the change, it reloads the files in neovim.
 
 Usage: todo_done_move.py <todo.md> <done.md>
 """
@@ -17,12 +17,11 @@ Usage: todo_done_move.py <todo.md> <done.md>
 import argparse
 import datetime
 import os
-import time
+import sys
 
 import nvim_tmux_buffer
 
 DONE_HEADER = ["DONE", "===="]
-RETRY_SECONDS = 60
 
 
 def previous_work_day(today: datetime.date) -> datetime.date:
@@ -68,9 +67,7 @@ def main() -> None:
     paths = [os.path.abspath(args.todo), os.path.abspath(args.done)]
 
     if not nvim_tmux_buffer.all_clean(paths):
-        print(f"Unsaved changes in neovim. Checking again every {RETRY_SECONDS} seconds.", flush=True)
-        while not nvim_tmux_buffer.all_clean(paths):
-            time.sleep(RETRY_SECONDS)
+        sys.exit("Unsaved changes in neovim. Did not move the DONE items.")
 
     with open(args.todo) as file:
         todo_lines = file.read().split("\n")

@@ -10,6 +10,9 @@
 # At the end, it sends a desktop notification. If the output has a "Changes:" line, the notification body
 # shows the text on that line and the indented lines below it.
 #
+# The tmux setup runs under a flock, so that jobs that start at the same time do not both create
+# the session or the window. The kernel releases the lock when the process stops, also on a crash or kill.
+#
 # Usage: cron-pane <job name> <working directory> <command> [arguments...]
 set -euo pipefail
 
@@ -26,7 +29,10 @@ window=cron-outputs
 today=$(date +%F)
 follow="journalctl --follow --no-tail --identifier=${(q)job} --since=$today --output=short"
 
-tmux has-session -t "=$session" 2>/dev/null || tmux new-session -d -s $session
+exec {tmux_lock}>${XDG_RUNTIME_DIR:-/run/user/$UID}/cron-pane-tmux.lock
+flock $tmux_lock
+# Without the lock descriptor, so that the tmux server does not hold the lock after the job.
+tmux has-session -t "=$session" 2>/dev/null || tmux new-session -d -s $session {tmux_lock}>&-
 pane=$(tmux list-panes -s -t "=$session" -F '#{pane_id} #{@cron_job}' | awk -v job=$job '$2 == job {print $1; exit}')
 if [[ -z $pane ]]; then
     window_id=$(tmux list-windows -t "=$session" -F '#{window_id} #{window_name}' | awk -v w=$window '$2 == w {print $1; exit}')
@@ -43,6 +49,7 @@ elif [[ $(tmux display-message -p -t $pane '#{@cron_day}') != $today ]]; then
     tmux clear-history -t $pane
 fi
 tmux set-option -p -t $pane @cron_day $today
+exec {tmux_lock}>&-
 
 output=$(mktemp)
 trap 'rm -f $output' EXIT

@@ -3,4 +3,5 @@ Description=Move the previous work day's DONE items from todo.md to done.md
 
 [Service]
 Type=oneshot
-ExecStart=%h/bin/cron-pane todo-done-move %h/Documents/notki/bt_2024_work_notes %h/bin/todo_done_move.py todo.md done.md
+# Waits for the unsaved neovim buffers without the lock. flock on the notes directory: one writer of the notes at a time.
+ExecStart=%h/bin/cron-pane todo-done-move %h/Documents/notki/bt_2024_work_notes zsh -c "nvim_tmux_buffer.py wait todo.md done.md && flock . todo_done_move.py todo.md done.md"
