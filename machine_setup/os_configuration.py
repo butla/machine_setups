@@ -152,8 +152,8 @@ def setup_neovim() -> None:
     log.info("Synchronizing NeoVim plugins with vim-plug...")
     # UpdateRemotePlugins shouldn't be necessary, because vim-plug is supposed to run it for semshi,
     # but it doesn't.
-    # TODO this looks to be messing something up in the output
-    shell.run_cmd("nvim +PlugUpgrade +PlugClean +PlugUpdate +UpdateRemotePlugins +qall")
+    # Headless, so the TUI doesn't leave terminal query responses and modes behind in the shell.
+    shell.run_cmd("nvim --headless +PlugUpgrade +PlugClean! +PlugUpdate +UpdateRemotePlugins +qall")
 
 
 def ensure_ntp() -> None:
